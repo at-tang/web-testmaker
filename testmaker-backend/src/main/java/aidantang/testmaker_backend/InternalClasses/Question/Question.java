@@ -1,5 +1,6 @@
 package aidantang.testmaker_backend.InternalClasses.Question;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import aidantang.testmaker_backend.InternalClasses.Answer.Answer;
@@ -48,10 +49,10 @@ public class Question {
 
     @Column(name="hint")
     private String hint;
-    
+
 
     @OneToMany(mappedBy="question", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Answer> answers;
+    private List<Answer> answers = new ArrayList<Answer>();
 
 
 }
