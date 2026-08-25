@@ -1,12 +1,15 @@
 package aidantang.testmaker_backend.DTOClasses.Sending;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import aidantang.testmaker_backend.InternalClasses.Answer.Answer;
 import aidantang.testmaker_backend.InternalClasses.Question.Question;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class QuestionDTO {
 
     private String id;
@@ -15,7 +18,11 @@ public class QuestionDTO {
     private String description;
     private String type;
     private String hint;
-    private List<Answer> answers;
+    private String explanation;
+    private List<AnswerDTO> answers;
+
+    private int points;
+
 
     public QuestionDTO(Question question) {
         this.id = question.getId();
@@ -24,8 +31,18 @@ public class QuestionDTO {
         this.description = question.getDescription();
         this.type = question.getType();
         this.hint = question.getHint();
-        this.answers = question.getAnswers();
-    }
+        this.explanation = question.getExplanation();
+        this.points = question.getPoints();
 
+        this.answers = new ArrayList<AnswerDTO>();
+        
+        List<Answer> originalAnswers = question.getAnswers();
+        
+        for (int i = 0; i < originalAnswers.size(); i++) {
+            Answer current = originalAnswers.get(i);
+            AnswerDTO currentDTO = new AnswerDTO(current);
+            this.answers.add(currentDTO);
+        }
+    }
     
 }

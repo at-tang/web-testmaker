@@ -3,20 +3,27 @@ package aidantang.testmaker_backend.InternalClasses.Question;
 import java.util.ArrayList;
 import java.util.List;
 
+import aidantang.testmaker_backend.DTOClasses.Sending.QuestionDTO;
 import aidantang.testmaker_backend.InternalClasses.Answer.Answer;
+import aidantang.testmaker_backend.InternalClasses.Quiz.Quiz;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+@Entity(name="questions")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Question {
     
 
@@ -33,26 +40,54 @@ public class Question {
 
 
     @Column(name="title")
-    private String title;
+    private String title = "";
 
 
     @Column(name="description")
-    private String description;
+    private String description = "";
 
 
     // type: String
     // type indicates what type of question this particular instance is
     // type can only be "SI" (Short Input), "MC" (Multiple Choice), or "TF" (True/False)
     @Column(name="type")
-    private String type;
+    private String type = "MC";
 
 
     @Column(name="hint")
-    private String hint;
+    private String hint = "";
+
+    @Column(name="explanation")
+    private String explanation = "";
+
+    @Column(name="points")
+    private int points = 1;
 
 
     @OneToMany(mappedBy="question", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers = new ArrayList<Answer>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="quizId")
+    private Quiz quiz;
+
+
+    public Question(QuestionDTO questionDTO, Quiz quiz) {
+        this.number = questionDTO.getNumber();
+        this.title = questionDTO.getTitle();
+        this.description = questionDTO.getDescription();
+        this.type = questionDTO.getType();
+        this.hint = questionDTO.getHint();
+        this.explanation = questionDTO.getExplanation();
+        this.quiz = quiz;
+
+        this.answers = new ArrayList<Answer>();
+
+        for (int i = 0; i < questionDTO.getAnswers().size(); i++) {
+            this.answers.add(new Answer(questionDTO.getAnswers().get(i), this));
+
+        }
+    }
 
 
 }

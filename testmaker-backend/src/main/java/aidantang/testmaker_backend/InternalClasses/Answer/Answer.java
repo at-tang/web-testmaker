@@ -1,7 +1,9 @@
 package aidantang.testmaker_backend.InternalClasses.Answer;
 
+import aidantang.testmaker_backend.DTOClasses.Sending.AnswerDTO;
 import aidantang.testmaker_backend.InternalClasses.Question.Question;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,6 +15,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+@Entity(name="answers")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,6 +28,10 @@ public class Answer {
     Question: What is the capital of France?
     
     Answer: A) Paris
+    correct: true
+    content: "Paris"
+    explanation: "Paris is currently the capital of France."
+    
      */
 
 
@@ -55,6 +62,14 @@ public class Answer {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="questionId", nullable = false)
     private Question question;
+
+
+    public Answer(AnswerDTO answerDTO, Question question) {
+        this.correct = answerDTO.getCorrect();
+        this.content = answerDTO.getContent();
+        this.explanation = answerDTO.getExplanation();
+        this.question = question;
+    }
 
     
 }

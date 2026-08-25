@@ -2,8 +2,10 @@ package aidantang.testmaker_backend.DTOClasses.Sending;
 
 import aidantang.testmaker_backend.InternalClasses.Answer.Answer;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class AnswerDTO {
 
     private String id;
