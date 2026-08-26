@@ -63,7 +63,7 @@ public class QuizService {
         return ResponseEntity.ok(result);
     }
 
-    
+
     @Transactional
     ResponseEntity<QuizDTO> loadQuiz(String quizId) {
         /*
@@ -76,8 +76,19 @@ public class QuizService {
         QuizDTO result = new QuizDTO(quiz.get());
         return ResponseEntity.ok(result);
 
+    }
 
 
+    @Transactional
+    ResponseEntity<UpdatingQuizDTO> editQuiz(Authentication auth, String quizId) {
+        Optional<Quiz> quiz = quizRepository.findById(quizId);
+        User user = userRepository.findByEmail(auth.getName());
+
+        if (quiz.isEmpty()) return ResponseEntity.badRequest().build();
+        if (quiz.get().getUser().getId() != user.getId()) return ResponseEntity.notFound().header("Error Type", "Quiz's User ID: " + quiz.get().getUser().getId() + " does not match given id: " + user.getId()).build();
+
+        UpdatingQuizDTO result = new UpdatingQuizDTO(quiz.get());
+        return ResponseEntity.ok(result);
     }
 
 

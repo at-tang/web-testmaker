@@ -40,9 +40,9 @@ public class PrivateQuizController {
         return quizService.getQuizListBySelf(auth);
     }
 
-    @GetMapping("/edit")
-    public ResponseEntity<QuizDTO> editQuiz(Authentication auth, LoadQuizRequestBody loadQuizRequestBody) {
-        return quizService.editQuiz(auth, loadQuizRequestBody.getQuizId());
+    @GetMapping("/edit/{quizId}")
+    public ResponseEntity<UpdatingQuizDTO> editQuiz(Authentication auth, @PathVariable("quizId") String quizId) {
+        return quizService.editQuiz(auth, quizId);
     }
 
     @PostMapping("/create")
