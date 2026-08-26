@@ -18,6 +18,8 @@ export default function EditAnswerMC({i = 0, j = 0}: {i?: number, j?: number}) {
                 <input ref={contentRef}
                 onChange={() => {
                     quiz.questions[i].answers[j].content = contentRef.current.value
+                    quiz.questions[i].answers[j].correct = true,
+                    quiz.questions[i].answers[j].explanation = ""
                     setQuiz({...quiz})
                 }}
                 value={answer.content}
@@ -27,14 +29,7 @@ export default function EditAnswerMC({i = 0, j = 0}: {i?: number, j?: number}) {
                 </input>
 
 
-                <input type="checkbox"
-                ref={correctRef}
-                onChange={() => {
-                    quiz.questions[i].answers[j].correct = correctRef.current.checked
-                    setQuiz({...quiz})
-                }}
-                checked={answer.correct}
-                ></input>
+                
 
               
             </div>

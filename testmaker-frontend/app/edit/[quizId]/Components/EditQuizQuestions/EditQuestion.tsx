@@ -12,7 +12,7 @@ export default function EditQuestion({i = 0}: {i?: number}) {
     const [quiz, setQuiz] = useContext(QuizContext);
 
     const updateQuiz = () => {
-        let newQuestion = {
+        const newQuestion = {
             title: titleRef.current.value,
             description: descriptionRef.current.value,
             type: typeRef.current.value,
@@ -22,7 +22,7 @@ export default function EditQuestion({i = 0}: {i?: number}) {
             answers: question.answers
             
         }
-        let quizCopy = {...quiz};
+        const quizCopy = {...quiz};
         quizCopy.questions[i] = newQuestion;
 
 
@@ -55,7 +55,7 @@ export default function EditQuestion({i = 0}: {i?: number}) {
             newAnswers = []
         }
 
-        let newQuestion = {
+        const newQuestion = {
             title: titleRef.current.value,
             description: descriptionRef.current.value,
             type: typeRef.current.value,
@@ -65,7 +65,7 @@ export default function EditQuestion({i = 0}: {i?: number}) {
             answers: newAnswers
             
         }
-        let quizCopy = {...quiz};
+        const quizCopy = {...quiz};
         quizCopy.questions[i] = newQuestion;
 
 
@@ -111,7 +111,7 @@ export default function EditQuestion({i = 0}: {i?: number}) {
 
                 <input 
                 ref={titleRef}
-                defaultValue={question.title} 
+                value={question.title}
                 placeholder = "Enter title" 
                 onChange={() => updateQuiz()}
                 className="bg-white text-black border-2 w-full h-full" >
@@ -119,7 +119,7 @@ export default function EditQuestion({i = 0}: {i?: number}) {
 
                 <textarea
                 ref={descriptionRef}
-                defaultValue={question.description}
+                value={question.description}
                 className="bg-white text-black w-full"
                 onChange={() => updateQuiz()}
                 ></textarea>
@@ -129,7 +129,7 @@ export default function EditQuestion({i = 0}: {i?: number}) {
 
                     <input type="number"
                     ref={pointsRef}
-                    defaultValue={question.points}
+                    value={question.points}
                     onChange={() => updateQuiz()}
                     className="text-right border-2 px-2 border-white ml-4 w-16"
                     ></input>
@@ -138,7 +138,7 @@ export default function EditQuestion({i = 0}: {i?: number}) {
 
                 <textarea 
                 ref={explanationRef}
-                defaultValue={question.explanation} 
+                value={question.explanation}
                 placeholder = "Enter explanation" 
                 onChange={() => updateQuiz()}
                 className="bg-white text-black border-2 w-full h-full" >

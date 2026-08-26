@@ -7,10 +7,21 @@ export default function AddAnswerButton({i = 0}: {i?: number}) {
 
 
     const addAnswer = () => {
-        const newAnswer = {
-            content: "",
-            correct: false,
-            explanation: ""
+        let newAnswer;
+        if (quiz.questions[i].type == "MC") {
+            newAnswer = {
+                content: "",
+                correct: false,
+                explanation: ""
+            }
+        }
+
+        else if (quiz.questions[i].type == "SI") {
+            newAnswer = {
+                content: "",
+                correct: true,
+                explanation: ""
+            }
         }
 
         let quizCopy = {...quiz}

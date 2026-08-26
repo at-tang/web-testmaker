@@ -6,6 +6,8 @@ import EditQuestion from './Components/EditQuizQuestions/EditQuestion';
 import EditQuestionsList from './Components/EditQuizQuestions/EditQuestionsList';
 import { redirect } from 'next/navigation'
 import SaveButton from './Components/Save/SaveButton';
+import EditMetadataMenu from './Components/EditMetadata/EditMetadataMenu';
+import OpenEditMetadataMenu from './Components/EditMetadata/OpenEditMetadataMenu';
 
 export const QuizContext = createContext();
 
@@ -71,6 +73,8 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
     return(
         <>
             <QuizContext.Provider value={[quiz, setQuiz]}>
+                
+                <OpenEditMetadataMenu/>
 
                 <div className="sm:flex">
                     <div className="bg-gray-500 w-1/2"/>
