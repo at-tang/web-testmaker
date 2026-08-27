@@ -6,17 +6,19 @@ import EditQuestion from './Components/EditQuizQuestions/EditQuestion';
 import EditQuestionsList from './Components/EditQuizQuestions/EditQuestionsList';
 import { redirect } from 'next/navigation'
 import SaveButton from './Components/Save/SaveButton';
-import EditMetadataMenu from './Components/EditMetadata/EditMetadataMenu';
+import EditMetadataMenu from './Components/EditMetadata/Menu/EditMetadataMenu';
 import OpenEditMetadataMenu from './Components/EditMetadata/OpenEditMetadataMenu';
 
 export const QuizContext = createContext();
+export const PortraitMetadataMenuContext = createContext();
 
 export default function EditPage({params}: {params: Promise<{quizId: string}>}) {
 
     const {quizId} = useParams();
     const [quiz, setQuiz] = useState({questions: []});
-    const [quizDisplay, setQuizDisplay] = useState(<></>);
-    const [questions, setQuestions] = useState([]);
+    const [portraitMetadataMenu, setPortraitMetadataMenu] = useState(false)
+
+
 
 
     
@@ -62,7 +64,6 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
     }, [])
 
     useEffect(() => {
-        setQuestions(quiz.questions)
         console.log(quiz)
 
 
@@ -73,8 +74,10 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
     return(
         <>
             <QuizContext.Provider value={[quiz, setQuiz]}>
+            <PortraitMetadataMenuContext.Provider value={[portraitMetadataMenu, setPortraitMetadataMenu]}>
                 
-                <OpenEditMetadataMenu/>
+                {!portraitMetadataMenu && <OpenEditMetadataMenu/>}
+                {portraitMetadataMenu && <EditMetadataMenu/>}
 
                 <div className="sm:flex">
                     <div className="bg-gray-500 w-1/2"/>
@@ -88,6 +91,8 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
             <p>Quiz Being Edited: {quizId}</p>
             <SaveButton/>
 
+
+            </PortraitMetadataMenuContext.Provider>
             </QuizContext.Provider>
         </>
     )
