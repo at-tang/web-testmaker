@@ -63,6 +63,9 @@ public class Question {
     @Column(name="points")
     private int points = 1;
 
+    @Column(name = "caseSensitive")
+    private boolean caseSensitive = false;
+
 
     @OneToMany(mappedBy="question", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers = new ArrayList<Answer>();

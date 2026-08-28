@@ -19,7 +19,8 @@ export default function EditQuestion({i = 0}: {i?: number}) {
             
             points: Number(pointsRef.current.value),
             explanation: explanationRef.current.value,
-            answers: question.answers
+            answers: question.answers,
+            caseSensitive: caseSensitiveRef.current.checked
             
         }
         const quizCopy = {...quiz};
@@ -62,7 +63,8 @@ export default function EditQuestion({i = 0}: {i?: number}) {
             
             points: Number(pointsRef.current.value),
             explanation: explanationRef.current.value,
-            answers: newAnswers
+            answers: newAnswers,
+            caseSensitive: caseSensitiveRef.current.value
             
         }
         const quizCopy = {...quiz};
@@ -83,6 +85,7 @@ export default function EditQuestion({i = 0}: {i?: number}) {
     const descriptionRef = useRef(null);
     const explanationRef = useRef(null);
     const answersRef = useRef(null);
+    const caseSensitiveRef = useRef(null);
 
     const question = quiz.questions[i];
 
@@ -143,6 +146,19 @@ export default function EditQuestion({i = 0}: {i?: number}) {
                 onChange={() => updateQuiz()}
                 className="bg-white text-black border-2 w-full h-full" >
                 </textarea>
+
+
+                {quiz.questions[i].type == "SI" && <div>
+                    Case-Sensitive:
+                    <input ref={caseSensitiveRef}
+                    type="checkbox"
+          
+                    value={quiz.questions[i].caseSensitive}
+                    onChange={(() => {
+                        updateQuiz()
+                    })}
+                    ></input>
+                </div>} 
 
 
 

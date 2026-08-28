@@ -13,6 +13,7 @@ export default function AddQuestionButton() {
             explanation: "",
             points: 1,
             type: "MC",
+            caseSensitive: false,
             answers: []
         }
         quizCopy.questions.push(newQuestion);

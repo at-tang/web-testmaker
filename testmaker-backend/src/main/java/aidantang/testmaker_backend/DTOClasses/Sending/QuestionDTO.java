@@ -19,6 +19,7 @@ public class QuestionDTO {
     private String type;
     private String hint;
     private String explanation;
+    private boolean caseSensitive;
     private List<AnswerDTO> answers;
 
     private int points;
@@ -33,6 +34,7 @@ public class QuestionDTO {
         this.hint = question.getHint();
         this.explanation = question.getExplanation();
         this.points = question.getPoints();
+        this.caseSensitive = question.isCaseSensitive();
 
         this.answers = new ArrayList<AnswerDTO>();
         

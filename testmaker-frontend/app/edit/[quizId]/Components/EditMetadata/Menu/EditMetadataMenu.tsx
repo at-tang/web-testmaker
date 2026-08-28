@@ -2,6 +2,7 @@ import { useContext, useRef } from "react"
 import { PortraitMetadataMenuContext, QuizContext } from "../../../page"
 import TitleEdit from "./MenuComponents/TitleEdit";
 import DescriptionEdit from "./MenuComponents/DescriptionEdit";
+import TagEdit from "./MenuComponents/TagEdit/TagEdit";
 
 export default function EditMetadataMenu() {
 
@@ -16,6 +17,8 @@ export default function EditMetadataMenu() {
                 <TitleEdit/>
                 
                 <DescriptionEdit/>
+
+                <TagEdit/>
                 <p>Test</p>
             </div>
 
