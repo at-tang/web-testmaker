@@ -1,5 +1,7 @@
 import { useContext, useRef } from "react";
 import { QuizContext } from "../../page";
+import RemoveAnswerButton from "./RemoveAnswerButton";
+import MoveAnswerButton from "./MoveAnswerButton";
 
 export default function EditAnswerMC({i = 0, j = 0}: {i?: number, j?: number}) {
     const [quiz, setQuiz] = useContext(QuizContext);
@@ -27,6 +29,10 @@ export default function EditAnswerMC({i = 0, j = 0}: {i?: number, j?: number}) {
                 className="w-full h-max border-white p-1 border-2">
 
                 </input>
+
+                <MoveAnswerButton i={i} j={j}/>
+
+                <RemoveAnswerButton i={i} j={j}/>
 
 
                 

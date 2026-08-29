@@ -6,6 +6,9 @@ export default function RemoveAnswerButton({i = 0, j = 0}: {i?: number, j?: numb
     const [quiz, setQuiz] = useContext(QuizContext);
 
     const deleteQuestion = () => {
+        let quizCopy = {...quiz}
+        quizCopy.questions[i].answers.splice(j, 1)
+        setQuiz(quizCopy)
         
     }
 

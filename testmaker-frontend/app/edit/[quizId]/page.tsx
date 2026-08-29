@@ -18,7 +18,14 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
     const [quiz, setQuiz] = useState({questions: []});
     const [portraitMetadataMenu, setPortraitMetadataMenu] = useState(false)
 
+    
 
+    useEffect(() => {
+        async () => {
+            const session = await getSession();
+            if (!session) redirect("/login")
+        }
+    })
 
 
     
@@ -30,6 +37,7 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
             const expireDate = new Date(session?.expires).getTime();
             const currentDate = new Date().getTime();
             console.log(`Expiration Date: ${expireDate}, Current Date: ${currentDate}`)
+            console.log(`Current: ${new Date()}\nExpires: ${new Date(session?.expires)}`)
             if (currentDate >= expireDate) redirect('/login');
 
             console.log(session);
@@ -56,7 +64,7 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
                 setQuiz(result);
                 
             } catch (error) {
-                console.error(error);
+                redirect("/login") // Temporary
             }
 
         }
@@ -80,7 +88,7 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
                 {portraitMetadataMenu && <EditMetadataMenu/>}
 
                 <div className="sm:flex">
-                    <div className="bg-gray-500 w-1/2"/>
+                    <div className="bg-gray-500 w-1/2"></div>
                     <EditQuestionsList/>
 
                 </div>

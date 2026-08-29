@@ -12,6 +12,7 @@ export default function AddTag() {
 
     const checkTag = (input: string) => {
         let newInput = input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
+        
         return newInput
 
     }

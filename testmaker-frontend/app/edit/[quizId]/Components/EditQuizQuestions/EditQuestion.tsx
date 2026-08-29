@@ -1,18 +1,85 @@
-import { useContext, useRef } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { QuizContext } from '../../page'
 import EditAnswersList from "./EditAnswerList";
 import AddAnswerButton from "./AddAnswerButton";
 import RemoveQuestionButton from "./RemoveQuestionButton";
+import { SwapIndexesContext } from "./EditQuestionsList";
 
 
-
+// This file is set to be reorganized and potentially partitioned into smaller
+// segements for organizational pur
 
 export default function EditQuestion({i = 0}: {i?: number}) {
 
+    
+
     const [quiz, setQuiz] = useContext(QuizContext);
+    const [swapIndexes, setSwapIndexes] = useContext(SwapIndexesContext)
+
+    const borderRef = useRef(null);
+
+    const titleRef = useRef(null);
+    const numberRef = useRef(null);
+    const pointsRef = useRef(null);
+    const typeRef = useRef(null);
+    const descriptionRef = useRef(null);
+    const explanationRef = useRef(null);
+    const answersRef = useRef(null);
+    const caseSensitiveRef = useRef(null);
+
+    const question = quiz.questions[i];
+
+    // Used to change the colour of the border when swapping question positions
+    const [variableBorder, setVariableBorder] = useState(" border-white ");
+
+    useEffect(() => {
+        if (swapIndexes[0] == i) {
+            setVariableBorder(" border-blue-500")
+        } 
+        else if (swapIndexes[0] != -1) {
+            setVariableBorder(" border-white brightness-50 hover:brightness-100 hover:cursor-pointer transition ease-in-out ")
+        }
+        else {
+            setVariableBorder(" border-white ")
+        }
+
+    }, [swapIndexes])
+
+    const handleBackgroundClick = (e) => {
+        // Handles the swap functionality
+        if (e.target === e.currentTarget) {
+            console.log("Clicked!")
+            console.log(swapIndexes)
+
+            if (swapIndexes[0] === -1) { // initiate swap process
+                setSwapIndexes([i, -1])
+                console.log(swapIndexes)
+            }
+            else {
+
+                // If the two indexes are equivalent, then simply return
+                if (i == swapIndexes[0]) return;
+
+                let quizCopy = {...quiz}
+                let swap1 = {...quiz.questions[swapIndexes[0]], number: i}
+                let swap2 = {...quiz.questions[i], number: swapIndexes[0]}
+
+                quizCopy.questions[swapIndexes[0]] = swap2;
+                quizCopy.questions[i] = swap1;
+                console.log(quizCopy)
+                setSwapIndexes([-1, -1])
+                setQuiz(quiz)
+                
+            }
+        }
+
+    }
+
+
+    // Updating The Quiz Based on Parameters
 
     const updateQuiz = () => {
-        const newQuestion = {
+        let newQuestion = {
             title: titleRef.current.value,
             description: descriptionRef.current.value,
             type: typeRef.current.value,
@@ -20,9 +87,9 @@ export default function EditQuestion({i = 0}: {i?: number}) {
             points: Number(pointsRef.current.value),
             explanation: explanationRef.current.value,
             answers: question.answers,
-            caseSensitive: caseSensitiveRef.current.checked
             
         }
+
         const quizCopy = {...quiz};
         quizCopy.questions[i] = newQuestion;
 
@@ -32,9 +99,10 @@ export default function EditQuestion({i = 0}: {i?: number}) {
         console.log(quiz)
     }
 
+
     const updateQuizType = () => {
 
-        let newAnswers ;
+        let newAnswers = [];
 
         if (typeRef.current.value == "TF") {
             newAnswers = [
@@ -51,10 +119,6 @@ export default function EditQuestion({i = 0}: {i?: number}) {
             ]
         }
 
-        else {
-
-            newAnswers = []
-        }
 
         const newQuestion = {
             title: titleRef.current.value,
@@ -64,10 +128,9 @@ export default function EditQuestion({i = 0}: {i?: number}) {
             points: Number(pointsRef.current.value),
             explanation: explanationRef.current.value,
             answers: newAnswers,
-            caseSensitive: caseSensitiveRef.current.value
             
         }
-        const quizCopy = {...quiz};
+        let quizCopy = {...quiz};
         quizCopy.questions[i] = newQuestion;
 
 
@@ -78,23 +141,16 @@ export default function EditQuestion({i = 0}: {i?: number}) {
 
     
  
-    const titleRef = useRef(null);
-    const numberRef = useRef(null);
-    const pointsRef = useRef(null);
-    const typeRef = useRef(null);
-    const descriptionRef = useRef(null);
-    const explanationRef = useRef(null);
-    const answersRef = useRef(null);
-    const caseSensitiveRef = useRef(null);
-
-    const question = quiz.questions[i];
+    
 
 
     
     // <input value={quiz.questions[index].description} ref={descriptionRef} className="bg-white text-black border-4 p-1"></input>
     return ( 
         <>
-            <div className="p-4 border-2 border-white rounded-xl">
+            <div className={variableBorder + " p-4 border-2 rounded-xl"}
+            ref={borderRef}
+            onClick={(e) => {handleBackgroundClick(e)}}>
 
                 <p>Question {i}</p>
 
@@ -148,30 +204,27 @@ export default function EditQuestion({i = 0}: {i?: number}) {
                 </textarea>
 
 
-                {quiz.questions[i].type == "SI" && <div>
+                {question.type == "SI" && <div>
                     Case-Sensitive:
                     <input ref={caseSensitiveRef}
                     type="checkbox"
           
                     value={quiz.questions[i].caseSensitive}
                     onChange={(() => {
-                        updateQuiz()
+                        let quizCopy = {...quiz}
+                        quizCopy.questions[i].caseSensitive = caseSensitiveRef.current.checked
+                        setQuiz(quizCopy)
                     })}
                     ></input>
-                </div>} 
+                </div>}
 
 
 
                 <EditAnswersList i={i}/>
 
-                {quiz.questions[i].type == "MC" | quiz.questions[i].type == "SI" && <AddAnswerButton i={i}/>}
+                {quiz.questions[i].type == "MC" || quiz.questions[i].type == "SI" && <AddAnswerButton i={i}/>}
 
                 
-
-
-
-
-
                 
 
 

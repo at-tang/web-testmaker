@@ -13,10 +13,7 @@ export default function TitleEdit() {
          <div className="block">
 
 
-            <button onClick={() => setPortraitMetadataMenu(false)}
-                    className="sm:hidden block text-lg
-                               border-2 border-white px-4"
-                >X</button>
+            
 
             <input ref={titleRef}
             onChange={() => {
