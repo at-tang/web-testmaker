@@ -8,6 +8,7 @@ import { redirect } from 'next/navigation'
 import SaveButton from './Components/Save/SaveButton';
 import EditMetadataMenu from './Components/EditMetadata/Menu/EditMetadataMenu';
 import OpenEditMetadataMenu from './Components/EditMetadata/OpenEditMetadataMenu';
+import { logout } from '@/app/api/auth/[...nextauth]/authServerFunctions';
 
 export const QuizContext = createContext();
 export const PortraitMetadataMenuContext = createContext();
@@ -34,11 +35,13 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
         const loadSession = async () => {
             const session = await getSession();
 
+            /*
             const expireDate = new Date(session?.expires).getTime();
             const currentDate = new Date().getTime();
             console.log(`Expiration Date: ${expireDate}, Current Date: ${currentDate}`)
             console.log(`Current: ${new Date()}\nExpires: ${new Date(session?.expires)}`)
             if (currentDate >= expireDate) redirect('/login');
+            */
 
             console.log(session);
 
@@ -64,7 +67,7 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
                 setQuiz(result);
                 
             } catch (error) {
-                redirect("/login") // Temporary
+                logout();
             }
 
         }

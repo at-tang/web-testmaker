@@ -21,6 +21,8 @@ export default function SaveButton() {
                 body: inputJSON
             
             })
+
+            console.log(response.headers.has("Error"))
             
             if (!response.ok) {throw new Error (response.status) }
 
