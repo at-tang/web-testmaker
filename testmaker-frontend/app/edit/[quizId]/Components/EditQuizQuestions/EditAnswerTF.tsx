@@ -20,7 +20,7 @@ export default function EditAnswerTF({i = 0, j = 0}: {i?: number, j?: number}){
     let trueExtraClasses = "";
     let falseExtraClasses = "";
 
-    if (quiz.questions[i].answers[0].content == true) {
+    if (quiz.questions[i].answers[0].content == "true") {
         trueExtraClasses = " border-green-500 "
         falseExtraClasses = " border-white "
     } else {

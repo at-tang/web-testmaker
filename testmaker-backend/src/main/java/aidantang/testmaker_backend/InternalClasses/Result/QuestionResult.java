@@ -1,0 +1,77 @@
+package aidantang.testmaker_backend.InternalClasses.Result;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Entity
+@Table(name="question_results")
+@NoArgsConstructor
+@AllArgsConstructor
+public class QuestionResult {
+
+    // Copy-and-pastes of the corresponding Question for efficiency (no need to call for the Question
+    // when retrieving results)
+    @Id
+    @GeneratedValue(strategy=GenerationType.UUID)
+    private String id;
+
+    @Column(name="number")
+    private int number;
+
+    @Column(name="title")
+    private String title;
+
+    @Column(name="description")
+    private String description;
+
+    @Column(name="explanation")
+    private String explanation;
+
+    // Answers are tracked using the Answer's content due to the nature of Short Input questions
+
+    @Column(name="givenAnswers")
+    private String givenAnswers = "";
+
+    @Column(name="correctAnswers")
+    private String correctAnswers = "";
+
+    @Column(name="correct")
+    private boolean correct; // Represents if the user got the correct answer
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="quiz_result_id", nullable = false)
+    private QuizResult quizResult;
+
+    public QuestionResult(int number, 
+        String title, 
+        String description, 
+        String explanation, 
+        String givenAnswers, 
+        String correctAnswers,
+        boolean correct) 
+        {
+            this.title = title;
+            this.description = description;
+            this.explanation = explanation;
+            this.givenAnswers = givenAnswers;
+            this.correctAnswers = correctAnswers;
+            this.correct = correct;
+
+    }
+    
+    
+}

@@ -40,8 +40,11 @@ export default function EditAnswersList({i = 0}: {i?: number}) {
                         </div>
                 )
             }) }
+
+            
            
         </div>
+
         </SwapAnswerContext.Provider>
         )
     }
@@ -59,8 +62,11 @@ export default function EditAnswersList({i = 0}: {i?: number}) {
                         </div>
                 )
             }) }
+            
            
         </div>
+
+
 
         </SwapAnswerContext.Provider>
     )

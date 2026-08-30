@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,9 +24,9 @@ public class PublicQuizController {
         this.quizService = quizService;
     }
 
-    @GetMapping("/get/play")
-    public ResponseEntity<QuizDTO> loadQuiz(@RequestBody LoadQuizRequestBody loadQuizRequestBody) {
-        return quizService.loadQuiz(loadQuizRequestBody.getQuizId());
+    @GetMapping("/get/play/{quizId}")
+    public ResponseEntity<QuizDTO> loadQuiz(@PathVariable("quizId") String quizId) {
+        return quizService.loadQuizPublic(quizId);
         
     }
 

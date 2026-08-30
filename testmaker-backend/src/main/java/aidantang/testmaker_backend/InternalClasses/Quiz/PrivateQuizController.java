@@ -45,6 +45,11 @@ public class PrivateQuizController {
         return quizService.editQuiz(auth, quizId);
     }
 
+    @GetMapping("/get/play/{quizId}")
+    public ResponseEntity<QuizDTO> loadQuizPrivate(Authentication auth, @PathVariable("quizId") String quizId) {
+        return quizService.loadQuizPrivate(quizId, auth);
+    }
+
     @PostMapping("/create")
     public ResponseEntity<QuizDTO> createQuiz(Authentication auth, @RequestBody NewQuizDTO newQuizDTO) {
         return quizService.createQuiz(auth, newQuizDTO);
@@ -60,6 +65,7 @@ public class PrivateQuizController {
     public ResponseEntity<Void> deleteQuiz(Authentication auth, @PathVariable("quizId") String quizId) {
         return quizService.deleteQuiz(auth, quizId);
     } 
+
     
 
     

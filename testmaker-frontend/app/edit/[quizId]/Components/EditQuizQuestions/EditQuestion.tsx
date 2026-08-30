@@ -119,6 +119,16 @@ export default function EditQuestion({i = 0}: {i?: number}) {
             ]
         }
 
+        else if (typeRef.current.value == "MC" || typeRef.current.value == "SI") {
+            newAnswers = [
+                {
+                    content: "",
+                    correct: false,
+                    explanation: ""
+                }
+            ]
+        }
+
 
         const newQuestion = {
             title: titleRef.current.value,
@@ -152,7 +162,7 @@ export default function EditQuestion({i = 0}: {i?: number}) {
             ref={borderRef}
             onClick={(e) => {handleBackgroundClick(e)}}>
 
-                <p>Question {i}</p>
+                <p>Question {i + 1}</p>
 
                 <RemoveQuestionButton i={i}/>
 
@@ -222,7 +232,7 @@ export default function EditQuestion({i = 0}: {i?: number}) {
 
                 <EditAnswersList i={i}/>
 
-                {quiz.questions[i].type == "MC" || quiz.questions[i].type == "SI" && <AddAnswerButton i={i}/>}
+                {(quiz.questions[i].type == "MC" || quiz.questions[i].type == "SI") && <AddAnswerButton i={i}/>}
 
                 
                 

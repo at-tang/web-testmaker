@@ -1,5 +1,7 @@
 package aidantang.testmaker_backend.InternalClasses.Answer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import aidantang.testmaker_backend.DTOClasses.Sending.AnswerDTO;
 import aidantang.testmaker_backend.InternalClasses.Question.Question;
 import jakarta.persistence.Column;
@@ -61,6 +63,7 @@ public class Answer {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="questionId", nullable = false)
+    @JsonIgnore
     private Question question;
 
 

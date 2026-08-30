@@ -27,6 +27,10 @@ public class DisplayQuizDTO {
     private int totalUsersRated;
     private int time;
     private int questionCount;
+    private int plays;
+
+    private int totalPoints;
+    private int totalQuestions;
 
     public DisplayQuizDTO(Quiz quiz) {
         this.id = quiz.getId();
@@ -41,6 +45,9 @@ public class DisplayQuizDTO {
         this.userId = quiz.getUser().getId();
         this.time = quiz.getTime();
         this.questionCount = quiz.getQuestions().size();
+        this.plays = quiz.getPlays();
+        this.totalPoints = quiz.getTotalPoints();
+        this.totalQuestions = quiz.getTotalQuestions();
 
     }
 

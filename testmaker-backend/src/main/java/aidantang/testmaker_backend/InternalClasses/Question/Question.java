@@ -3,6 +3,8 @@ package aidantang.testmaker_backend.InternalClasses.Question;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import aidantang.testmaker_backend.DTOClasses.Sending.QuestionDTO;
 import aidantang.testmaker_backend.InternalClasses.Answer.Answer;
 import aidantang.testmaker_backend.InternalClasses.Quiz.Quiz;
@@ -72,6 +74,7 @@ public class Question {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="quizId")
+    @JsonIgnore
     private Quiz quiz;
 
 

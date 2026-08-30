@@ -18,6 +18,7 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
     const {quizId} = useParams();
     const [quiz, setQuiz] = useState({questions: []});
     const [portraitMetadataMenu, setPortraitMetadataMenu] = useState(false)
+    const [upToDate, setUpToDate] = useState(true);
 
     
 
@@ -26,7 +27,7 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
             const session = await getSession();
             if (!session) redirect("/login")
         }
-    })
+    }, [])
 
 
     
@@ -75,6 +76,7 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
     }, [])
 
     useEffect(() => {
+        setUpToDate(false)
         console.log(quiz)
 
 

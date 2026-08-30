@@ -12,11 +12,7 @@ export default function playQuiz({params}: {params: Promise<{quizId: string}>}) 
     const {quizId} = useParams();
     const [quiz, setQuiz] = useState({});
 
-    const [resultInput, setResultInput] = useState({
-        quizId: quizId,
-        answerList: [{questionId: "", answers: []}],
-        userId: ""
-    })
+    const [givenAnswers, setGivenAnswers] = useState([]);
 
     useEffect(() => {
         const getQuiz = async () => {
@@ -65,6 +61,12 @@ export default function playQuiz({params}: {params: Promise<{quizId: string}>}) 
 
                 const result = await response.json();
                 setQuiz(result)
+            }
+
+            let givenAnswers = [];
+
+            for (let i = 0; i < quiz.questions.length; i++) {
+                givenAnswers.push("");
             }
 
             } catch (error) {

@@ -17,8 +17,8 @@ public class AnswerDTO {
     public AnswerDTO(Answer answer) {
         this.id = answer.getId();
         this.correct = answer.isCorrect();
-        this.content = answer.getContent();
-        this.explanation = answer.getExplanation();
+        this.content = answer.getContent().strip();
+        this.explanation = answer.getExplanation().strip();
         this.questionId = answer.getQuestion().getId();
     }
 }

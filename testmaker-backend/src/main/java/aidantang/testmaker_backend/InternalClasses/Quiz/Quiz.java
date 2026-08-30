@@ -3,9 +3,12 @@ package aidantang.testmaker_backend.InternalClasses.Quiz;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import aidantang.testmaker_backend.DTOClasses.Receiving.NewQuizDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.QuizDTO;
 import aidantang.testmaker_backend.InternalClasses.Question.Question;
+import aidantang.testmaker_backend.InternalClasses.Result.QuizResult;
 import aidantang.testmaker_backend.InternalClasses.User.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -51,10 +54,28 @@ public class Quiz {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="userId")
+    @JsonIgnore
     private User user;
 
     @Column(name="time")
     private int time = 300;
+
+    @Column(name="plays")
+    private int plays = 0; // Indicates how many times the quiz has been played (only counts completed attempts)
+
+    @Column(name="correctAnswers")
+    private List<String> correctAnswers; 
+    // List of Correct answers; Stored here as quizzes are generally edited far less than they are played
+    // As such, it is much more efficient to store correctAnswers
+
+    // Correct answers for a question are stored in the format "correctAnswer1|correctAnswer2" (e.g. "Paris|Marseilles", "true")
+
+    @Column(name="totalPoints")
+    private int totalPoints;
+
+    @Column(name="totalQuestions")
+    private int totalQuestions = 0;
+
 
     /*
     Other properties to be added:

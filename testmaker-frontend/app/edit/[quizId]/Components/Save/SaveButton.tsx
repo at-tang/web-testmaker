@@ -7,6 +7,7 @@ export default function SaveButton() {
     const [quiz, setQuiz] = useContext(QuizContext)
 
     const saveToDB = async () => {
+        console.log(quiz)
         try {
             let inputJSON = JSON.stringify(quiz)
             const session = await getSession();

@@ -35,6 +35,10 @@ public class QuizDTO {
     private List<QuestionDTO> questions;
     private String userId;
 
+    private List<String> correctAnswers;
+    private int totalPoints;
+    private int totalQuestions;
+
     public QuizDTO(Quiz quiz) {
         this.id = quiz.getId();
         this.visible = quiz.getVisible();
@@ -45,6 +49,10 @@ public class QuizDTO {
         this.totalUsersRated = quiz.getTotalUsersRated();
         this.time = quiz.getTime();
         this.userId = quiz.getUser().getId();
+        this.correctAnswers = quiz.getCorrectAnswers();
+        this.totalPoints = quiz.getTotalPoints();
+        this.totalQuestions = quiz.getTotalQuestions();
+        
 
 
         this.questions = new ArrayList<QuestionDTO>();
