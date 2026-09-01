@@ -1,9 +1,9 @@
 package aidantang.testmaker_backend.InternalClasses.Result;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import aidantang.testmaker_backend.InternalClasses.Quiz.Quiz;
 import aidantang.testmaker_backend.InternalClasses.User.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -31,6 +31,9 @@ public class QuizResult {
     @GeneratedValue(strategy=GenerationType.UUID)
     private String id;
 
+    @Column(name="quizId")
+    private String quizId;
+
     @Column(name="quizTitle")
     private String quizTitle;
 
@@ -47,13 +50,19 @@ public class QuizResult {
     @OneToMany(mappedBy="quizResult", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<QuestionResult> questionResults = new ArrayList<QuestionResult>();
 
-    public QuizResult(String quizTitle, int pointsObtained, int pointsTotal, User user, List<QuestionResult> questionResults) {
+    @Column(name="dateAttempted")
+    private String dateAttempted = LocalDateTime.now().toString();
+
+    public QuizResult(String quizId, String quizTitle, int pointsObtained, int pointsTotal, User user, List<QuestionResult> questionResults) {
+        this.quizId = quizId;
         this.quizTitle = quizTitle;
         this.pointsObtained = pointsObtained;
         this.pointsTotal = pointsTotal;
         this.user = user;
         this.questionResults = questionResults;
+        this.dateAttempted = LocalDateTime.now().toString();
     }
+
 
     
 }

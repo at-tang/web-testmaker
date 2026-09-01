@@ -1,4 +1,4 @@
-package aidantang.testmaker_backend.DTOClasses.Receiving;
+package aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.CreateQuiz;
 
 import lombok.Data;
 

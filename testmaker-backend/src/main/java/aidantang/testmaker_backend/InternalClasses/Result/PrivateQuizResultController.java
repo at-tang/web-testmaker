@@ -3,7 +3,8 @@ package aidantang.testmaker_backend.InternalClasses.Result;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import aidantang.testmaker_backend.DTOClasses.Receiving.EvaluateQuizDTO;
+import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.EvaluateQuiz.EvaluateQuizDTO;
+import aidantang.testmaker_backend.DTOClasses.Sending.QuizResultDTO;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -21,9 +22,9 @@ public class PrivateQuizResultController {
         this.quizResultService = quizResultService;
     }
 
-    @PostMapping("/private/evaluate")
-    public ResponseEntity<String> evaluateQuizPrivate(Authentication auth, @RequestBody EvaluateQuizDTO dto) {
-        return quizResultService.evaluateQuizPrivate(auth, dto);
+    @PostMapping("/evaluate")
+    public ResponseEntity<QuizResultDTO> evaluateQuizPrivate(Authentication auth, @RequestBody EvaluateQuizDTO dto) {
+        return quizResultService.evaluateQuiz(auth, dto);
     }
     
 }

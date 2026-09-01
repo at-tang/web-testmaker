@@ -1,9 +1,8 @@
 package aidantang.testmaker_backend.InternalClasses.Quiz;
 
-import aidantang.testmaker_backend.InternalClasses.Answer.AnswerRepository;
 import java.util.Optional;
 import java.util.ArrayList;
-
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,8 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import aidantang.testmaker_backend.DTOClasses.Receiving.NewQuizDTO;
-import aidantang.testmaker_backend.DTOClasses.Receiving.UpdatingQuizDTO;
+import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.CreateQuiz.NewQuizDTO;
+import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.EditQuiz.UpdatingQuizDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.AnswerDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.DisplayQuizDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.QuestionDTO;
@@ -25,15 +24,13 @@ import aidantang.testmaker_backend.InternalClasses.User.UserRepository;
 
 @Service
 public class QuizService {
-    private final AnswerRepository answerRepository;
     private final QuizRepository quizRepository;
     private final UserRepository userRepository;
     public final QuizHelpers quizHelpers;
 
-    public QuizService(QuizRepository quizRepository, UserRepository userRepository, AnswerRepository answerRepository, QuizHelpers quizHelpers) {
+    public QuizService(QuizRepository quizRepository, UserRepository userRepository, QuizHelpers quizHelpers) {
         this.quizRepository = quizRepository;
         this.userRepository = userRepository;
-        this.answerRepository = answerRepository;
         this.quizHelpers = quizHelpers;
     }
 
@@ -163,35 +160,52 @@ public class QuizService {
             return ResponseEntity.badRequest().build();
         }
 
+        // Check if given quiz violates any logical restrictions
         String justification = quizHelpers.CheckQuizEditInput(quizDTO);
         if (justification != "") return ResponseEntity.badRequest().header("Error", justification).build();
 
-        quiz.get().setTitle(quizDTO.getTitle());
-        quiz.get().setDescription(quizDTO.getDescription());
-        quiz.get().setTags(quizDTO.getTags());
-        quiz.get().setVisible(quizDTO.getVisible());
-        quiz.get().setTime(quizDTO.getTime());
+        
 
         ArrayList<String> correctAnswers = new ArrayList<String>();
         int pointsTotal = 0;
 
         
         quiz.get().getQuestions().clear();
+        int i = 0;
         for (QuestionDTO questionDTO : quizDTO.getQuestions()) {
-            pointsTotal += questionDTO.getPoints();
 
-            String currentAnswer = "";
+            pointsTotal += questionDTO.getPoints();
+            questionDTO.setNumber(i);
+            i++;
+
+            // Creating correct answers
+
+            ArrayList<String> currentQuestionCorrectAnswers = new ArrayList<String>();
+
             for (AnswerDTO a : questionDTO.getAnswers()) {
-                if (a.getCorrect() == true) currentAnswer = currentAnswer + a.getContent() + "|";
-                
+                if (a.getCorrect() == true) {
+                    String currentAnswer = a.getContent();
+
+                    // If question is NOT marked as "Case-Sensitive and is a "Short Input" Question
+                    // then place the answer all into lowercase
+                    if (!questionDTO.isCaseSensitive() && questionDTO.getType() == "SI") currentAnswer = currentAnswer.toLowerCase();
+
+                    currentQuestionCorrectAnswers.add(a.getContent());
+                };
             }
 
-            currentAnswer = currentAnswer.substring(0, currentAnswer.length() - 1); // Strip last |
-            correctAnswers.add(currentAnswer);
+            Collections.sort(currentQuestionCorrectAnswers);
+            questionDTO.setCorrectAnswers(currentQuestionCorrectAnswers);
+
 
             quiz.get().getQuestions().add(new Question(questionDTO, quiz.get()));
         }
 
+        quiz.get().setTitle(quizDTO.getTitle());
+        quiz.get().setDescription(quizDTO.getDescription());
+        quiz.get().setTags(quizDTO.getTags());
+        quiz.get().setVisible(quizDTO.getVisible());
+        quiz.get().setTime(quizDTO.getTime());
         quiz.get().setTotalPoints(pointsTotal);
         quiz.get().setCorrectAnswers(correctAnswers);
         quiz.get().setTotalQuestions(quiz.get().getQuestions().size());

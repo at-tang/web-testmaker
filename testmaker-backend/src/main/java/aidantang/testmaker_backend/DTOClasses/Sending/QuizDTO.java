@@ -3,12 +3,15 @@ package aidantang.testmaker_backend.DTOClasses.Sending;
 import java.util.ArrayList;
 import java.util.List;
 
-import aidantang.testmaker_backend.DTOClasses.Receiving.NewQuizDTO;
 import aidantang.testmaker_backend.InternalClasses.Question.Question;
 import aidantang.testmaker_backend.InternalClasses.Quiz.Quiz;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class QuizDTO {
 
     /*
@@ -23,6 +26,7 @@ public class QuizDTO {
     private String id;
 
     private Boolean visible;
+    private Boolean randomQuestionOrder;
     private String title;
     private String description;
     private List<String> tags;
@@ -39,6 +43,7 @@ public class QuizDTO {
     private int totalPoints;
     private int totalQuestions;
 
+
     public QuizDTO(Quiz quiz) {
         this.id = quiz.getId();
         this.visible = quiz.getVisible();
@@ -52,6 +57,7 @@ public class QuizDTO {
         this.correctAnswers = quiz.getCorrectAnswers();
         this.totalPoints = quiz.getTotalPoints();
         this.totalQuestions = quiz.getTotalQuestions();
+        this.randomQuestionOrder = quiz.isRandomQuestionOrder();
         
 
 

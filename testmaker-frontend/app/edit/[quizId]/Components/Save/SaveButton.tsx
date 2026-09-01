@@ -10,6 +10,7 @@ export default function SaveButton() {
         console.log(quiz)
         try {
             let inputJSON = JSON.stringify(quiz)
+            console.log(inputJSON);
             const session = await getSession();
             console.log(session)
 

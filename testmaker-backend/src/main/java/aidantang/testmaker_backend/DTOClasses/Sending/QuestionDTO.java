@@ -21,6 +21,7 @@ public class QuestionDTO {
     private String explanation;
     private boolean caseSensitive;
     private List<AnswerDTO> answers;
+    private List<String> correctAnswers = new ArrayList<String>();
 
     private int points;
 
@@ -35,6 +36,7 @@ public class QuestionDTO {
         this.explanation = question.getExplanation();
         this.points = question.getPoints();
         this.caseSensitive = question.isCaseSensitive();
+        this.correctAnswers = question.getCorrectAnswers();
 
         this.answers = new ArrayList<AnswerDTO>();
         

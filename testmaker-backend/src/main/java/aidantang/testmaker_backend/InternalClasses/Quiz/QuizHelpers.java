@@ -4,12 +4,10 @@ import java.util.HashSet;
 
 import org.springframework.stereotype.Component;
 
-import aidantang.testmaker_backend.DTOClasses.Receiving.UpdatingQuizDTO;
+import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.EditQuiz.UpdatingQuizDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.AnswerDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.QuestionDTO;
-import aidantang.testmaker_backend.DTOClasses.Sending.QuizDTO;
-import aidantang.testmaker_backend.InternalClasses.Answer.Answer;
-import aidantang.testmaker_backend.InternalClasses.Question.Question;
+
 
 @Component
 public class QuizHelpers {

@@ -9,19 +9,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import aidantang.testmaker_backend.DTOClasses.Receiving.LoadQuizRequestBody;
-import aidantang.testmaker_backend.DTOClasses.Receiving.UserIdRequestBody;
+import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.UserIdRequestBody;
 import aidantang.testmaker_backend.DTOClasses.Sending.DisplayQuizDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.QuizDTO;
+
 
 @RestController
 @RequestMapping("/api/public/quiz")
 public class PublicQuizController {
 
+    private final QuizRepository quizRepository;
     private final QuizService quizService;
 
-    public PublicQuizController(QuizService quizService) {
+    public PublicQuizController(QuizService quizService, QuizRepository quizRepository) {
         this.quizService = quizService;
+        this.quizRepository = quizRepository;
     }
 
     @GetMapping("/get/play/{quizId}")
@@ -34,6 +36,14 @@ public class PublicQuizController {
     public ResponseEntity<List<DisplayQuizDTO>> getQuizListByOtherUser(@RequestBody UserIdRequestBody userIdRequestBody) {
         return quizService.getQuizListByOtherUser(userIdRequestBody.getUserId());
     }
+
+    // Test method
+
+    @GetMapping("test/{quizId}")
+    public Quiz get(@PathVariable("quizId") String quizId) {
+        return quizRepository.findById(quizId).get();
+    }
+    
 
     
 }

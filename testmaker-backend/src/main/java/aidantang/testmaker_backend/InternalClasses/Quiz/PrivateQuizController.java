@@ -3,9 +3,9 @@ package aidantang.testmaker_backend.InternalClasses.Quiz;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import aidantang.testmaker_backend.DTOClasses.Receiving.LoadQuizRequestBody;
-import aidantang.testmaker_backend.DTOClasses.Receiving.NewQuizDTO;
-import aidantang.testmaker_backend.DTOClasses.Receiving.UpdatingQuizDTO;
+
+import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.CreateQuiz.NewQuizDTO;
+import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.EditQuiz.UpdatingQuizDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.DisplayQuizDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.QuizDTO;
 

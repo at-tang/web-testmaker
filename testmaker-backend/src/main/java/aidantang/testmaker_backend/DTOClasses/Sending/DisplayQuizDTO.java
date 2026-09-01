@@ -32,6 +32,8 @@ public class DisplayQuizDTO {
     private int totalPoints;
     private int totalQuestions;
 
+    private Boolean randomQuestionOrder;
+
     public DisplayQuizDTO(Quiz quiz) {
         this.id = quiz.getId();
         this.visible = quiz.getVisible();
@@ -48,6 +50,7 @@ public class DisplayQuizDTO {
         this.plays = quiz.getPlays();
         this.totalPoints = quiz.getTotalPoints();
         this.totalQuestions = quiz.getTotalQuestions();
+        this.randomQuestionOrder = quiz.isRandomQuestionOrder();
 
     }
 

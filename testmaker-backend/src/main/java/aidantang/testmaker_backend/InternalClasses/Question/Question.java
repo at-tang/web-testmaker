@@ -77,6 +77,9 @@ public class Question {
     @JsonIgnore
     private Quiz quiz;
 
+    @Column(name="correctAnswers")
+    private List<String> correctAnswers;
+
 
     public Question(QuestionDTO questionDTO, Quiz quiz) {
         this.number = questionDTO.getNumber();
@@ -86,11 +89,17 @@ public class Question {
         this.hint = questionDTO.getHint();
         this.explanation = questionDTO.getExplanation();
         this.quiz = quiz;
+        this.correctAnswers = questionDTO.getCorrectAnswers();
+        this.caseSensitive = questionDTO.isCaseSensitive();
 
         this.answers = new ArrayList<Answer>();
 
         for (int i = 0; i < questionDTO.getAnswers().size(); i++) {
-            this.answers.add(new Answer(questionDTO.getAnswers().get(i), this));
+            Answer current = new Answer(questionDTO.getAnswers().get(i), this);
+            if (!this.caseSensitive && this.type == "SI") {
+                current.setContent(current.getContent().toLowerCase());
+            }
+            this.answers.add(current);
 
         }
     }

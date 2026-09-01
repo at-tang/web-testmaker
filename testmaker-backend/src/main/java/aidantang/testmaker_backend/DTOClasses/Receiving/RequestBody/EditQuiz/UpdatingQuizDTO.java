@@ -1,4 +1,4 @@
-package aidantang.testmaker_backend.DTOClasses.Receiving;
+package aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.EditQuiz;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,7 @@ public class UpdatingQuizDTO {
     private String id;
 
     private Boolean visible;
+    private Boolean randomQuestionOrder;
     private String title;
     private String description;
     private List<String> tags;
@@ -37,6 +38,7 @@ public class UpdatingQuizDTO {
         this.tags = quiz.getTags();
         this.userId = quiz.getUser().getId();
         this.time = quiz.getTime();
+        this.randomQuestionOrder = quiz.isRandomQuestionOrder();
 
         
         this.questions = new ArrayList<QuestionDTO>();

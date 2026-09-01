@@ -1,4 +1,4 @@
-package aidantang.testmaker_backend.DTOClasses.Receiving;
+package aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

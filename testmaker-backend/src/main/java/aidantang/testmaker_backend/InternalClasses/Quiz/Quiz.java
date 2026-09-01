@@ -5,10 +5,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import aidantang.testmaker_backend.DTOClasses.Receiving.NewQuizDTO;
-import aidantang.testmaker_backend.DTOClasses.Sending.QuizDTO;
+import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.CreateQuiz.NewQuizDTO;
 import aidantang.testmaker_backend.InternalClasses.Question.Question;
-import aidantang.testmaker_backend.InternalClasses.Result.QuizResult;
 import aidantang.testmaker_backend.InternalClasses.User.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -75,6 +73,9 @@ public class Quiz {
 
     @Column(name="totalQuestions")
     private int totalQuestions = 0;
+
+    @Column(name="randomQuestionOrder")
+    private boolean randomQuestionOrder = false;
 
 
     /*

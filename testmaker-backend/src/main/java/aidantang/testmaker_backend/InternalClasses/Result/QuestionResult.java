@@ -1,7 +1,8 @@
 package aidantang.testmaker_backend.InternalClasses.Result;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,32 +45,36 @@ public class QuestionResult {
     // Answers are tracked using the Answer's content due to the nature of Short Input questions
 
     @Column(name="givenAnswers")
-    private String givenAnswers = "";
+    private List<String> givenAnswers;
 
     @Column(name="correctAnswers")
-    private String correctAnswers = "";
+    private List<String> correctAnswers;
 
     @Column(name="correct")
     private boolean correct; // Represents if the user got the correct answer
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="quiz_result_id", nullable = false)
+    @JsonIgnore
     private QuizResult quizResult;
 
     public QuestionResult(int number, 
         String title, 
         String description, 
         String explanation, 
-        String givenAnswers, 
-        String correctAnswers,
-        boolean correct) 
+        List<String> givenAnswers, 
+        List<String> correctAnswers,
+        boolean correct,
+        QuizResult quizResult) 
         {
+            this.number = number;
             this.title = title;
             this.description = description;
             this.explanation = explanation;
             this.givenAnswers = givenAnswers;
             this.correctAnswers = correctAnswers;
             this.correct = correct;
+            this.quizResult = quizResult;
 
     }
     
