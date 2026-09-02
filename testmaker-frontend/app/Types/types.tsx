@@ -36,3 +36,25 @@ export interface Answer {
     id: string,
     questionId: string
 }
+
+export interface DisplayQuiz {
+    description: string,
+    id: string,
+    likes: number,
+    ownerName: string,
+    plays: number,
+    questionCount: number,
+    randomQuestionOrder: boolean,
+    tags: Array<string>,
+    time: number,
+    title: string,
+    totalPoints: number,
+    totalQuestions: number,
+    totalRating: number,
+    totalUsersRated: number,
+    userId: string,
+    userLiked: boolean,
+    visible: boolean
+
+    
+}

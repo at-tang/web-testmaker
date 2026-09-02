@@ -1,5 +1,9 @@
 package aidantang.testmaker_backend.InternalClasses.Quiz;
 
+import aidantang.testmaker_backend.InternalClasses.Answer.AnswerRepository;
+import aidantang.testmaker_backend.InternalClasses.Like.LikeRepository;
+import aidantang.testmaker_backend.InternalClasses.Like.LikeService;
+
 import java.util.Optional;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -22,23 +27,32 @@ import aidantang.testmaker_backend.InternalClasses.User.User;
 import aidantang.testmaker_backend.InternalClasses.User.UserRepository;
 
 
+
 @Service
 public class QuizService {
+
+    private final LikeRepository likeRepository;
     private final QuizRepository quizRepository;
     private final UserRepository userRepository;
     public final QuizHelpers quizHelpers;
+    private final LikeService likeService;
 
-    public QuizService(QuizRepository quizRepository, UserRepository userRepository, QuizHelpers quizHelpers) {
+    public QuizService(QuizRepository quizRepository, UserRepository userRepository, QuizHelpers quizHelpers, LikeRepository likeRepository, LikeService likeService) {
         this.quizRepository = quizRepository;
         this.userRepository = userRepository;
         this.quizHelpers = quizHelpers;
+        this.likeRepository = likeRepository;
+        this.likeService = likeService;
+
     }
+
+    /* 
+
+    Methods to be redone
 
     @Transactional
     ResponseEntity<List<DisplayQuizDTO>> getQuizListBySelf(Authentication auth) {
-        /*
-        Gets all the user's quizzes in list format
-         */
+     
 
         User user = userRepository.findByEmail(auth.getName());
         List<Quiz> quizzes = user.getQuizzes();
@@ -66,6 +80,8 @@ public class QuizService {
         }
         return ResponseEntity.ok(result);
     }
+
+    */
 
 
     @Transactional
@@ -236,6 +252,48 @@ public class QuizService {
         // If the quiz is not in the user's list of quizzes, return
         // a not found error
         return ResponseEntity.notFound().build();
+    }
+
+    @Transactional
+    ResponseEntity<DisplayQuizDTO> getQuiz(String quizId) {
+        /*
+        A method that retrieves a quiz for the user to view
+
+         */
+
+        Optional<Quiz> quiz = quizRepository.findById(quizId);
+
+        if (quiz.isEmpty()) return ResponseEntity.notFound().build();
+
+        // False is a temporary value. getQuizPrivate will assign true if valid.
+        DisplayQuizDTO result = new DisplayQuizDTO(quiz.get(), false);
+        return ResponseEntity.ok(result);
+
+    }
+
+    @Transactional
+    ResponseEntity<DisplayQuizDTO> getQuizPublic(String quizId) {
+        ResponseEntity<DisplayQuizDTO> result = getQuiz(quizId);
+
+        if (result.getBody().getVisible() == false) {
+            return ResponseEntity.status(401).build();
+        }
+
+        return result;
+    }
+
+    @Transactional
+    ResponseEntity<DisplayQuizDTO> getQuizPrivate(Authentication auth, String quizId) {
+        User user = userRepository.findByEmail(auth.getName());
+        ResponseEntity<DisplayQuizDTO> result = getQuiz(quizId);
+
+        if (result.getBody().getVisible() == false && result.getBody().getId() != user.getId()) {
+            return ResponseEntity.status(401).build();
+        }
+        DisplayQuizDTO quiz = result.getBody();
+        quiz.setUserLiked(likeService.getUserLikeQuiz(user.getId(), quizId));
+
+        return ResponseEntity.ok(quiz);
     }
 
 

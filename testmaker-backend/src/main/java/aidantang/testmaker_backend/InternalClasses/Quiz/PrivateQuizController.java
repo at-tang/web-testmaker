@@ -35,10 +35,14 @@ public class PrivateQuizController {
 
     }
 
+    /* 
+
     @GetMapping("/get/list/self")
     public ResponseEntity<List<DisplayQuizDTO>> getQuizListBySelf(Authentication auth) {
         return quizService.getQuizListBySelf(auth);
     }
+
+    */
 
     @GetMapping("/edit/{quizId}")
     public ResponseEntity<UpdatingQuizDTO> editQuiz(Authentication auth, @PathVariable("quizId") String quizId) {
@@ -48,6 +52,11 @@ public class PrivateQuizController {
     @GetMapping("/get/play/{quizId}")
     public ResponseEntity<QuizDTO> loadQuizPrivate(Authentication auth, @PathVariable("quizId") String quizId) {
         return quizService.loadQuizPrivate(quizId, auth);
+    }
+
+    @GetMapping("/get/view/single/{quizId}")
+    public ResponseEntity<DisplayQuizDTO> getQuizPrivate(Authentication auth, @PathVariable("quizId") String quizId) {
+        return quizService.getQuizPrivate(auth, quizId);
     }
 
     @PostMapping("/create")

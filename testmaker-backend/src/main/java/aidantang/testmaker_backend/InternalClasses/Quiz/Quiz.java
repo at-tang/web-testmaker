@@ -77,6 +77,9 @@ public class Quiz {
     @Column(name="randomQuestionOrder")
     private boolean randomQuestionOrder = false;
 
+    @Column(name="likes")
+    private int likes = 0;
+
 
     /*
     Other properties to be added:

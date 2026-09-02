@@ -37,6 +37,11 @@ public class PublicQuizController {
         return quizService.getQuizListByOtherUser(userIdRequestBody.getUserId());
     }
 
+    @GetMapping("get/view/single/{quizId}")
+    public ResponseEntity<DisplayQuizDTO> getQuizPublic(@PathVariable("quizId") String quizId) {
+        return quizService.getQuizPublic(quizId);
+    }
+
     // Test method
 
     @GetMapping("test/{quizId}")

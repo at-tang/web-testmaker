@@ -28,13 +28,16 @@ public class DisplayQuizDTO {
     private int time;
     private int questionCount;
     private int plays;
+    private int likes;
 
     private int totalPoints;
     private int totalQuestions;
 
     private Boolean randomQuestionOrder;
 
-    public DisplayQuizDTO(Quiz quiz) {
+    private boolean userLiked;
+
+    public DisplayQuizDTO(Quiz quiz, boolean userLiked) {
         this.id = quiz.getId();
         this.visible = quiz.getVisible();
         this.title = quiz.getTitle();
@@ -51,6 +54,9 @@ public class DisplayQuizDTO {
         this.totalPoints = quiz.getTotalPoints();
         this.totalQuestions = quiz.getTotalQuestions();
         this.randomQuestionOrder = quiz.isRandomQuestionOrder();
+        this.userLiked = userLiked;
+        this.likes = quiz.getLikes();
+
 
     }
 
