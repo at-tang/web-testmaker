@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import aidantang.testmaker_backend.InternalClasses.Quiz.Quiz;
+import aidantang.testmaker_backend.InternalClasses.Result.QuizResult;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -41,6 +42,8 @@ public class User {
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Quiz> quizzes;
 
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<QuizResult> quizResults;
     
 
 }

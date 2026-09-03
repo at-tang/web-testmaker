@@ -16,6 +16,8 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Data
 @Entity
@@ -44,10 +46,12 @@ public class QuestionResult {
 
     // Answers are tracked using the Answer's content due to the nature of Short Input questions
 
-    @Column(name="givenAnswers")
+    @Column(name="givenAnswers", columnDefinition="varchar(255)[]")
+    @JdbcTypeCode(SqlTypes.ARRAY)
     private List<String> givenAnswers;
 
-    @Column(name="correctAnswers")
+    @Column(name="correctAnswers", columnDefinition="varchar(255)[]")
+    @JdbcTypeCode(SqlTypes.ARRAY)
     private List<String> correctAnswers;
 
     @Column(name="correct")

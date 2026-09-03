@@ -1,8 +1,12 @@
 package aidantang.testmaker_backend.InternalClasses.Result;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import aidantang.testmaker_backend.InternalClasses.User.User;
 import jakarta.persistence.CascadeType;
@@ -45,6 +49,7 @@ public class QuizResult {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="userId", nullable = false)
+    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy="quizResult", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -52,6 +57,11 @@ public class QuizResult {
 
     @Column(name="dateAttempted")
     private String dateAttempted = LocalDateTime.now().toString();
+
+    // Used for organizational purposes
+    @Column(name="dateAttemptedSeconds")
+    private int dateAttemptedSeconds = (int) Instant.now().getEpochSecond();
+
 
     public QuizResult(String quizId, String quizTitle, int pointsObtained, int pointsTotal, User user, List<QuestionResult> questionResults) {
         this.quizId = quizId;
@@ -61,6 +71,7 @@ public class QuizResult {
         this.user = user;
         this.questionResults = questionResults;
         this.dateAttempted = LocalDateTime.now().toString();
+        this.dateAttemptedSeconds = (int) Instant.now().getEpochSecond();
     }
 
 

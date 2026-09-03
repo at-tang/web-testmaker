@@ -1,5 +1,6 @@
 package aidantang.testmaker_backend.InternalClasses.Quiz;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class Quiz {
     @Column(name="title")
     private String title;
 
-    @Column(name="description")
+    @Column(name="description", length=300)
     private String description;
 
     @Column(name="tags")
@@ -54,6 +55,12 @@ public class Quiz {
     @JoinColumn(name="userId")
     @JsonIgnore
     private User user;
+
+    @Column(name="dateCreated")
+    private int dateCreated = (int) Instant.now().getEpochSecond();
+
+    @Column(name="dateUpdated")
+    private int dateUpdated = (int) Instant.now().getEpochSecond();
 
     @Column(name="time")
     private int time = 300;
@@ -90,6 +97,8 @@ public class Quiz {
         this.title = newQuiz.getTitle();
         this.description = newQuiz.getDescription();
         this.user = user;
+        this.dateCreated = (int) Instant.now().getEpochSecond();
+        this.dateUpdated = (int) Instant.now().getEpochSecond();
         
     }
 

@@ -19,6 +19,9 @@ export default function AddTag() {
 
     const addTag = () => {
         let toBeAdded: string = checkTag(inputRef.current.value)
+        if (quiz.tags.length > 9) {
+            return;
+        }
         let quizCopy = {...quiz}
         quizCopy.tags.push(toBeAdded)
         setQuiz(quizCopy)

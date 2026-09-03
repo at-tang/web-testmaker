@@ -32,10 +32,6 @@ public class PublicQuizController {
         
     }
 
-    @GetMapping("get/list/user")
-    public ResponseEntity<List<DisplayQuizDTO>> getQuizListByOtherUser(@RequestBody UserIdRequestBody userIdRequestBody) {
-        return quizService.getQuizListByOtherUser(userIdRequestBody.getUserId());
-    }
 
     @GetMapping("get/view/single/{quizId}")
     public ResponseEntity<DisplayQuizDTO> getQuizPublic(@PathVariable("quizId") String quizId) {

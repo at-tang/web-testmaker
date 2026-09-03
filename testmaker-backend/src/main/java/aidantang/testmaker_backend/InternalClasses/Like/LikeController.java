@@ -25,10 +25,6 @@ public class LikeController {
         return likeService.userLikeQuiz(auth, quizId);
     }
 
-    @GetMapping("test/{userId}/{quizId}")
-    public String test(Authentication auth, @PathVariable("userId") String userId, @PathVariable("quizId") String quizId) {
-        return "Test: " + likeService.getUserLikeQuiz(userId, quizId);
-    }
 
     
     

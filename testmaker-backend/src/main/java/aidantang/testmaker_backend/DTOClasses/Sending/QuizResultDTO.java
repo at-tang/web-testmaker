@@ -1,5 +1,6 @@
 package aidantang.testmaker_backend.DTOClasses.Sending;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import aidantang.testmaker_backend.InternalClasses.Result.QuestionResult;
@@ -21,7 +22,7 @@ public class QuizResultDTO {
 
     private String title;
     
-    private List<QuestionResult> questionResults;
+    private List<QuestionResultDTO> questionResults = new ArrayList<>();
 
     private int pointsObtained;
     private int pointsTotal;
@@ -38,7 +39,11 @@ public class QuizResultDTO {
         this.userId = q.getUser().getId();
         this.dateAttempted = q.getDateAttempted();
 
-        this.questionResults = q.getQuestionResults();
+        this.questionResults = new ArrayList<>();
+
+        for (QuestionResult qr : q.getQuestionResults()) {
+            this.questionResults.add(new QuestionResultDTO(qr.getTitle(), qr.getDescription(), qr.getExplanation(), qr.getGivenAnswers(), qr.getCorrectAnswers(), qr.isCorrect()));
+        }
 
     
     }

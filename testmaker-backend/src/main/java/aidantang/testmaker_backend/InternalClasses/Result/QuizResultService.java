@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -118,6 +119,45 @@ public class QuizResultService {
         QuizResult result = quizResultRepository.save(quizResult);
         return ResponseEntity.ok(new QuizResultDTO(result));
         
+    }
+
+
+    @Transactional
+    public ResponseEntity<QuizResultDTO> getQuizResult(Authentication auth, String resultId) {
+        System.out.println("=== getQuizResult called ===");
+        System.out.println("Auth: " + auth);
+        System.out.println("Auth Name: " + (auth != null ? auth.getName() : "null"));
+        System.out.println("ResultId: " + resultId);
+        
+        User user = userRepository.findByEmail(auth.getName());
+        System.out.println("User found: " + (user != null ? user.getEmail() : "null"));
+        
+        if (user == null) {
+            System.out.println("User not found, returning 404");
+            return ResponseEntity.notFound().build();
+        }
+        
+        Optional<QuizResult> quizResult = quizResultRepository.findById(resultId);
+        System.out.println("Quiz result found: " + quizResult.isPresent());
+        
+        if (quizResult.isEmpty()) {
+            System.out.println("Quiz result not found, returning 404");
+            return ResponseEntity.notFound().build();
+        }
+        
+        // Verify that the result belongs to the authenticated user
+        String resultUserId = quizResult.get().getUser().getId();
+        String authUserId = user.getId();
+        System.out.println("Result user ID: " + resultUserId);
+        System.out.println("Auth user ID: " + authUserId);
+        
+        if (!resultUserId.equals(authUserId)) {
+            System.out.println("User ID mismatch, returning 403");
+            return ResponseEntity.status(403).build();
+        }
+
+        QuizResultDTO result = new QuizResultDTO(quizResult.get());
+        return ResponseEntity.ok().body(result);
     }
 
 

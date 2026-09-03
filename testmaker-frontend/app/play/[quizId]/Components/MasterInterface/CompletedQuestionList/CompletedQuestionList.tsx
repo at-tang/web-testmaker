@@ -30,7 +30,7 @@ export default function CompletedQuestionList() {
 
                     return (
                         <>
-                            <div className={colour + "h-8 w-8 block transition duration-400"}>
+                            <div key={index} className={colour + "h-8 w-8 block transition duration-400"}>
                                 <div className={"flex items-center justify-center h-full w-full z-20 hover:cursor-pointer select-none"}
                                 onClick={() => {jumpIndex(index)}}>
                                     {index + 1}

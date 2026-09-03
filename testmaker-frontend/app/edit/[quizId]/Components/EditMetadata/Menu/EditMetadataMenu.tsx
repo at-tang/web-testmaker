@@ -14,7 +14,7 @@ export default function EditMetadataMenu() {
 
     return(
         <>
-        <div className="fixed w-dvw h-dvh flex items-center justify-center bg-black sm:hidden">
+        <div className="fixed w-dvw h-dvh flex items-center justify-center bg-black sm:hidden overflow-y-scroll">
             <div className="">
 
                 <button onClick={() => setPortraitMetadataMenu(false)}

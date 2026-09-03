@@ -27,12 +27,6 @@ public class LikeService {
         this.quizRepository = quizRepository;
     }
 
-    @Transactional
-    public boolean getUserLikeQuiz(String userId, String quizId) {
-        int number = likeRepository.findByIdUserIdAndIdQuizId(userId, quizId).size();
-        if (number > 0) return true;
-        else return false;
-    }
 
     @Transactional
     public ResponseEntity<Void> userLikeQuiz(Authentication auth, String quizId) {
@@ -47,7 +41,7 @@ public class LikeService {
         if (user == null || quiz.isEmpty()) return ResponseEntity.notFound().build();
     
 
-        boolean alreadyLiked = getUserLikeQuiz(user.getId(), quizId);
+        boolean alreadyLiked = likeRepository.existsByUserIdAndQuizId(user.getId(), quizId);
 
         if (alreadyLiked) { // If the user has already liked this quiz, undo the like
             likeRepository.deleteByUserIdAndQuizId(user.getId(), quizId);

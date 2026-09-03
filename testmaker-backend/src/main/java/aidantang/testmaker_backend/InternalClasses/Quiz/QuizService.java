@@ -5,13 +5,14 @@ import aidantang.testmaker_backend.InternalClasses.Like.LikeRepository;
 import aidantang.testmaker_backend.InternalClasses.Like.LikeService;
 
 import java.util.Optional;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+
 import java.util.Objects;
 
 import org.springframework.transaction.annotation.Transactional;
-import org.apache.catalina.connector.Response;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -225,6 +226,7 @@ public class QuizService {
         quiz.get().setTotalPoints(pointsTotal);
         quiz.get().setCorrectAnswers(correctAnswers);
         quiz.get().setTotalQuestions(quiz.get().getQuestions().size());
+        quiz.get().setDateUpdated((int) Instant.now().getEpochSecond());
 
         quizRepository.save(quiz.get());
         
@@ -266,7 +268,7 @@ public class QuizService {
         if (quiz.isEmpty()) return ResponseEntity.notFound().build();
 
         // False is a temporary value. getQuizPrivate will assign true if valid.
-        DisplayQuizDTO result = new DisplayQuizDTO(quiz.get(), false);
+        DisplayQuizDTO result = new DisplayQuizDTO(quiz.get(), false, "");
         return ResponseEntity.ok(result);
 
     }
@@ -287,11 +289,12 @@ public class QuizService {
         User user = userRepository.findByEmail(auth.getName());
         ResponseEntity<DisplayQuizDTO> result = getQuiz(quizId);
 
-        if (result.getBody().getVisible() == false && result.getBody().getId() != user.getId()) {
+        if (result.getBody().getVisible() == false && result.getBody().getUserId() != user.getId()) {
             return ResponseEntity.status(401).build();
         }
         DisplayQuizDTO quiz = result.getBody();
-        quiz.setUserLiked(likeService.getUserLikeQuiz(user.getId(), quizId));
+        quiz.setUserLiked(likeRepository.existsByUserIdAndQuizId(user.getId(), quizId));
+        if (quiz.getId() == user.getId()) quiz.setOwnQuiz(true);
 
         return ResponseEntity.ok(quiz);
     }

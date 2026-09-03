@@ -16,20 +16,72 @@ export default function Result({params}: {params: Promise<{quizId: string}>}) {
 
     // Load the result
     useEffect(() => {
-        const session = getSession();
-        if (!session) redirect("/home");
+        if (!resultId) return; // Don't proceed if resultId is not loaded yet
 
-        if (sessionStorage.getItem("mostRecentResult") != null 
-            && resultId == "most-recent-result") {
-                let storageResult = sessionStorage.getItem("mostRecentResult");
-                let storageResultJSON = JSON.parse(storageResult);
-                console.log(storageResultJSON)
-                if (storageResult != null) setResult(storageResultJSON);
-                
+        const loadResultData = async () => {
+            const session = await getSession();
+            console.log("Session:", session);
+            
+            if (!session) {
+                console.error("No session found");
+                redirect("/error/unauthorized");
+                return;
             }
+            
+            if (!session.idToken) {
+                console.error("No idToken in session");
+                console.error("Session keys:", Object.keys(session));
+                redirect("/error/unauthorized");
+                return;
+            }
+
+            // If in session storage, retrieve from Session storage
+            const storageKey = `resultView${resultId}`;
+            console.log("Looking for storage key:", storageKey);
+            
+            if (sessionStorage.getItem(storageKey) != null) {
+                console.log("Found result in sessionStorage");
+                let storageResult = sessionStorage.getItem(storageKey);
+                let storageResultJSON = JSON.parse(storageResult!);
+                console.log("Retrieved from storage:", storageResultJSON)
+                setResult(storageResultJSON);
+                return;
+            }
+            
+            console.log("Result not in sessionStorage, making API call");
+
+            // Else, perform an API call to the backend
+            console.log("Making API call for resultId:", resultId);
+            console.log("Session idToken:", session?.idToken ? "present" : "missing");
+            
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/private/result/get/${resultId}`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${session.idToken}`,
+                    "Content-Type": "application/json"
+                },
+            })
+
+            console.log("Response status:", response.status);
+            
+            if (!response.ok) {
+                console.error("Failed to fetch result:", response.status);
+                const errorText = await response.text();
+                console.error("Error response:", errorText);
+                if (response.status === 401 || response.status === 403) {
+                    redirect("/error/unauthorized");
+                }
+                return;
+            }
+
+            const responseResult = await response.json();
+            setResult(responseResult);
+        }
+        loadResultData();
+
         
 
-    }, [])
+    }, [resultId])
 
     useEffect(() => {
         if (result != null) {
@@ -46,10 +98,14 @@ export default function Result({params}: {params: Promise<{quizId: string}>}) {
     if (result != null) return (
         <>
 
-            <Link href="/home"  className="text-3xl">{result.title}</Link>
+            <Link href={`/quiz/view/${result.quizId}`}  className="text-3xl">{result.title}</Link>
 
             <p>Your Score: {result.pointsObtained} / {result.pointsTotal}</p>
             <p>Attempted on {new Date(result.dateAttempted).toString()}</p>
+
+            <Link href="/home">
+            <button className="border-2 border-white p-2">Go Home</button>
+            </Link>
 
 
             <hr></hr>
@@ -90,6 +146,10 @@ export default function Result({params}: {params: Promise<{quizId: string}>}) {
                     )
                 })
             }
+
+            <Link href="/home">
+            <button className="border-2 border-white p-2">Go Home</button>
+            </Link>
 
         </>
     )

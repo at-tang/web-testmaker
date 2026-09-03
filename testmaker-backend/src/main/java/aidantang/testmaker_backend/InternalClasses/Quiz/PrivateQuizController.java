@@ -28,10 +28,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class PrivateQuizController {
 
     private final QuizService quizService;
+    private final QuizListService quizListService;
 
     
-    public PrivateQuizController(QuizService quizService) {
+    public PrivateQuizController(QuizService quizService, QuizListService quizListService) {
         this.quizService = quizService;
+        this.quizListService = quizListService;
 
     }
 
@@ -63,6 +65,11 @@ public class PrivateQuizController {
     public ResponseEntity<QuizDTO> createQuiz(Authentication auth, @RequestBody NewQuizDTO newQuizDTO) {
         return quizService.createQuiz(auth, newQuizDTO);
         
+    }
+
+    @GetMapping("/get/view/list/myquizzes")
+    public ResponseEntity<List<DisplayQuizDTO>> getUserOwnQuizListByLastUpdated(Authentication auth) {
+        return quizListService.getUserOwnQuizListByLastUpdated(auth);
     }
 
     @PutMapping("/update")

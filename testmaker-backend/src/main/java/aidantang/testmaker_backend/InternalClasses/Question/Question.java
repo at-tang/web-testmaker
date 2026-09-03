@@ -21,6 +21,8 @@ import jakarta.persistence.OneToMany;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 
 @Entity(name="questions")
@@ -77,9 +79,9 @@ public class Question {
     @JsonIgnore
     private Quiz quiz;
 
-    @Column(name="correctAnswers")
+    @Column(name="correctAnswers", columnDefinition="varchar(255)[]")
+    @JdbcTypeCode(SqlTypes.ARRAY)
     private List<String> correctAnswers;
-
 
     public Question(QuestionDTO questionDTO, Quiz quiz) {
         this.number = questionDTO.getNumber();

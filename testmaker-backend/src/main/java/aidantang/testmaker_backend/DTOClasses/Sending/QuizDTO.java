@@ -43,6 +43,9 @@ public class QuizDTO {
     private int totalPoints;
     private int totalQuestions;
 
+    private int dateCreated;
+    private int dateUpdated;
+
 
     public QuizDTO(Quiz quiz) {
         this.id = quiz.getId();
@@ -58,6 +61,9 @@ public class QuizDTO {
         this.totalPoints = quiz.getTotalPoints();
         this.totalQuestions = quiz.getTotalQuestions();
         this.randomQuestionOrder = quiz.isRandomQuestionOrder();
+
+        this.dateCreated = quiz.getDateCreated();
+        this.dateUpdated = quiz.getDateUpdated();
         
 
 

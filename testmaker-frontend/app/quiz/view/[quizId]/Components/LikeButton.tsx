@@ -23,7 +23,12 @@ export default function LikeButton() {
             )
 
             if (!response.ok) throw new Error();
-            setQuiz({...quiz, userLiked: !quiz.userLiked})
+
+            let likeNumberAdjustment = 0;
+            if (quiz.userLiked == true) likeNumberAdjustment -= 1;
+            else likeNumberAdjustment += 1;
+
+            setQuiz({...quiz, userLiked: !quiz.userLiked, likes: quiz.likes + likeNumberAdjustment})
 
         }
 
@@ -42,7 +47,7 @@ export default function LikeButton() {
         <button 
         onClick={() => {likeQuiz()}}
         className={colour + " "}>
-            Like
+            Like {quiz.likes}
 
         </button>
 

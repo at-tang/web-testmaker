@@ -56,12 +56,20 @@ public class SecurityConfig {
     @Transactional
     public Converter<Jwt, AbstractAuthenticationToken> databaseJwtConverter() {
         return jwt -> {
+            System.out.println("=== JWT Conversion Starting ===");
+            System.out.println("JWT Subject: " + jwt.getSubject());
+            System.out.println("JWT Claims: " + jwt.getClaims().keySet());
+            
             String providerId = jwt.getSubject();
             String email = jwt.getClaimAsString("email");
+            
+            System.out.println("ProviderId: " + providerId);
+            System.out.println("Email: " + email);
 
             // Either finds user or creates new user
             User user = userRepository.findByProviderId(providerId)
                 .orElseGet(() -> {
+                    System.out.println("Creating new user for providerId: " + providerId);
                     User newUser = new User();
                     newUser.setProviderId(providerId);
                     newUser.setEmail(email != null ? email : "no-email@provider.com");
@@ -69,10 +77,16 @@ public class SecurityConfig {
                     return userRepository.save(newUser);
                 });
 
+            System.out.println("User ID: " + user.getId());
+            System.out.println("User Email: " + user.getEmail());
+            
             List<SimpleGrantedAuthority> authorities = user.getRoles().stream()
                 .map(SimpleGrantedAuthority::new)
                 .toList();
 
+            System.out.println("Authorities: " + authorities);
+            System.out.println("=== JWT Conversion Complete ===");
+            
             return new JwtAuthenticationToken(jwt, authorities, user.getEmail());
         };
     }

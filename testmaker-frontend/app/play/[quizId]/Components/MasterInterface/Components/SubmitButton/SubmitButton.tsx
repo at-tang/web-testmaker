@@ -45,10 +45,10 @@ export default function SubmitButton() {
 
             console.log(result);
 
+            // Pushed to session storage to minimize the number of api calls
+            sessionStorage.setItem(`resultView${result.id}`, JSON.stringify(result));
 
-            sessionStorage.setItem("mostRecentResult", JSON.stringify(result));
-            console.log(sessionStorage.getItem("mostRecentResult"));
-            router.push("/result/most-recent-result");
+            router.push(`/result/${result.id}`);
 
         } catch (error) {
             console.error(error)

@@ -13,7 +13,7 @@ export default function TagEdit() {
 
     return(
         <>
-        <div className="border-2 p-2 ">
+        <div className="border-2 p-2 h-32 gap-1 overflow-y-scroll grid grid-cols-3">
             {quiz.tags.map((tag, i) => {
             return (<Tag key={i} i={i}/>)
 
