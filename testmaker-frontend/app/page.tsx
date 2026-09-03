@@ -6,7 +6,7 @@ import { useEffect } from "react";
 export default function Home() {
 
   useEffect(() => {
-    redirect("/login")
+    redirect("/home")
 
   })
   return (

@@ -11,6 +11,8 @@ export const CompleteContext = createContext();
 export const QuestionListContext = createContext();
 export const CurrentQuestionIndexContext = createContext();
 export const CurrentQuestionContext = createContext();
+export const TimeLeftContext = createContext();
+export const TimerActiveContext = createContext();
 
 
 export default function playQuiz({params}: {params: Promise<{quizId: string}>}) {
@@ -22,6 +24,9 @@ export default function playQuiz({params}: {params: Promise<{quizId: string}>}) 
     const [questionList, setQuestionList] = useState<Array<Question>>([]); // List of questions. Used for quizzes where questions are randomized
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0); // Determines which question to display on screen right now
     const [currentQuestion, setCurrentQuestion] = useState<Question>(questionList[currentQuestionIndex]); // QUestion currently being presented to user
+
+    const [timeLeft, setTimeLeft] = useState(-1); // tracks how many seconds are left 
+    const [timerActive, setTimerActive] = useState(false); // tracks if the timer is active
     
     const contextValue = {quiz, setQuiz, givenAnswers, setGivenAnswers, complete, setComplete, questionList, setQuestionList, currentQuestionIndex, setCurrentQuestionIndex}
 
@@ -101,6 +106,9 @@ export default function playQuiz({params}: {params: Promise<{quizId: string}>}) 
             }
         }
 
+        setTimeLeft(quiz.time * 60); // Set time left to quiz's alloted time, tracked in minutes
+        setTimerActive(true)
+
         setQuestionList(questionListCopy)
 
     }, [quiz])
@@ -146,10 +154,14 @@ export default function playQuiz({params}: {params: Promise<{quizId: string}>}) 
         <QuestionListContext.Provider value={[questionList, setQuestionList]}>
         <CurrentQuestionIndexContext.Provider value={[currentQuestionIndex, setCurrentQuestionIndex]}>
         <CurrentQuestionContext.Provider value={[currentQuestion, setCurrentQuestion]}>
+        <TimeLeftContext.Provider value={[timeLeft, setTimeLeft]}>
+        <TimerActiveContext.Provider value={[timerActive, setTimerActive]}>
 
             <p>Quiz ID: {quizId}</p>
             <MasterInterface/>
 
+        </TimerActiveContext.Provider>
+        </TimeLeftContext.Provider>
         </CurrentQuestionContext.Provider>
         </CurrentQuestionIndexContext.Provider>
         </QuestionListContext.Provider>

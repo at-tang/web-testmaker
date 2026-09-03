@@ -35,7 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div className="flex justify-center">
           <Toolbar/>
 
-          <div className="bg-gray-600 w-full h-dvh overflow-y-scroll overflow-x-scroll scrollbar-none">
+          <div className="bg-gray-600 w-full h-dvh overflow-y-scroll overflow-x-scroll scrollbar-none p-4">
             {children}
           </div>
 

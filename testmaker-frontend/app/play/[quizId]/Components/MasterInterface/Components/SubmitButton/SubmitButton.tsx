@@ -1,8 +1,8 @@
 
-import { QuestionListContext, GivenAnswersContext, CurrentQuestionIndexContext, QuizContext, CurrentQuestionContext } from "@/app/play/[quizId]/page";
+import { QuestionListContext, GivenAnswersContext, CurrentQuestionIndexContext, QuizContext, CurrentQuestionContext, TimeLeftContext } from "@/app/play/[quizId]/page";
 import { getSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function SubmitButton() {
 
@@ -11,6 +11,9 @@ export default function SubmitButton() {
     const [givenAnswers, setgivenAnswers] = useContext(GivenAnswersContext);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useContext(CurrentQuestionIndexContext);
     const [currentQuestion, setCurrentQuestion] = useContext(CurrentQuestionContext);
+    const [timeLeft, setTimeLeft] = useContext(TimeLeftContext);
+
+    const [allowSubmit, setAllowSubmit] = useState(true); // Determines if submit button can be pressed
 
     const router = useRouter();
 
@@ -55,10 +58,26 @@ export default function SubmitButton() {
         }
     }
 
+    useEffect(() => {
+        if (timeLeft == 0) {
+            submitQuiz();
+        }
+        else if (timeLeft >= 0 && timeLeft < 3) {
+            setAllowSubmit(false)
+
+        }
+
+    }, [timeLeft])
+
     
     return (
         <>
-            <button onClick={() => {submitQuiz()}}>Submit</button>
+            <button 
+            disabled={!allowSubmit} 
+            onClick={() => {submitQuiz()}}
+            >
+                
+                Submit</button>
         </>
     )
 }
