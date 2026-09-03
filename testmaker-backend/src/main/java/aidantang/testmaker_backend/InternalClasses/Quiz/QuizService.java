@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.Objects;
 
 import org.springframework.transaction.annotation.Transactional;
-
+import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -277,6 +277,8 @@ public class QuizService {
     ResponseEntity<DisplayQuizDTO> getQuizPublic(String quizId) {
         ResponseEntity<DisplayQuizDTO> result = getQuiz(quizId);
 
+        if (result.getStatusCode().value() != 200) return result;
+
         if (result.getBody().getVisible() == false) {
             return ResponseEntity.status(401).build();
         }
@@ -288,6 +290,8 @@ public class QuizService {
     ResponseEntity<DisplayQuizDTO> getQuizPrivate(Authentication auth, String quizId) {
         User user = userRepository.findByEmail(auth.getName());
         ResponseEntity<DisplayQuizDTO> result = getQuiz(quizId);
+
+        if (result.getStatusCode().value() != 200) return result;
 
         if (result.getBody().getVisible() == false && result.getBody().getUserId() != user.getId()) {
             return ResponseEntity.status(401).build();

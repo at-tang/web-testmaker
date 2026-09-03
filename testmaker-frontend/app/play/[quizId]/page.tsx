@@ -1,9 +1,10 @@
 "use client"
 import { GivenAnswer, Question, Quiz, Answer } from "@/app/Types/types";
 import { getSession, useSession } from "next-auth/react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState, createContext } from "react";
 import MasterInterface from "./Components/MasterInterface/MasterInterface";
+import { ErrorReroute } from "@/app/api/ErrorPageRereouting/ErrorRerouting";
 
 export const QuizContext = createContext();
 export const GivenAnswersContext = createContext();
@@ -17,6 +18,8 @@ export const TimerActiveContext = createContext();
 
 export default function playQuiz({params}: {params: Promise<{quizId: string}>}) {
     const {quizId} = useParams();
+
+    const router = useRouter();
 
     const [quiz, setQuiz] = useState<Quiz>();
     const [givenAnswers, setGivenAnswers] = useState<Array<GivenAnswer>>([]);
@@ -52,7 +55,10 @@ export default function playQuiz({params}: {params: Promise<{quizId: string}>}) 
                     }
                 )
 
-                if (!response.ok) throw new Error("Error!")
+                if (!response.ok) {
+                    router.push(ErrorReroute(response.status))
+                    return;
+                }
 
                 const result = await response.json();
                 setQuiz(result)
@@ -70,7 +76,12 @@ export default function playQuiz({params}: {params: Promise<{quizId: string}>}) 
                     }
                 )
 
-                if (!response.ok) throw new Error("Error!")
+                if (!response.ok) {
+                    router.push(ErrorReroute(response.status))
+                    return;
+                }
+
+
 
                 const result = await response.json();
                 setQuiz(result)

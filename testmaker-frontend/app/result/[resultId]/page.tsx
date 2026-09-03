@@ -1,8 +1,10 @@
 "use client"
 
+import { ErrorReroute } from "@/app/api/ErrorPageRereouting/ErrorRerouting";
 import { getSession } from "next-auth/react"
 import Link from "next/link";
 import { redirect, useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
 
 export default function Result({params}: {params: Promise<{quizId: string}>}) {
@@ -11,6 +13,8 @@ export default function Result({params}: {params: Promise<{quizId: string}>}) {
 
     const [result, setResult] = useState();
     const [percentScore, setPercentScore] = useState(0);
+
+    const router = useRouter();
 
 
 
@@ -65,12 +69,7 @@ export default function Result({params}: {params: Promise<{quizId: string}>}) {
             console.log("Response status:", response.status);
             
             if (!response.ok) {
-                console.error("Failed to fetch result:", response.status);
-                const errorText = await response.text();
-                console.error("Error response:", errorText);
-                if (response.status === 401 || response.status === 403) {
-                    redirect("/error/unauthorized");
-                }
+                router.push(ErrorReroute(response.status))
                 return;
             }
 

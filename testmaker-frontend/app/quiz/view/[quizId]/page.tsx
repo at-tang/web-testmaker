@@ -2,18 +2,20 @@
 
 import { DisplayQuiz, Quiz } from "@/app/Types/types";
 import { getSession } from "next-auth/react";
-import { useParams } from "next/navigation";
+import { redirect, useParams, useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
 import LikeButton from "./Components/LikeButton";
 import TagList from "./Components/TagList";
 import Link from "next/link";
+import { ErrorReroute } from "@/app/api/ErrorPageRereouting/ErrorRerouting";
 
 export const QuizContext = createContext<DisplayQuiz>();
 
 
-export default function ViewQuiz({params}: {params: Promise<{quizId: string, returnPath?: string}>}) {
+export default function ViewQuiz({params}: {params: Promise<{quizId: string}>}) {
     const {quizId} = useParams();
-    const {returnPath} = useParams();
+
+    const router = useRouter();
 
     const [quiz, setQuiz] = useState<DisplayQuiz>(null);
 
@@ -46,16 +48,25 @@ export default function ViewQuiz({params}: {params: Promise<{quizId: string, ret
                         }
                     )
 
-                    if (!response.ok) throw new Error();
-                    
-                    const result = await response.json();
+                    if (!response.ok) {
+                        console.log("Rerouting with " + response.status)
+                        router.replace(ErrorReroute(response.status))
+
+                    }
+                    else {
+                        const result = await response.json();
                     console.log(result);
                     setQuiz(result);
 
                     sessionStorage.setItem(`view${result.id}`, JSON.stringify(result))
+
+                    }
+
+
                 }
                 catch (error) {
                     console.error(error);
+                    
                 }
             } 
             getPrivate();

@@ -15,6 +15,8 @@ import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.EvaluateQuiz
 import aidantang.testmaker_backend.DTOClasses.Sending.QuestionDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.QuizDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.QuizResultDTO;
+import aidantang.testmaker_backend.InternalClasses.Quiz.Quiz;
+import aidantang.testmaker_backend.InternalClasses.Quiz.QuizRepository;
 import aidantang.testmaker_backend.InternalClasses.User.User;
 import aidantang.testmaker_backend.InternalClasses.User.UserRepository;
 import jakarta.transaction.Transactional;
@@ -24,10 +26,12 @@ public class QuizResultService {
 
     private final QuizResultRepository quizResultRepository;
     private final UserRepository userRepository;
+    private final QuizRepository quizRepository;
 
-    public QuizResultService(QuizResultRepository quizResultRepository, UserRepository userRepository) {
+    public QuizResultService(QuizResultRepository quizResultRepository, UserRepository userRepository, QuizRepository quizRepository) {
         this.quizResultRepository = quizResultRepository;
         this.userRepository = userRepository;
+        this.quizRepository = quizRepository;
     }
 
     @Transactional
@@ -117,6 +121,14 @@ public class QuizResultService {
         quizResult.setPointsObtained(pointsObtained);
         quizResult.setQuestionResults(questionResults);  
         QuizResult result = quizResultRepository.save(quizResult);
+
+        // Increment the number of plays this quiz has
+        Optional<Quiz> quizData = quizRepository.findById(quizId);
+        if (!quizData.isEmpty()) {
+            // No error is requested as the quiz might be deleted WHILE a user is playing it
+            quizData.get().setPlays(quizData.get().getPlays() + 1);
+            quizRepository.save(quizData.get());
+        }
         return ResponseEntity.ok(new QuizResultDTO(result));
         
     }

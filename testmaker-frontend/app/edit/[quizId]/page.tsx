@@ -1,6 +1,6 @@
 "use client"
 import { getSession, useSession } from 'next-auth/react';
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { createContext, use, useEffect, useState } from 'react'
 import EditQuestion from './Components/EditQuizQuestions/EditQuestion';
 import EditQuestionsList from './Components/EditQuizQuestions/EditQuestionsList';
@@ -9,11 +9,14 @@ import SaveButton from './Components/Save/SaveButton';
 import EditMetadataMenu from './Components/EditMetadata/Menu/EditMetadataMenu';
 import OpenEditMetadataMenu from './Components/EditMetadata/OpenEditMetadataMenu';
 import { logout } from '@/app/api/auth/[...nextauth]/authServerFunctions';
+import { ErrorReroute } from '@/app/api/ErrorPageRereouting/ErrorRerouting';
 
 export const QuizContext = createContext();
 export const PortraitMetadataMenuContext = createContext();
 
 export default function EditPage({params}: {params: Promise<{quizId: string}>}) {
+
+    const router = useRouter();
 
     const {quizId} = useParams();
     const [quiz, setQuiz] = useState({questions: []});
@@ -61,7 +64,10 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
 
                 console.log(response);
 
-                if (!response.ok) throw new Error(`${response.status}`);
+                if (!response.ok) {
+                    router.push(ErrorReroute(response.status))
+                    return;
+                }
 
                 const result = await response.json();
                 console.log(result);
