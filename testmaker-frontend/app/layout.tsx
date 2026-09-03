@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, DM_Sans } from "next/font/google";
 import "./globals.css";
 import MenuButton from "./Components/Menu/MenuButton";
+import Toolbar from "./Components/Toolbar/Toolbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,8 +32,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${dmSans.variable} h-full antialiased font-dm-sans`}
     >
       <body className="min-h-full flex flex-col font-dm-sans">
+        <div className="flex justify-center">
+          <Toolbar/>
+
+          <div className="bg-gray-600 w-full h-dvh overflow-y-scroll overflow-x-scroll scrollbar-none">
+            {children}
+          </div>
+
+        </div>
         <MenuButton/>
-        {children}
+        
         </body>
     </html>
   );

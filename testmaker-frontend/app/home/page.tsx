@@ -2,22 +2,29 @@
 
 import { getSession, useSession } from "next-auth/react";
 import SignOutButton from "./SignOutButton";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import SigninButton from "../login/SignInButton";
 
 export default function Home() {
+
+    const [sessionActive, setSessionActive] = useState(false);
 
     useEffect(() => {
         const sessionTesting = async () => {
             const session = await getSession();
             console.log(session);
+
+            if (session) setSessionActive(true)
+            else setSessionActive(false)
+        
         }
         sessionTesting();
         
     }, [])
 
     
-    return (
+    if (sessionActive) return (
         <>
         <h1>
             this is the home page!
@@ -35,6 +42,12 @@ export default function Home() {
         
 
         <SignOutButton/>
+        </>
+    )
+
+    return (
+        <>
+            <SigninButton/>
         </>
     )
 }
