@@ -34,6 +34,11 @@ import aidantang.testmaker_backend.InternalClasses.User.UserRepository;
 @Service
 public class QuizService {
 
+    /*
+    A Service class that handles business logic regarding quizzes.
+    The methods here do not pertain to any of the specific Services.
+     */
+
     private final LikeRepository likeRepository;
     private final QuizRepository quizRepository;
     private final UserRepository userRepository;
@@ -49,7 +54,7 @@ public class QuizService {
 
     }
 
-    
+
     @Transactional
     public ResponseEntity<QuizDTO> createQuiz(Authentication auth, NewQuizDTO newQuizDTO) {
         User user = userRepository.findByEmail(auth.getName());
@@ -89,52 +94,7 @@ public class QuizService {
         return ResponseEntity.notFound().build();
     }
 
-    @Transactional
-    ResponseEntity<DisplayQuizDTO> getQuiz(String quizId) {
-        /*
-        A method that retrieves a quiz for the user to view
 
-         */
-
-        Optional<Quiz> quiz = quizRepository.findById(quizId);
-
-        if (quiz.isEmpty()) return ResponseEntity.notFound().build();
-
-        // False is a temporary value. getQuizPrivate will assign true if valid.
-        DisplayQuizDTO result = new DisplayQuizDTO(quiz.get(), false, "");
-        return ResponseEntity.ok(result);
-
-    }
-
-    @Transactional
-    ResponseEntity<DisplayQuizDTO> getQuizPublic(String quizId) {
-        ResponseEntity<DisplayQuizDTO> result = getQuiz(quizId);
-
-        if (result.getStatusCode().value() != 200) return result;
-
-        if (result.getBody().getVisible() == false) {
-            return ResponseEntity.status(401).build();
-        }
-
-        return result;
-    }
-
-    @Transactional
-    ResponseEntity<DisplayQuizDTO> getQuizPrivate(Authentication auth, String quizId) {
-        User user = userRepository.findByEmail(auth.getName());
-        ResponseEntity<DisplayQuizDTO> result = getQuiz(quizId);
-
-        if (result.getStatusCode().value() != 200) return result;
-
-        if (result.getBody().getVisible() == false && result.getBody().getUserId() != user.getId()) {
-            return ResponseEntity.status(401).build();
-        }
-        DisplayQuizDTO quiz = result.getBody();
-        quiz.setUserLiked(likeRepository.existsByUserIdAndQuizId(user.getId(), quizId));
-        if (quiz.getId() == user.getId()) quiz.setOwnQuiz(true);
-
-        return ResponseEntity.ok(quiz);
-    }
 
 
 }

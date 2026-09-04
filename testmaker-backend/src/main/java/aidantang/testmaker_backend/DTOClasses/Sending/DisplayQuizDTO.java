@@ -36,7 +36,7 @@ public class DisplayQuizDTO {
 
     private Boolean randomQuestionOrder;
 
-    private boolean userLiked;
+    private boolean userLiked; // Did the user requesting this quiz possess a like
     private boolean ownQuiz; // Does the user own this quiz?
 
     private int dateCreated;

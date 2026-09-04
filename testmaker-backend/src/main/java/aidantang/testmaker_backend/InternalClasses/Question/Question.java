@@ -42,11 +42,6 @@ public class Question {
     @Column(name="number")
     private int number;
 
-
-    @Column(name="title")
-    private String title = "";
-
-
     @Column(name="description")
     private String description = "";
 
@@ -85,7 +80,6 @@ public class Question {
 
     public Question(QuestionDTO questionDTO, Quiz quiz) {
         this.number = questionDTO.getNumber();
-        this.title = questionDTO.getTitle();
         this.description = questionDTO.getDescription();
         this.type = questionDTO.getType();
         this.hint = questionDTO.getHint();

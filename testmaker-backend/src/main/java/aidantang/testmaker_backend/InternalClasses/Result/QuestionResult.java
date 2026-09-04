@@ -63,7 +63,7 @@ public class QuestionResult {
     private QuizResult quizResult;
 
     public QuestionResult(int number, 
-        String title, 
+
         String description, 
         String explanation, 
         List<String> givenAnswers, 
@@ -72,7 +72,7 @@ public class QuestionResult {
         QuizResult quizResult) 
         {
             this.number = number;
-            this.title = title;
+
             this.description = description;
             this.explanation = explanation;
             this.givenAnswers = givenAnswers;

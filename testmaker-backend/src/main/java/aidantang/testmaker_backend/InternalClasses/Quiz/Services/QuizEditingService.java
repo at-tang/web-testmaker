@@ -94,19 +94,17 @@ public class QuizEditingService {
         // Compare IDs by value and verify the quiz belongs to the authenticated user.
         if (!Objects.equals(user.getId(), quizDTO.getUserId())
             || !Objects.equals(user.getId(), quiz.get().getUser().getId())) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(401).build();
         }
 
         // Check if given quiz violates any logical restrictions
-        String justification = quizHelpers.CheckQuizEditInput(quizDTO);
-        if (justification != "") return ResponseEntity.badRequest().header("Error", justification).build();
+        boolean justification = quizHelpers.CheckQuizEditInput(quizDTO);
+        if (!justification) return ResponseEntity.status(400).build();
 
         
 
         ArrayList<String> correctAnswers = new ArrayList<String>();
         int pointsTotal = 0;
-
-        
         quiz.get().getQuestions().clear();
         int i = 0;
         for (QuestionDTO questionDTO : quizDTO.getQuestions()) {
@@ -138,7 +136,6 @@ public class QuizEditingService {
             quiz.get().getQuestions().add(new Question(questionDTO, quiz.get()));
         }
 
-        quiz.get().setTitle(quizDTO.getTitle());
         quiz.get().setDescription(quizDTO.getDescription());
         quiz.get().setTags(quizDTO.getTags());
         quiz.get().setVisible(quizDTO.getVisible());

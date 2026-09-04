@@ -92,9 +92,10 @@ export default function ViewQuiz({params}: {params: Promise<{quizId: string}>}) 
 
             <Link href={`/home`}> <button className="">Go Back</button></Link>
 
-            <h1 className="text-4xl mb-1">{quiz.title}</h1>
+            <h1 className="text-4xl">{quiz.title}</h1>
+            <p className="mb-3">By: {quiz.ownerName}</p>
             <TagList/>
-            <p>By: {quiz.ownerName}</p>
+            
 
             
             <hr className="mb-2"/>

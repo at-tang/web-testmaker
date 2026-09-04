@@ -12,7 +12,7 @@ export default function MoveAnswerButton({i = 0, j = 0}: {i?: number, j?: number
             setButtonText("V")
 
         } else {
-            setButtonText("M")
+            setButtonText("Move")
         }
     }, [index1])
 
@@ -35,7 +35,8 @@ export default function MoveAnswerButton({i = 0, j = 0}: {i?: number, j?: number
     return(
         <button 
         onClick={() => {swap()}}
-        className=" p-2 border-2 ">
+        className="border-white rounded-full bg-white hover:brightness-75 hover:cursor-pointer py-1 px-4 text-black"
+        >
             {buttonText}
         </button>
     )

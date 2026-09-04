@@ -13,20 +13,24 @@ export default function EditQuestionsList() {
 
     // Swap indexes is used to facilitate swapping questions
     const [swapIndexes, setSwapIndexes] = useState([-1, -1]) // -1 is used for blank
+    const [improperQuestions, setImproperQuestions] = useState([]); // A list of indexes where the questions are improperly formatted
 
     return(
         <SwapIndexesContext.Provider value={[swapIndexes, setSwapIndexes]}>
 
         <div>
-                <p>{quiz.questions.length}</p>
+
+            <AddQuestionButton i={0}/>
             
                 {quiz.questions.map((question, i) => (
-                    <div key={i} className="">
+                    
+                    <div key={i} className="mb-4">
                         <EditQuestion i={i}/>
+                        <AddQuestionButton i={i}/>
                     </div>
+                    
                 ))}
 
-                <AddQuestionButton/>
                 
         </div>
         

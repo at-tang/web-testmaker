@@ -14,8 +14,7 @@ export default function EditAnswerMC({i = 0, j = 0}: {i?: number, j?: number}) {
 
     return (
         <>
-            <div className="flex">
-                <h1>Answer {j}</h1>
+            <div className="flex items-center h-full justify-center mb-3">
 
                 <input ref={contentRef}
                 onChange={() => {
@@ -24,19 +23,25 @@ export default function EditAnswerMC({i = 0, j = 0}: {i?: number, j?: number}) {
                 }}
                 value={answer.content}
                 placeholder="Enter the answer here"
-                className="w-full h-max border-white p-1 border-2">
+                className="w-full h-full border-white p-1 border-2 flex-1">
 
                 </input>
 
+                <div className=" h-full w-12 flex items-center justify-center">
+                    <input type="checkbox"
+                    ref={correctRef}
+                    onChange={() => {
+                        quiz.questions[i].answers[j].correct = correctRef.current.checked
+                        setQuiz({...quiz})
+                    }}
+                    className="w-4 h-4 bg-green-500"
+                    checked={answer.correct}
+                    ></input>
 
-                <input type="checkbox"
-                ref={correctRef}
-                onChange={() => {
-                    quiz.questions[i].answers[j].correct = correctRef.current.checked
-                    setQuiz({...quiz})
-                }}
-                checked={answer.correct}
-                ></input>
+                </div>
+
+
+                
 
                 <MoveAnswerButton i={i} j={j}/>
                 <RemoveAnswerButton i={i} j={j}/>

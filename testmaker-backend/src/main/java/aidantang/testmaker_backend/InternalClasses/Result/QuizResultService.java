@@ -60,7 +60,7 @@ public class QuizResultService {
             GivenAnswerDTO answer = givenAnswers.get(i);
 
             
-            String title = question.getTitle();
+
             String description = question.getDescription();
             String explanation = question.getExplanation();
             List<String> given = answer.getGivenAnswers();
@@ -113,7 +113,7 @@ public class QuizResultService {
                 pointsObtained -= 10;
             }
 
-            QuestionResult newQuestionResult = new QuestionResult(i, title, description, explanation, given, correctAnswers, correct, quizResult);
+            QuestionResult newQuestionResult = new QuestionResult(i, description, explanation, given, correctAnswers, correct, quizResult);
             questionResults.add(newQuestionResult);
 
         }

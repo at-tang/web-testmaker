@@ -14,8 +14,8 @@ export default function EditAnswerMC({i = 0, j = 0}: {i?: number, j?: number}) {
 
     return (
         <>
-            <div className="flex">
-                <h1>Answer {j}</h1>
+            <div className="flex items-center mb-3">
+
 
                 <input ref={contentRef}
                 onChange={() => {
@@ -26,7 +26,7 @@ export default function EditAnswerMC({i = 0, j = 0}: {i?: number, j?: number}) {
                 }}
                 value={answer.content}
                 placeholder="Enter the answer here"
-                className="w-full h-max border-white p-1 border-2">
+                className="w-full h-full border-white p-1 border-2 mr-4">
 
                 </input>
 

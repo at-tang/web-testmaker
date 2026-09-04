@@ -32,10 +32,12 @@ export default function EditAnswersList({i = 0}: {i?: number}) {
         return (
             <SwapAnswerContext.Provider value={[index1, setIndex1]}>
             <div>
+            
+
 
             {answers.map((answer, j) => {
                 return (
-                        <div key={j}>
+                        <div key={j} className="mb-2">
                             <EditAnswerSI i={i} j={j}/>
                         </div>
                 )
@@ -54,7 +56,8 @@ export default function EditAnswersList({i = 0}: {i?: number}) {
     return (
         <SwapAnswerContext.Provider value={[index1, setIndex1]}>
         <div>
-            <p>{}</p>
+            <p className="mb-4">* Checkmark a particular answer to mark it as correct.</p>
+
             {answers.map((answer, j) => {
                 return (
                         <div key={j}>

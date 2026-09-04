@@ -1,3 +1,5 @@
+
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, DM_Sans } from "next/font/google";
 import "./globals.css";
@@ -26,22 +28,24 @@ export const metadata: Metadata = {
 
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+
   return (
     <html
       lang="en"
       className={`${dmSans.variable} h-full antialiased font-dm-sans`}
     >
       <body className="min-h-full flex flex-col font-dm-sans">
+
         <div className="flex justify-center">
           <Toolbar/>
 
-          <div className="bg-gray-600 w-full h-dvh overflow-y-scroll overflow-x-scroll scrollbar-none p-4">
+          <div className=" w-full h-dvh overflow-y-scroll overflow-x-scroll scrollbar-none">
             {children}
           </div>
 
         </div>
-        <MenuButton/>
-        
+
+
         </body>
     </html>
   );

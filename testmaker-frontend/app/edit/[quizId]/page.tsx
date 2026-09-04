@@ -10,18 +10,23 @@ import EditMetadataMenu from './Components/EditMetadata/Menu/EditMetadataMenu';
 import OpenEditMetadataMenu from './Components/EditMetadata/OpenEditMetadataMenu';
 import { logout } from '@/app/api/auth/[...nextauth]/authServerFunctions';
 import { ErrorReroute } from '@/app/api/ErrorPageRereouting/ErrorRerouting';
+import EditMetadataList from './Components/EditMetadata/EditMetadataList';
+import { QuizEdit } from '@/app/Types/types';
 
 export const QuizContext = createContext();
-export const PortraitMetadataMenuContext = createContext();
+export const SaveStatusContext = createContext();
+export const UpToDateContext = createContext();
 
 export default function EditPage({params}: {params: Promise<{quizId: string}>}) {
 
     const router = useRouter();
 
     const {quizId} = useParams();
-    const [quiz, setQuiz] = useState({questions: []});
+    const [quiz, setQuiz] = useState(new QuizEdit);
     const [portraitMetadataMenu, setPortraitMetadataMenu] = useState(false)
     const [upToDate, setUpToDate] = useState(true);
+
+    const [saveStatus, setSaveStatus] = useState(false); // Determines if the app is currently saving to the database
 
     
 
@@ -86,6 +91,7 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
         console.log(quiz)
 
 
+
     }, [quiz, quiz.questions])
 
 
@@ -93,25 +99,43 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
     return(
         <>
             <QuizContext.Provider value={[quiz, setQuiz]}>
-            <PortraitMetadataMenuContext.Provider value={[portraitMetadataMenu, setPortraitMetadataMenu]}>
-                
-                {!portraitMetadataMenu && <OpenEditMetadataMenu/>}
-                {portraitMetadataMenu && <EditMetadataMenu/>}
+            <SaveStatusContext.Provider value={[saveStatus, setSaveStatus]}>
+            <UpToDateContext.Provider value={[upToDate, setUpToDate]}>
 
-                <div className="sm:flex">
-                    <div className="bg-gray-500 w-1/2"></div>
-                    <EditQuestionsList/>
+                <div className="w-full flex justify-center">
+                     <div className="max-w-300 flex-1 p-4">
+
+      
+                        <div className="bg-white w-full h-0.5 mb-6"/>
+
+                        
+                        <EditMetadataList/>
+
+                        <SaveButton/>
+
+                        <h1 className="text-3xl mb-1 mt-6">Edit Questions</h1>
+                        <div className="bg-white w-full h-0.5 mb-4"/>
+
+                        <EditQuestionsList/>
+
+                        <SaveButton/>
+
+                    </div>
 
                 </div>
 
                 
-                
-                
-            <p>Quiz Being Edited: {quizId}</p>
-            <SaveButton/>
 
 
-            </PortraitMetadataMenuContext.Provider>
+
+               
+
+                
+                
+                
+            
+            </UpToDateContext.Provider>
+            </SaveStatusContext.Provider>
             </QuizContext.Provider>
         </>
     )

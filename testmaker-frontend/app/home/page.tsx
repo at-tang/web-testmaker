@@ -10,6 +10,8 @@ export default function Home() {
 
     const [sessionActive, setSessionActive] = useState(false);
 
+    
+
     useEffect(() => {
         const sessionTesting = async () => {
             const session = await getSession();

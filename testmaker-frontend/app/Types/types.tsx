@@ -15,6 +15,32 @@ export interface Quiz {
     randomQuestionOrder: boolean
 }
 
+export class QuizEdit {
+    id: string;
+    title: string;
+    description: string;
+    time: number;
+    visible: boolean;
+    questions: Array<Question>;
+    userId: string;
+    tags: Array<string>;
+    randomQuestionOrder: boolean;
+
+    public constructor() {
+        this.id =  "-1"
+        this.title =  ""
+        this.description = "Description"
+        this.time = 60
+        this.visible = false
+        this.questions = []
+        this.userId = ""
+        this.tags = []
+        this.randomQuestionOrder = false
+
+    }
+
+}
+
 export interface Question {
     answers: Array<Answer>,
     caseSensitive: boolean,
@@ -25,7 +51,6 @@ export interface Question {
     id: string,
     number: number,
     points: number,
-    title: string,
     type: string
 }
 

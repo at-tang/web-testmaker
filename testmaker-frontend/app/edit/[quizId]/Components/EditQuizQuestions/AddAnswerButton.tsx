@@ -30,14 +30,14 @@ export default function AddAnswerButton({i = 0}: {i?: number}) {
 
     }
 
-    return(
-        <>
+    if (quiz.questions[i].answers.length < 5) return(
+        <div className="flex justify-center w-full mt-2">
             <button 
             onClick={() => addAnswer()}
-            className="border-white border-2 p-1">
+            className="py-2 px-4 bg-white text-black rounded-full border-2 hover:brightness-75 hover:cursor-pointer mt-4">
                 Add Answer
             </button>
-        </>
+        </div>
     )
 
 }

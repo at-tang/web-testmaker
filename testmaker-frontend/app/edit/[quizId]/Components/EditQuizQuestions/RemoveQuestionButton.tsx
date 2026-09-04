@@ -36,8 +36,8 @@ export default function RemoveQuestionButton({i = 0}: {i?: number}) {
     return (
         <button
                 onClick={() => deleteQuestion()}
-                className="rounded-full bg-white text-black block w-8 h-8"
-        >X</button>
+                className="rounded-full bg-white text-black block p-2 hover:brightness-75 hover:cursor-pointer mb-4 mt-2"
+        >Delete Question</button>
 
     )
 

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { QuizContext } from "../../page";
 
-export default function AddQuestionButton() {
+export default function AddQuestionButton({i = 0}: {i?: number}) {
 
     const [quiz, setQuiz] = useContext(QuizContext);
 
@@ -16,7 +16,8 @@ export default function AddQuestionButton() {
             caseSensitive: false,
             answers: []
         }
-        quizCopy.questions.push(newQuestion);
+        quizCopy.questions.splice(i, 0, newQuestion);
+
         setQuiz(quizCopy);
 
     }
@@ -28,7 +29,7 @@ export default function AddQuestionButton() {
         <>
             <button 
             onClick={() => addQuestion()}
-            className="border-white border-2 p-1 w-full">
+            className="text-black bg-white rounded-full border-2 p-1 w-full my-4 hover:cursor-pointer hover:brightness-75">
                 Add Question
             </button>
 

@@ -1,5 +1,6 @@
 package aidantang.testmaker_backend.InternalClasses.Quiz;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.springframework.stereotype.Component;
@@ -11,7 +12,7 @@ import aidantang.testmaker_backend.DTOClasses.Sending.QuestionDTO;
 
 @Component
 public class QuizHelpers {
-    public String CheckQuizEditInput(UpdatingQuizDTO quiz) {
+    public boolean CheckQuizEditInput(UpdatingQuizDTO quiz) {
     /*
     A helper function that checks the given Quiz input given by the Edit function,
     and sees that all the restrictions are being upheld. 
@@ -44,55 +45,84 @@ public class QuizHelpers {
         final int TAG_SIZE = 10;
         final int QUIZ_TIME_SIZE = 120;
 
-        final int QUESTION_TITLE_SIZE = 100;
-        final int QUESTION_DESC_SIZE = 500;
-        final int QUESTION_EXPLANATION_SIZE = 500;
-
-        final int ANSWER_CONTENT_SIZE = 100;
-
         // Restrictions on Quiz Metadata
 
-        if (quiz.getTitle().length() > QUIZ_TITLE_SIZE) return "The quiz's title must be under " + QUIZ_TITLE_SIZE + " characters";
-        if (quiz.getDescription().length() > QUIZ_DESC_SIZE) return "The quiz's description must be under " + QUIZ_DESC_SIZE + " characters";
-        if (quiz.getTags().size() > TAG_SIZE) return "The quiz cannot have more than " + TAG_SIZE + " tags";
-        if (quiz.getTime() > QUIZ_TIME_SIZE) return "The quiz can only have a duration over " + QUIZ_TIME_SIZE + " minutes.";
+        if (quiz.getTitle().length() > QUIZ_TITLE_SIZE) return false;
+        if (quiz.getDescription().length() > QUIZ_DESC_SIZE) return false;
+        if (quiz.getTags().size() > TAG_SIZE) return false;
+        if (quiz.getTime() > QUIZ_TIME_SIZE) return false;
         
 
         // Invalid outputs
 
-        if (quiz.getTitle() == "") return "Quiz has no title";
-        if (quiz.getTags().size() < 1) return "Quiz requires at least one tag";
-
-
+        if (quiz.getTitle().length() < 8) return false; // Titles must have at least 8 characters
+        if (quiz.getQuestions().size() < 1) return false;
 
         for (QuestionDTO question : quiz.getQuestions()) {
 
-            int displayNumber = question.getNumber() + 1; // Number that is displayed to user
-
-            if (question.getTitle().length() >= QUESTION_TITLE_SIZE) return "Question " + displayNumber + " must have a title under " + QUESTION_TITLE_SIZE + " characters";
-            if (question.getDescription().length() >= QUESTION_DESC_SIZE) return "Question " + displayNumber + " has a description over " + QUESTION_DESC_SIZE + " characters.";
-            if (question.getExplanation().length() >= QUESTION_EXPLANATION_SIZE) return "Question " + displayNumber + " has an explanation over " + QUESTION_EXPLANATION_SIZE + " characters.";
-
-            HashSet<String> allTitles = new HashSet<String>();
-
-
-            for (AnswerDTO answer : question.getAnswers()) {
-
-                if (answer.getContent().length() >= ANSWER_CONTENT_SIZE) return "Question " + displayNumber + " contains an answer with over " + ANSWER_CONTENT_SIZE + " characters.";
-
-
-                if (answer.getContent() == "") {
-                    return "Question " + displayNumber + " contains a blank answer.";
-                }
-                if (allTitles.contains(answer.getContent())) {
-                    return "Question " + displayNumber + " contains duplicate answers.";
-                }
-                else allTitles.add(answer.getContent());
-                
-            }
+            boolean isProper = checkQuestion(question);
+            if (!isProper) return false;
         }
 
-        return "";
+        return true;
+
+
+    }
+
+
+    public boolean checkQuestion(QuestionDTO question) {
+
+        final int QUESTION_DESC_SIZE = 500;
+        final int QUESTION_EXPLANATION_SIZE = 500;
+        
+
+        if (question.getDescription().length() > QUESTION_DESC_SIZE) return false;
+
+        // A description cannot be blank
+        if (question.getDescription().length() == 0) return false;
+
+
+        if (question.getExplanation().length() > QUESTION_EXPLANATION_SIZE) return false;
+
+        // A question cannot have a point value under 1
+        if (question.getPoints() < 1) return false;
+
+        // A question cannot have a number below 0
+        if (question.getNumber() < 0) return false;
+
+        // Question must have one of the following types: MC, SI, TF
+        if (!(question.getType().equals("MC")) && !(question.getType().equals("SI")) && !(question.getType().equals("TF"))) return false;
+
+        // Questions must have at least one answer
+        if (question.getAnswers().size() == 0) return false;
+
+        int numOfCorrect = 0;
+
+
+        // Check all answers wirthin the quiz
+        for (AnswerDTO answer : question.getAnswers()) {
+            if (answer.getCorrect()) numOfCorrect++;
+
+            boolean isProper = checkAnswer(answer);
+            if (!isProper) return false;
+        }
+
+        // A question must have at least one correct answer
+        if (numOfCorrect < 1) return false;
+
+        return true;
+    }
+
+    public boolean checkAnswer(AnswerDTO answer) {
+        final int ANSWER_CONTENT_SIZE = 200;
+
+        // All answers must have text and be 1-100 characters
+        if (answer.getContent().length() < 1) return false;
+        if (answer.getContent().length() > ANSWER_CONTENT_SIZE) return false;
+
+
+        return true;
+
     }
 
 }

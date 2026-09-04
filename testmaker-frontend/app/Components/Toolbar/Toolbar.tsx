@@ -33,20 +33,41 @@ export default function Toolbar() {
             hoverText: "Search"
         },
 
-        
-
         {
             iconLink: "/time.svg",
             redirectLink: "/self/my-quizzes",
             hoverText: "History"
         },
 
+        {
+            iconLink: "/user.svg",
+            redirectLink: "/self/my-quizzes",
+            hoverText: "My Profile"
+        },
+
+        {
+            iconLink: "/exit.svg",
+            redirectLink: "/self/my-quizzes",
+            hoverText: "Logout (Currently Not Functional)"
+        }
+
 
     ]
+
+    const logoButton: Links = {
+        iconLink: "/beta_logo.svg",
+        redirectLink: "/home",
+        hoverText: "Testmaker App (BETA)"
+    }
+
+
     return (
         <>
-            <div className="h-dvh sm:w-20 min-w-16 border-x-2 border-white justify-center">
+            <div className="h-dvh sm:w-20 min-w-16 border-r-2 border-white justify-center">
 
+                <div className="mb-6"/>
+
+                <ToolbarButton info={logoButton}/>
                 <div className="mb-6"/>
 
 

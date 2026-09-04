@@ -16,7 +16,7 @@ export default function RemoveAnswerButton({i = 0, j = 0}: {i?: number, j?: numb
         <>
             <button 
             onClick={() => deleteQuestion()}
-            className="border-white p-2 border-2">
+            className="border-white rounded-full bg-white hover:brightness-75 hover:cursor-pointer text-black w-8 h-8 ml-2">
                 X
             </button>
         </>

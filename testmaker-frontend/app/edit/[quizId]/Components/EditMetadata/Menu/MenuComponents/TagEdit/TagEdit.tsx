@@ -12,14 +12,19 @@ export default function TagEdit() {
     const [quiz, setQuiz] = useContext(QuizContext)
 
     return(
-        <>
-        <div className="border-2 p-2 h-32 gap-1 overflow-y-scroll grid grid-cols-3">
-            {quiz.tags.map((tag, i) => {
-            return (<Tag key={i} i={i}/>)
+        <div className="w-full overflow-x-scroll scrollbar-none">
+            <div className="w-full flex items-center justify-center">
 
-        })}
+                <div className=" p-2 h-12 sm:w-md w-96 overflow-x-scroll flex scrollbar-none">
+                    {quiz.tags.map((tag, i) => {
+                    return (<Tag key={i} i={i}/>)
+
+                })}
+            </div>
+
         </div>
-            <AddTag/>
-        </>
+
+        <AddTag/>
+        </div>
     )
 }

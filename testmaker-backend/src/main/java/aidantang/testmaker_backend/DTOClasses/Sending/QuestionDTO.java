@@ -14,7 +14,6 @@ public class QuestionDTO {
 
     private String id;
     private int number;
-    private String title;
     private String description;
     private String type;
     private String hint;
@@ -29,7 +28,6 @@ public class QuestionDTO {
     public QuestionDTO(Question question) {
         this.id = question.getId();
         this.number = question.getNumber();
-        this.title = question.getTitle();
         this.description = question.getDescription();
         this.type = question.getType();
         this.hint = question.getHint();

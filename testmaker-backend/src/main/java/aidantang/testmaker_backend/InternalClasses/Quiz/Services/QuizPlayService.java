@@ -36,7 +36,7 @@ public class QuizPlayService {
     @Transactional
     public ResponseEntity<QuizDTO> loadQuizPublic(String quizId) {
         /*
-        Load a quiz for the user to play. A publix version
+        Load a quiz for the user to play. A public version
         that allows users not signed in to play.
 
         As such, only public quizzes can be retrieved

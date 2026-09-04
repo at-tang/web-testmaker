@@ -21,7 +21,7 @@ export default function Tag({i = 0}: {i?: number}){
 
     }
     return (
-        <div className="rounded-full bg-white text-black p-2 flex justify-center items-center w-max">
+        <div className="rounded-full bg-white text-black py-2 flex justify-center items-center px-4 mr-2">
             <p>{quiz.tags[i]}</p>
 
             <button 

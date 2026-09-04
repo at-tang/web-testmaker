@@ -18,7 +18,7 @@ export default function EditQuestion({i = 0}: {i?: number}) {
 
     const borderRef = useRef(null);
 
-    const titleRef = useRef(null);
+
     const numberRef = useRef(null);
     const pointsRef = useRef(null);
     const typeRef = useRef(null);
@@ -47,6 +47,9 @@ export default function EditQuestion({i = 0}: {i?: number}) {
 
     const handleBackgroundClick = (e) => {
         // Handles the swap functionality
+        // Upon clicking once on a question, you select said question to be moved
+        // Upon clicking another question (or the same one), the indexes of both questions are swapped
+
         if (e.target === e.currentTarget) {
             console.log("Clicked!")
             console.log(swapIndexes)
@@ -57,8 +60,7 @@ export default function EditQuestion({i = 0}: {i?: number}) {
             }
             else {
 
-                // If the two indexes are equivalent, then simply return
-                if (i == swapIndexes[0]) return;
+
 
                 let quizCopy = {...quiz}
                 let swap1 = {...quiz.questions[swapIndexes[0]], number: i}
@@ -79,8 +81,10 @@ export default function EditQuestion({i = 0}: {i?: number}) {
     // Updating The Quiz Based on Parameters
 
     const updateQuiz = () => {
+        if (pointsRef.current.value < 1) {
+            pointsRef.current.value = 1;
+        }
         let newQuestion = {
-            title: titleRef.current.value,
             description: descriptionRef.current.value,
             type: typeRef.current.value,
             
@@ -131,7 +135,6 @@ export default function EditQuestion({i = 0}: {i?: number}) {
 
 
         const newQuestion = {
-            title: titleRef.current.value,
             description: descriptionRef.current.value,
             type: typeRef.current.value,
             
@@ -158,63 +161,66 @@ export default function EditQuestion({i = 0}: {i?: number}) {
     // <input value={quiz.questions[index].description} ref={descriptionRef} className="bg-white text-black border-4 p-1"></input>
     return ( 
         <>
-            <div className={variableBorder + " p-4 border-2 rounded-xl"}
+            <div className={variableBorder + " p-4 border-2 rounded-xl mb-4 hover:cursor-pointer"}
             ref={borderRef}
             onClick={(e) => {handleBackgroundClick(e)}}>
 
-                <p>Question {i + 1}</p>
-
                 <RemoveQuestionButton i={i}/>
 
+                <h1 className="text-4xl mb-2 w-max">Question {i + 1}</h1>
                 
 
                 <select
                 ref={typeRef}
                 onChange={() => updateQuizType()}
                 value={question.type}
+                className="text-xl mb-4 w-max"
                 >
                     <option value="MC">Multiple Choice</option>
                     <option value="TF">True/False</option>
                     <option value="SI">Short Input</option>
                 </select>
 
-                <input 
-                ref={titleRef}
-                value={question.title}
-                placeholder = "Enter title" 
-                onChange={() => updateQuiz()}
-                className="bg-white text-black border-2 w-full h-full" >
-                </input>
 
+                <p>Description: </p>
                 <textarea
                 ref={descriptionRef}
                 value={question.description}
-                className="bg-white text-black w-full"
+                maxLength={300}
+                className="bg-white text-black w-full mb-4 resize-none h-20"
                 onChange={() => updateQuiz()}
                 ></textarea>
 
-                <div className="flex">
+
+                <div className="flex mb-4">
                     <p>Points: </p>
 
                     <input type="number"
                     ref={pointsRef}
                     value={question.points}
                     onChange={() => updateQuiz()}
+                    min={1}
                     className="text-right border-2 px-2 border-white ml-4 w-16"
                     ></input>
 
                 </div>
 
+                <p>Explanation: (Any justification for the correct answer(s)) </p>
                 <textarea 
                 ref={explanationRef}
                 value={question.explanation}
-                placeholder = "Enter explanation" 
+                placeholder = "[OPTIONAL] Enter your explanation here. (300 Characters)" 
+                maxLength={300}
                 onChange={() => updateQuiz()}
-                className="bg-white text-black border-2 w-full h-full" >
+                className="bg-white text-black border-2 w-full h-20 resize-none" >
                 </textarea>
 
+                <hr className="my-4"/>
 
-                {question.type == "SI" && <div>
+                <p className="text-xl">Answers</p>
+
+
+                {question.type == "SI" && <div className="flex items-center mb-4">
                     Case-Sensitive:
                     <input ref={caseSensitiveRef}
                     type="checkbox"
@@ -225,6 +231,7 @@ export default function EditQuestion({i = 0}: {i?: number}) {
                         quizCopy.questions[i].caseSensitive = caseSensitiveRef.current.checked
                         setQuiz(quizCopy)
                     })}
+                    className="ml-3"
                     ></input>
                 </div>}
 

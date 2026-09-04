@@ -10,7 +10,7 @@ export default function TagList() {
     const [quiz, setQuiz] = useContext(QuizContext);
 
     return (
-        <div className="flex">
+        <div className="flex mb-4">
         <div className="h-full flex items-center justify-center mr-2">
                 Tags:
         </div>

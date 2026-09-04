@@ -1,13 +1,17 @@
-import { useContext } from "react";
-import { QuizContext } from "../../page";
+import { useContext, useState } from "react";
+import { QuizContext, SaveStatusContext } from "../../page";
 import { getSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import SaveLoadingScreen from "./SaveLoadingScreen";
 
 export default function SaveButton() {
     const [quiz, setQuiz] = useContext(QuizContext)
+    const [saveStatus, setSaveStatus] = useContext(SaveStatusContext);
+    
 
     const saveToDB = async () => {
         console.log(quiz)
+        setSaveStatus(true)
         try {
             let inputJSON = JSON.stringify(quiz)
             console.log(inputJSON);
@@ -28,7 +32,9 @@ export default function SaveButton() {
             
             if (!response.ok) {throw new Error (response.status) }
 
-            redirect('/home')
+            setSaveStatus(false)
+
+           
         } catch (error) {
             console.error(error);
         }
@@ -40,9 +46,13 @@ export default function SaveButton() {
 
     return (
         <>
+            <SaveLoadingScreen/>
             <button onClick={() => {saveToDB()}}
-                className="border-white border-2 p-1 w-full">
-                Save
+            disabled={saveStatus}
+
+                       className="text-black bg-white rounded-full border-2 p-1 w-full hover:cursor-pointer hover:brightness-75">
+
+            {saveStatus ? "Saving..." : "Save Quiz"}
             </button>
         </>
     )
