@@ -1,4 +1,4 @@
-package aidantang.testmaker_backend.InternalClasses.Quiz;
+package aidantang.testmaker_backend.InternalClasses.Quiz.Services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import aidantang.testmaker_backend.DTOClasses.Sending.DisplayQuizDTO;
 import aidantang.testmaker_backend.InternalClasses.Like.LikeRepository;
+import aidantang.testmaker_backend.InternalClasses.Quiz.Quiz;
+import aidantang.testmaker_backend.InternalClasses.Quiz.QuizRepository;
 import aidantang.testmaker_backend.InternalClasses.User.User;
 import aidantang.testmaker_backend.InternalClasses.User.UserRepository;
 

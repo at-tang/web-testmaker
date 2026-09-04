@@ -8,6 +8,11 @@ import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.CreateQuiz.N
 import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.EditQuiz.UpdatingQuizDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.DisplayQuizDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.QuizDTO;
+import aidantang.testmaker_backend.InternalClasses.Quiz.Services.QuizEditingService;
+import aidantang.testmaker_backend.InternalClasses.Quiz.Services.QuizListService;
+import aidantang.testmaker_backend.InternalClasses.Quiz.Services.QuizPlayService;
+import aidantang.testmaker_backend.InternalClasses.Quiz.Services.QuizService;
+import aidantang.testmaker_backend.InternalClasses.Quiz.Services.QuizViewService;
 
 import java.util.List;
 
@@ -27,54 +32,68 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/api/private/quiz")
 public class PrivateQuizController {
 
+    private final QuizEditingService quizEditingService;
     private final QuizService quizService;
     private final QuizListService quizListService;
+    private final QuizPlayService quizPlayService;
+    private final QuizViewService quizViewService;
 
     
-    public PrivateQuizController(QuizService quizService, QuizListService quizListService) {
+    public PrivateQuizController(QuizService quizService, 
+                                 QuizEditingService quizEditingService,
+                                 QuizListService quizListService,
+                                 QuizPlayService quizPlayService,
+                                 QuizViewService quizViewService) {
         this.quizService = quizService;
+        this.quizEditingService = quizEditingService;
         this.quizListService = quizListService;
+        this.quizPlayService = quizPlayService;
+        this.quizViewService = quizViewService;
 
     }
 
-    /* 
-
-    @GetMapping("/get/list/self")
-    public ResponseEntity<List<DisplayQuizDTO>> getQuizListBySelf(Authentication auth) {
-        return quizService.getQuizListBySelf(auth);
-    }
-
-    */
+    // Editing Quizzes :=====================================================
 
     @GetMapping("/edit/{quizId}")
-    public ResponseEntity<UpdatingQuizDTO> editQuiz(Authentication auth, @PathVariable("quizId") String quizId) {
-        return quizService.editQuiz(auth, quizId);
+    public ResponseEntity<UpdatingQuizDTO> retrieveQuizToEdit(Authentication auth, @PathVariable("quizId") String quizId) {
+        return quizEditingService.retrieveQuizToEdit(auth, quizId);
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<QuizDTO> updateQuiz(Authentication auth, @RequestBody UpdatingQuizDTO quizDTO) {
+        return quizEditingService.updateQuiz(auth, quizDTO);
+    }
+
+
+    // Playing Quizzes :=====================================================
 
     @GetMapping("/get/play/{quizId}")
     public ResponseEntity<QuizDTO> loadQuizPrivate(Authentication auth, @PathVariable("quizId") String quizId) {
-        return quizService.loadQuizPrivate(quizId, auth);
+        return quizPlayService.loadQuizPrivate(quizId, auth);
     }
+
+    // Viewing a Quiz Metadata :============================================================
 
     @GetMapping("/get/view/single/{quizId}")
-    public ResponseEntity<DisplayQuizDTO> getQuizPrivate(Authentication auth, @PathVariable("quizId") String quizId) {
-        return quizService.getQuizPrivate(auth, quizId);
+    public ResponseEntity<DisplayQuizDTO> getQuizMetadataPrivate(Authentication auth, @PathVariable("quizId") String quizId) {
+        return quizViewService.getQuizMetadataPrivate(auth, quizId);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<QuizDTO> createQuiz(Authentication auth, @RequestBody NewQuizDTO newQuizDTO) {
-        return quizService.createQuiz(auth, newQuizDTO);
-        
-    }
+    
+    // Retrieving Quiz Lists :=====================================================
 
     @GetMapping("/get/view/list/myquizzes")
     public ResponseEntity<List<DisplayQuizDTO>> getUserOwnQuizListByLastUpdated(Authentication auth) {
         return quizListService.getUserOwnQuizListByLastUpdated(auth);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<QuizDTO> updateQuiz(Authentication auth, @RequestBody UpdatingQuizDTO quizDTO) {
-        return quizService.updateQuiz(auth, quizDTO);
+
+    // Miscellaneous :=====================================================
+
+    @PostMapping("/create")
+    public ResponseEntity<QuizDTO> createQuiz(Authentication auth, @RequestBody NewQuizDTO newQuizDTO) {
+        return quizService.createQuiz(auth, newQuizDTO);
+        
     }
 
     @DeleteMapping("/delete/{quizId}")
