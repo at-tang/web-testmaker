@@ -15,10 +15,17 @@ export interface Links {
 export default function Toolbar() {
 
     const links: Array<Links> = [
+
         {
-            iconLink: "/home.svg",
-            redirectLink: "/home",
-            hoverText: "Home"
+            iconLink: "/magnifyingGlass.svg",
+            redirectLink: "/self/my-quizzes",
+            hoverText: "Search"
+        },
+
+        {
+            iconLink: "/add.svg",
+            redirectLink: "/edit/newquiz",
+            hoverText: "Create New Quiz"
         },
 
         {
@@ -27,11 +34,7 @@ export default function Toolbar() {
             hoverText: "My Quizzes"
         },
 
-        {
-            iconLink: "/magnifyingGlass.svg",
-            redirectLink: "/self/my-quizzes",
-            hoverText: "Search"
-        },
+        
 
         {
             iconLink: "/time.svg",

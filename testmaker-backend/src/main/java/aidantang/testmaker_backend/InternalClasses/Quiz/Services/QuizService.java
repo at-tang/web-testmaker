@@ -22,6 +22,7 @@ import aidantang.testmaker_backend.DTOClasses.Sending.AnswerDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.DisplayQuizDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.QuestionDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.QuizDTO;
+import aidantang.testmaker_backend.DTOClasses.Sending.JSON.QuizIdDTO;
 import aidantang.testmaker_backend.InternalClasses.Question.Question;
 import aidantang.testmaker_backend.InternalClasses.Quiz.Quiz;
 import aidantang.testmaker_backend.InternalClasses.Quiz.QuizHelpers;
@@ -70,6 +71,16 @@ public class QuizService {
 
         return ResponseEntity.status(201).body(result);
 
+    }
+
+    @Transactional 
+    public ResponseEntity<QuizIdDTO> createBlankQuiz(Authentication auth) {
+        User user = userRepository.findByEmail(auth.getName());
+        if (user == null) return ResponseEntity.notFound().build();
+
+        Quiz newQuiz = new Quiz();
+        Quiz resultQuiz = quizRepository.save(newQuiz);
+        return ResponseEntity.ok(new QuizIdDTO(resultQuiz.getId()));
     }
 
 

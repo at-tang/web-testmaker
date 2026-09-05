@@ -43,6 +43,9 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
     useEffect(() => {
         const loadSession = async () => {
             const session = await getSession();
+            if (!session) {
+                router.replace("/login")
+            }
 
             /*
             const expireDate = new Date(session?.expires).getTime();
@@ -53,6 +56,11 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
             */
 
             console.log(session);
+
+            if (quizId == "newquiz") { // If the url states to create a new quiz
+                return; // Then use the default state given to quiz as a template for a quiz
+
+            }
 
 
             try {
@@ -123,16 +131,7 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
                     </div>
 
                 </div>
-
-                
-
-
-
-               
-
-                
-                
-                
+                           
             
             </UpToDateContext.Provider>
             </SaveStatusContext.Provider>

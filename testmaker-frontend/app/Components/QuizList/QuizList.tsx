@@ -4,7 +4,8 @@ import Quiz from "./Quiz";
 export default function QuizList({quizList = []}: {quizList: Array<DisplayQuiz>}) {
 
     if (quizList != null) return (
-        <div className="bg-green-700 w-full h-full overflow-y-scroll ">
+
+        <div className=" w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-white grid grid-cols-[repeat(auto-fit,minmax(18rem,18rem))] justify-center gap-4 p-4">
         {quizList.map((quiz, index) => {
             return (
 
@@ -14,6 +15,7 @@ export default function QuizList({quizList = []}: {quizList: Array<DisplayQuiz>}
             )
         })}
         </div>
+
     )
 
     return (

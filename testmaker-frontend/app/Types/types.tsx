@@ -27,9 +27,9 @@ export class QuizEdit {
     randomQuestionOrder: boolean;
 
     public constructor() {
-        this.id =  "-1"
+        this.id =  "newquiz"
         this.title =  ""
-        this.description = "Description"
+        this.description = ""
         this.time = 60
         this.visible = false
         this.questions = []
@@ -79,7 +79,9 @@ export interface DisplayQuiz {
     totalUsersRated: number,
     userId: string,
     userLiked: boolean,
-    visible: boolean
+    visible: boolean,
+    dateCreated: number,
+    dateUpdated: number
 
     
 }

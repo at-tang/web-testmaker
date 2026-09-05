@@ -8,6 +8,7 @@ import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.CreateQuiz.N
 import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.EditQuiz.UpdatingQuizDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.DisplayQuizDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.QuizDTO;
+import aidantang.testmaker_backend.DTOClasses.Sending.JSON.QuizIdDTO;
 import aidantang.testmaker_backend.InternalClasses.Quiz.Services.QuizEditingService;
 import aidantang.testmaker_backend.InternalClasses.Quiz.Services.QuizListService;
 import aidantang.testmaker_backend.InternalClasses.Quiz.Services.QuizPlayService;
@@ -93,8 +94,8 @@ public class PrivateQuizController {
     // Miscellaneous :=====================================================
 
     @PostMapping("/create")
-    public ResponseEntity<QuizDTO> createQuiz(Authentication auth, @RequestBody NewQuizDTO newQuizDTO) {
-        return quizService.createQuiz(auth, newQuizDTO);
+    public ResponseEntity<QuizIdDTO> createBlankQuiz(Authentication auth) {
+        return quizService.createBlankQuiz(auth);
         
     }
 

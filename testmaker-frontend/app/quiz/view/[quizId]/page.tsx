@@ -8,6 +8,8 @@ import LikeButton from "./Components/LikeButton";
 import TagList from "./Components/TagList";
 import Link from "next/link";
 import { ErrorReroute } from "@/app/api/ErrorPageRereouting/ErrorRerouting";
+import BackButton from "@/app/Components/RouterButtons/BackButton";
+import LikeButtonGrid from "@/app/Components/QuizList/LikeButton";
 
 export const QuizContext = createContext<DisplayQuiz>();
 
@@ -24,14 +26,6 @@ export default function ViewQuiz({params}: {params: Promise<{quizId: string}>}) 
         const session = getSession();
         if (!session) return;
 
-        // To save on API calls, the page will save the data of the current quiz
-        // being viewed in case the user reloads the page
-        let saved = sessionStorage.getItem(`view${quizId}`);
-        if (saved != null) {
-            let savedJSON = JSON.parse(saved);
-            setQuiz(savedJSON);
-            return
-        }
 
         
         if (session) {
@@ -77,20 +71,16 @@ export default function ViewQuiz({params}: {params: Promise<{quizId: string}>}) 
         }
 
     }, [])
-
-    useEffect(() => {
-        if (quiz != null) sessionStorage.setItem(`view${quiz.id}`, JSON.stringify(quiz))
-            console.log(quiz)
-    }, [quiz])
         
 
     if (quiz !== null) return (
         <>
         <QuizContext.Provider value={[quiz, setQuiz]}>
 
-        <div className="p-4">
+        <div className="p-4 w-full">
 
-            <Link href={`/home`}> <button className="">Go Back</button></Link>
+            <BackButton/>
+            <div className="mb-4"/>
 
             <h1 className="text-4xl">{quiz.title}</h1>
             <p className="mb-3">By: {quiz.ownerName}</p>
@@ -98,17 +88,29 @@ export default function ViewQuiz({params}: {params: Promise<{quizId: string}>}) 
             
 
             
-            <hr className="mb-2"/>
+            <div className="w-full h-0.5 bg-white my-4"/>
 
             <p className="mb-8">{quiz.questionCount} Questions | {quiz.totalPoints} Points Availible | {quiz.time} minutes</p>
 
-            <p>{quiz.description}</p>
+            <p className="mb-4">{quiz.description}</p>
 
-            <LikeButton/>
+            <p> Created: {new Date(quiz.dateCreated * 1000).toDateString()}</p>
+            <p>Last Updated: {new Date(quiz.dateUpdated * 1000).toDateString()}</p>
+
+            <div className="w-full h-0.5 bg-white my-4"/>
+
+            <menu className="mb-4">
+                <LikeButtonGrid quiz={quiz}/>
+
+            </menu>
+
+            
 
             <Link href={`/play/${quiz.id}`}>
-            <button className="rounded-full bg-white text-black py-1 px-4 hover:brightness-75 hover:cursor-pointer">Play</button>
+            <button className="rounded-full bg-white text-black py-1 px-4 hover:brightness-75 hover:cursor-pointer w-full">Play</button>
             </Link>
+
+            
         </div>
 
         </QuizContext.Provider>

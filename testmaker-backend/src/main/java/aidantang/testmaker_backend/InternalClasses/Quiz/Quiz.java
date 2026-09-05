@@ -34,10 +34,10 @@ public class Quiz {
     private Boolean visible = false;
 
     @Column(name="title")
-    private String title;
+    private String title = "";
 
     @Column(name="description", length=300)
-    private String description;
+    private String description = "";
 
     @Column(name="tags")
     private List<String> tags = new ArrayList<String>();
@@ -76,7 +76,7 @@ public class Quiz {
     // Correct answers for a question are stored in the format "correctAnswer1|correctAnswer2" (e.g. "Paris|Marseilles", "true")
 
     @Column(name="totalPoints")
-    private int totalPoints;
+    private int totalPoints = 0;
 
     @Column(name="totalQuestions")
     private int totalQuestions = 0;
@@ -100,6 +100,11 @@ public class Quiz {
         this.dateCreated = (int) Instant.now().getEpochSecond();
         this.dateUpdated = (int) Instant.now().getEpochSecond();
         
+    }
+
+    public Quiz(User user) {
+        this.user = user;
+
     }
 
 

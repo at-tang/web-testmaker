@@ -86,14 +86,27 @@ public class QuizEditingService {
 
         // Find corresponding user
         User user = userRepository.findByEmail(auth.getName());
+        Optional<Quiz> quiz = null;
 
-        // Check that the quiz in question exists
-        Optional<Quiz> quiz = quizRepository.findById(quizDTO.getId());
-        if (quiz.isEmpty()) return ResponseEntity.notFound().build();
+        if (quizDTO.getId().equals("newquiz")) {
+            Quiz newQuiz = new Quiz(user);
+            newQuiz.setUser(user);
+
+            Quiz savedNewQuiz = quizRepository.save(newQuiz);
+            quiz = quizRepository.findById(savedNewQuiz.getId()); // Extract id
+        }
+        else { // Updating quiz
+
+            // Check that the quiz in question exists
+            quiz = quizRepository.findById(quizDTO.getId());
+            if (quiz.isEmpty()) return ResponseEntity.notFound().build();
+
+        }
+
+        
 
         // Compare IDs by value and verify the quiz belongs to the authenticated user.
-        if (!Objects.equals(user.getId(), quizDTO.getUserId())
-            || !Objects.equals(user.getId(), quiz.get().getUser().getId())) {
+        if (!Objects.equals(user.getId(), quiz.get().getUser().getId())) {
             return ResponseEntity.status(401).build();
         }
 
@@ -135,6 +148,8 @@ public class QuizEditingService {
 
             quiz.get().getQuestions().add(new Question(questionDTO, quiz.get()));
         }
+
+        quiz.get().setTitle(quizDTO.getTitle());
 
         quiz.get().setDescription(quizDTO.getDescription());
         quiz.get().setTags(quizDTO.getTags());

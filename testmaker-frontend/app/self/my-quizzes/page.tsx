@@ -5,6 +5,8 @@ import SigninButton from "@/app/login/SignInButton";
 import { DisplayQuiz } from "@/app/Types/types";
 import { getSession } from "next-auth/react"
 import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function MyQuizzesPage() {
     const [sessionActive, setSessionActive] = useState(false)
@@ -61,10 +63,37 @@ export default function MyQuizzesPage() {
     )
 
     return (
-        <div>
-            <h1>My Quizzes</h1>
-            <hr/>
-            <QuizList quizList={quizzes}/>
+        <div className="h-full flex flex-col">
+
+            <header className="flex-none px-4 pt-4">
+                <h1 className="text-5xl mb-2 pt-2 text-center">My Quizzes</h1>
+                 <div className="h-0.5 w-full bg-white"/>
+
+            </header>
+
+            <menu className="h-20 w-full flex-none flex items-center justify-center">
+                <Link href="/edit/newquiz">
+                <button className="border-2 border-white p-2 rounded-2xl w-64 flex items-center justify-center
+                transition ease-in-out hover:scale-105 hover:cursor-pointer">
+                    
+                    <Image className="w-5 mr-3" src="/add.svg" width={4} height={4} alt=""/>
+                    <p className="text-lg">Create New Quiz</p>
+                
+                </button>
+                </Link>
+
+            </menu>
+
+            <main className="w-full min-h-32 flex-1">
+                <QuizList quizList={quizzes}/>
+
+            </main>
+
+            
+            
+           
+
+            
             
         </div>
     )
