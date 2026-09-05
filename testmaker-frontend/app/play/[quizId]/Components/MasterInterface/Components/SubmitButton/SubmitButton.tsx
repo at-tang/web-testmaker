@@ -51,7 +51,7 @@ export default function SubmitButton() {
             // Pushed to session storage to minimize the number of api calls
             sessionStorage.setItem(`resultView${result.id}`, JSON.stringify(result));
 
-            router.push(`/result/${result.id}`);
+            router.replace(`/result/${result.id}`);
 
         } catch (error) {
             console.error(error)

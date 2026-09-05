@@ -8,7 +8,7 @@ import LikeButton from "./Components/LikeButton";
 import TagList from "./Components/TagList";
 import Link from "next/link";
 import { ErrorReroute } from "@/app/api/ErrorPageRereouting/ErrorRerouting";
-import BackButton from "@/app/Components/RouterButtons/BackButton";
+import BackButton from "@/app/Components/Buttons/BackButton";
 import LikeButtonGrid from "@/app/Components/QuizList/LikeButton";
 
 export const QuizContext = createContext<DisplayQuiz>();

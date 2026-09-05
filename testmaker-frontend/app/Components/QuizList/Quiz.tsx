@@ -3,8 +3,12 @@ import { DisplayQuiz } from "@/app/Types/types";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { GlobalStateContext, useGlobalState } from "../Global/GlobalContext";
+import { useContext } from "react";
 
 export default function Quiz({quiz}: {quiz: DisplayQuiz}) {
+
+    const {openPopup} = useContext(GlobalStateContext)
 
     const handleNonButtonClick = (e) => {
         /*
@@ -77,12 +81,12 @@ export default function Quiz({quiz}: {quiz: DisplayQuiz}) {
                         </button>
                     </Link>
 
-                    <Link href={`/edit/${quiz.id}`} className=" hover:cursor-pointer hover:scale-105 transition ease-in-out">
-                        <button className="rounded-full border-2 border-white w-9 h-9 flex items-center justify-center">
+
+                    <button onClick={() => {openPopup()}}className="rounded-full border-2 border-white w-9 h-9 flex items-center justify-center">
                             <Image className="w-5" src="/bin.svg" width={1} height={1} alt="Play">
                             </Image>
-                        </button>
-                    </Link>
+                    </button>
+
                     </>
 
                     }

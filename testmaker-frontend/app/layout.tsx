@@ -5,6 +5,8 @@ import { Geist, Geist_Mono, DM_Sans } from "next/font/google";
 import "./globals.css";
 import MenuButton from "./Components/Menu/MenuButton";
 import Toolbar from "./Components/Toolbar/Toolbar";
+import { GlobalStateProvider } from "./Components/Global/GlobalContext";
+import Popup from "./Components/Popup/Popup";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +38,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col font-dm-sans">
 
+        <GlobalStateProvider>
+        
+        <Popup/>
+
         <div className="flex justify-center">
           <Toolbar/>
 
@@ -44,6 +50,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </div>
 
         </div>
+
+        </GlobalStateProvider>
 
 
         </body>

@@ -4,6 +4,7 @@ import magnifyingGlass from "../../../public/magnifyingGlass.svg"
 import pencil from "../../../public/pencil.svg"
 import time from "../../../public/time.svg"
 import ToolbarButton from "./ToolbarButton"
+import Popup from "../Popup/Popup"
 
 export interface Links {
     iconLink: string,
@@ -32,13 +33,11 @@ export default function Toolbar() {
             iconLink: "/pencil.svg",
             redirectLink: "/self/my-quizzes",
             hoverText: "My Quizzes"
-        },
-
-        
+        },    
 
         {
             iconLink: "/time.svg",
-            redirectLink: "/self/my-quizzes",
+            redirectLink: "/self/history",
             hoverText: "History"
         },
 
@@ -83,15 +82,11 @@ export default function Toolbar() {
 
                     )
                 })}
-
-
-
-                
-
-
         
 
             </div>
+
+            <Popup/>
         </>
     )
 }

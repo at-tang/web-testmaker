@@ -89,20 +89,23 @@ public class QuizService {
         User user = userRepository.findByEmail(auth.getName());
 
         // If no user is found, then it is a bad request
-        if (user == null) return ResponseEntity.badRequest().build();
+        if (user == null) return ResponseEntity.notFound().build();
+        if (quizId.equals("")) return ResponseEntity.badRequest().build();
 
-        for (int i = 0; i < user.getQuizzes().size(); i++) {
-            if (user.getQuizzes().get(i).getId() == quizId) {
-                user.getQuizzes().remove(i);
-                userRepository.save(user);
-                return ResponseEntity.status(200).build();
-            }
+        // Check that the quiz actually exists
+        Optional<Quiz> quiz = quizRepository.findById(quizId);
+        if (quiz.isEmpty()) return ResponseEntity.notFound().build();
+
+        // Check that the user actually owns the quiz they're trying to delete
+        if (quiz.get().getUser() != user) {
+            return ResponseEntity.status(401).build();
+        } else {
+            quizRepository.deleteById(quizId);
+            return ResponseEntity.ok().build();
+            
         }
 
-
-        // If the quiz is not in the user's list of quizzes, return
-        // a not found error
-        return ResponseEntity.notFound().build();
+        
     }
 
 

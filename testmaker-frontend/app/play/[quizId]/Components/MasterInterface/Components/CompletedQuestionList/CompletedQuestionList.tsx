@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CurrentQuestionIndexContext, GivenAnswersContext } from "../../../page";
+import { CurrentQuestionIndexContext, GivenAnswersContext } from "../../../../page";
 
 export default function CompletedQuestionList() {
     /*

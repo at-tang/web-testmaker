@@ -85,3 +85,19 @@ export interface DisplayQuiz {
 
     
 }
+
+export interface QuizResultListEntry {
+    id: string,
+    quizId: string,
+    title: string,
+    pointsObtained: number,
+    pointsTotal: number,
+    userId: string,
+    dateAttempted: string
+
+}
+
+export interface QuizResultList {
+    numberOfEntries: number,
+    entries: Array<QuizResultListEntry>
+}

@@ -1,6 +1,7 @@
 "use client"
 
 import { ErrorReroute } from "@/app/api/ErrorPageRereouting/ErrorRerouting";
+import BackButton from "@/app/Components/Buttons/BackButton";
 import { getSession } from "next-auth/react"
 import Link from "next/link";
 import { redirect, useParams } from "next/navigation";
@@ -97,14 +98,14 @@ export default function Result({params}: {params: Promise<{quizId: string}>}) {
     if (result != null) return (
         <>
 
-            <Link href={`/quiz/view/${result.quizId}`}  className="text-3xl">{result.title}</Link>
+            <BackButton/>
+
+            <Link href={`/quiz/view/${result.quizId}`}  className="text-3xl font-bold underline hover:brightness-75">{result.title}</Link>
 
             <p>Your Score: {result.pointsObtained} / {result.pointsTotal}</p>
             <p>Attempted on {new Date(result.dateAttempted).toString()}</p>
 
-            <Link href="/home">
-            <button className="border-2 border-white p-2">Go Home</button>
-            </Link>
+
 
 
             <hr></hr>
@@ -146,9 +147,6 @@ export default function Result({params}: {params: Promise<{quizId: string}>}) {
                 })
             }
 
-            <Link href="/home">
-            <button className="border-2 border-white p-2">Go Home</button>
-            </Link>
 
         </>
     )

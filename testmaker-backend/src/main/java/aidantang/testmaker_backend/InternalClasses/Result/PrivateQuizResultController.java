@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.EvaluateQuiz.EvaluateQuizDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.QuizResultDTO;
+import aidantang.testmaker_backend.DTOClasses.Sending.QuizResultList.QuizResultList;
+import aidantang.testmaker_backend.DTOClasses.Sending.QuizResultList.QuizResultListEntryDTO;
 
 import java.util.List;
 
@@ -37,6 +39,14 @@ public class PrivateQuizResultController {
     public ResponseEntity<QuizResultDTO> getQuizResult(Authentication auth, @PathVariable("quizId") String quizId) {
         return quizResultService.getQuizResult(auth, quizId);
     }
+
+    @GetMapping("/get/list/general/{page}/{entriesPerPage}")
+    public ResponseEntity<QuizResultList> getUserQuizResultHistoryByPage(Authentication auth, @PathVariable("page") int pageRequested, @PathVariable("entriesPerPage") int entriesPerPage) {
+        return quizResultService.getUserQuizResultHistoryByPage(auth, pageRequested, entriesPerPage);
+
+    }
+
+
 
     
     

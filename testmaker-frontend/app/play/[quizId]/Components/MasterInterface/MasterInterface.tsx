@@ -1,4 +1,4 @@
-import CompletedQuestionList from "./CompletedQuestionList/CompletedQuestionList";
+import CompletedQuestionList from "./Components/CompletedQuestionList/CompletedQuestionList";
 import MoveButtons from "./Components/MoveButtons/MoveButtons";
 import QuestionDisplay from "./Components/Question/QuestionDisplay";
 import SubmitButton from "./Components/SubmitButton/SubmitButton";

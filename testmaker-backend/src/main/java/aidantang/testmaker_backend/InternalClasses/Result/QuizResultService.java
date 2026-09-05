@@ -15,6 +15,8 @@ import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.EvaluateQuiz
 import aidantang.testmaker_backend.DTOClasses.Sending.QuestionDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.QuizDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.QuizResultDTO;
+import aidantang.testmaker_backend.DTOClasses.Sending.QuizResultList.QuizResultList;
+import aidantang.testmaker_backend.DTOClasses.Sending.QuizResultList.QuizResultListEntryDTO;
 import aidantang.testmaker_backend.InternalClasses.Quiz.Quiz;
 import aidantang.testmaker_backend.InternalClasses.Quiz.QuizRepository;
 import aidantang.testmaker_backend.InternalClasses.User.User;
@@ -170,6 +172,25 @@ public class QuizResultService {
 
         QuizResultDTO result = new QuizResultDTO(quizResult.get());
         return ResponseEntity.ok().body(result);
+    }
+
+    public ResponseEntity<QuizResultList> getUserQuizResultHistoryByPage(Authentication auth,
+            int pageRequested, int entriesPerPage) {
+
+                User user = userRepository.findByEmail(auth.getName());
+                if (user == null) return ResponseEntity.notFound().build();
+
+                List<QuizResult> entries = quizResultRepository.getUserQuizResultHistoryByPage(user.getId(), entriesPerPage, entriesPerPage * Math.max(0, pageRequested - 1));
+                List<QuizResultListEntryDTO> result = new ArrayList<>();
+
+                int howManyFit = quizResultRepository.countAllResultsByUserId(user.getId());
+
+                for (QuizResult q : entries) {
+                    result.add(new QuizResultListEntryDTO(q));
+                }
+
+                return ResponseEntity.ok(new QuizResultList(howManyFit, result));
+
     }
 
 
