@@ -26,7 +26,7 @@ export default function EditQuestionsList() {
                     
                     <div key={i} className="mb-4">
                         <EditQuestion i={i}/>
-                        <AddQuestionButton i={i}/>
+                        <AddQuestionButton i={Math.max(0, i + 1)}/>
                     </div>
                     
                 ))}

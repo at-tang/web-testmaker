@@ -87,8 +87,7 @@ export default function QuizResultListMaster(
         <div className="w-full">
             <CurrentPageContext.Provider value={{currentPage, setCurrentPage, maxPages, setMaxPages}}>
                 <header>
-                    <h1>Current Page: {currentPage}</h1>
-                    <h1>Max Pages: {maxPages}</h1>
+
                     
                     
 
