@@ -15,7 +15,7 @@ export default function TagEdit() {
         <div className="w-full overflow-x-scroll scrollbar-none">
             <div className="w-full flex items-center justify-center">
 
-                <div className=" p-2 h-12 sm:w-md w-96 overflow-x-scroll flex scrollbar-none">
+                <div className=" p-2 h-12 w-full overflow-x-scroll flex scrollbar-none">
                     {quiz.tags.map((tag, i) => {
                     return (<Tag key={i} i={i}/>)
 

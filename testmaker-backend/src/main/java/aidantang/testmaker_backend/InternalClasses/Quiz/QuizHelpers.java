@@ -41,7 +41,7 @@ public class QuizHelpers {
      */
 
         final int QUIZ_TITLE_SIZE = 100;
-        final int QUIZ_DESC_SIZE = 500;
+        final int QUIZ_DESC_SIZE = 1000;
         final int TAG_SIZE = 10;
         final int QUIZ_TIME_SIZE = 120;
 
@@ -72,8 +72,8 @@ public class QuizHelpers {
 
     public boolean checkQuestion(QuestionDTO question) {
 
-        final int QUESTION_DESC_SIZE = 500;
-        final int QUESTION_EXPLANATION_SIZE = 500;
+        final int QUESTION_DESC_SIZE = 1000;
+        final int QUESTION_EXPLANATION_SIZE = 1000;
         
 
         if (question.getDescription().length() > QUESTION_DESC_SIZE) return false;

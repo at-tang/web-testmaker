@@ -21,12 +21,13 @@ export default function EditQuestionsList() {
         <div>
 
             <AddQuestionButton i={0}/>
+            <div className="mb-8"/>
             
                 {quiz.questions.map((question, i) => (
                     
                     <div key={i} className="mb-4">
                         <EditQuestion i={i}/>
-                        <AddQuestionButton i={Math.max(0, i + 1)}/>
+                        
                     </div>
                     
                 ))}

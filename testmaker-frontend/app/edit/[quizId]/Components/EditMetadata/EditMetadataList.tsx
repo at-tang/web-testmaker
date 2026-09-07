@@ -15,7 +15,7 @@ export default function EditMetadataList() {
                 <RandomQuestionOrderEdit/>
                 <TimeEdit/>
                 <DescriptionEdit/>
-                <TagEdit/>
+
                    
 
             </div>

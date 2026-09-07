@@ -21,11 +21,11 @@ export default function EditAnswerTF({i = 0, j = 0}: {i?: number, j?: number}){
     let falseExtraClasses = "";
 
     if (quiz.questions[i].answers[0].correct === true) {
-        trueExtraClasses = " border-green-600 "
-        falseExtraClasses = " border-white "
+        trueExtraClasses = " brightness-75 border-green-500  "
+        falseExtraClasses = "  "
     } else {
-        falseExtraClasses = " border-green-600 "
-        trueExtraClasses = " border-white "
+        falseExtraClasses = " brightness-75 border-red-500 "
+        trueExtraClasses = "  "
 
 
     }
@@ -40,7 +40,7 @@ export default function EditAnswerTF({i = 0, j = 0}: {i?: number, j?: number}){
 
             <button
             onClick={() => {changeAnswer(false)}}
-            className={falseExtraClasses + " border-2 p-1 w-32 mx-2 hover:cursor-pointer rounded-full bg-white text-black"}>
+            className={falseExtraClasses + " border-4 p-1 w-32 mx-2 hover:cursor-pointer rounded-full bg-white text-black"}>
                 False
             </button>
 

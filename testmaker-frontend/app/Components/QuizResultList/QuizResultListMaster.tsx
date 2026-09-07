@@ -103,13 +103,13 @@ export default function QuizResultListMaster(
 
                 </section>
 
-                <section className="sm:flex flex justify-center items-center">
+                <section className="sm:flex block justify-center items-center">
 
                     <PageSelect/>
 
 
 
-                    <div className="flex-1"/>
+                    <div className="flex-1 sm:block hidden"/>
                     
                     <ForwardBackArrowButtons/>
                     

@@ -21,7 +21,7 @@ export function QuizFormatChecker(quiz: QuizEdit): string {
     if (quiz.title.length > 60) return "Please enter a title that is under 60 characters."
 
     // ERROR 2: Description must be under 300 characters
-    if (quiz.description.length > 300) return "The description of your quiz cannot be over 300 characters."
+    if (quiz.description.length > 1000) return "The description of your quiz cannot be over 300 characters."
 
     if (quiz.questions.length <= 2) return `Your quiz must have at least 3 questions.`
 
