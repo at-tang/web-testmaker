@@ -1,5 +1,6 @@
 package aidantang.testmaker_backend.InternalClasses.Result;
 
+import aidantang.testmaker_backend.InternalClasses.Answer.AnswerRepository;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -25,15 +26,28 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class QuizResultService {
+    /*
+    A service class containing the business logic surrounding QuizResults.
 
+    A QuizResult essentially contains how well the user did on a specific quiz.
+    Parameters like pointsObtained track their score, while a QuizResult holds
+    a List of QuestionResults that store the answers a user gave on a question vs. the actual answers.
+
+    As QuizResults are records, there are no methods pertaining to updating them.
+    Though a Quiz might be altered, a QuizResult will always contain the questions of a quiz
+    at that specific time.
+     */
+
+    private final AnswerRepository answerRepository;
     private final QuizResultRepository quizResultRepository;
     private final UserRepository userRepository;
     private final QuizRepository quizRepository;
 
-    public QuizResultService(QuizResultRepository quizResultRepository, UserRepository userRepository, QuizRepository quizRepository) {
+    public QuizResultService(QuizResultRepository quizResultRepository, UserRepository userRepository, QuizRepository quizRepository, AnswerRepository answerRepository) {
         this.quizResultRepository = quizResultRepository;
         this.userRepository = userRepository;
         this.quizRepository = quizRepository;
+        this.answerRepository = answerRepository;
     }
 
     @Transactional
@@ -136,37 +150,32 @@ public class QuizResultService {
     }
 
 
+
     @Transactional
     public ResponseEntity<QuizResultDTO> getQuizResult(Authentication auth, String resultId) {
-        System.out.println("=== getQuizResult called ===");
-        System.out.println("Auth: " + auth);
-        System.out.println("Auth Name: " + (auth != null ? auth.getName() : "null"));
-        System.out.println("ResultId: " + resultId);
-        
+        /*
+        Retrieves a singular Quiz Result for a detailed view. 
+         */
+   
         User user = userRepository.findByEmail(auth.getName());
-        System.out.println("User found: " + (user != null ? user.getEmail() : "null"));
-        
+ 
         if (user == null) {
             System.out.println("User not found, returning 404");
             return ResponseEntity.notFound().build();
         }
         
         Optional<QuizResult> quizResult = quizResultRepository.findById(resultId);
-        System.out.println("Quiz result found: " + quizResult.isPresent());
         
         if (quizResult.isEmpty()) {
-            System.out.println("Quiz result not found, returning 404");
             return ResponseEntity.notFound().build();
         }
         
         // Verify that the result belongs to the authenticated user
         String resultUserId = quizResult.get().getUser().getId();
         String authUserId = user.getId();
-        System.out.println("Result user ID: " + resultUserId);
-        System.out.println("Auth user ID: " + authUserId);
+
         
         if (!resultUserId.equals(authUserId)) {
-            System.out.println("User ID mismatch, returning 403");
             return ResponseEntity.status(403).build();
         }
 
@@ -174,12 +183,18 @@ public class QuizResultService {
         return ResponseEntity.ok().body(result);
     }
 
+
     public ResponseEntity<QuizResultList> getUserQuizResultHistoryByPageFilterByQuizTitle(
         Authentication auth, // User's authentication details
         int pageRequested, // The page that is being requested. 
         int entriesPerPage, // How many entries are in one page
         String searchParam // The given search parameters. 
         ) {
+            /*
+            Retrieves a list containing multiple QuizResults, intended for a compact view.
+            Only contains brief amounts of information. For a detailed view, the method above
+            is designed for such a task.
+             */
 
                 // Check if a searchParam is given. If not, searches for "", or retrieves all entries
                 String param = (searchParam == null || searchParam.isBlank() || "all".equalsIgnoreCase(searchParam)) ? "" : searchParam;

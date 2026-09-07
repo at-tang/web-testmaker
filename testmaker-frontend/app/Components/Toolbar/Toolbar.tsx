@@ -15,12 +15,13 @@ export interface Links {
 
 export default function Toolbar() {
 
+    // Use this to alter what buttons appear on the toolbar and where they link to
     const links: Array<Links> = [
 
         {
             iconLink: "/magnifyingGlass.svg",
             redirectLink: "/self/my-quizzes",
-            hoverText: "Search"
+            hoverText: "Search: Look for quizzes to play"
         },
 
         {
@@ -32,19 +33,19 @@ export default function Toolbar() {
         {
             iconLink: "/pencil.svg",
             redirectLink: "/self/my-quizzes",
-            hoverText: "My Quizzes"
+            hoverText: "My Quizzes: View all the quizzes you made"
         },    
 
         {
             iconLink: "/time.svg",
             redirectLink: "/self/history",
-            hoverText: "History"
+            hoverText: "History: See how you performed in all the tests you've taken"
         },
 
         {
             iconLink: "/user.svg",
             redirectLink: "/self/my-quizzes",
-            hoverText: "My Profile"
+            hoverText: "My Profile: View your own profile"
         },
 
         {

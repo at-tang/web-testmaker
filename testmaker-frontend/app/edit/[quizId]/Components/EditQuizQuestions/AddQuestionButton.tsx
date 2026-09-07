@@ -14,7 +14,13 @@ export default function AddQuestionButton({i = 0}: {i?: number}) {
             points: 1,
             type: "MC",
             caseSensitive: false,
-            answers: []
+            answers: [
+                {
+                    content: "",
+                    correct: false,
+                    explanation: ""
+                }
+            ]
         }
         quizCopy.questions.splice(i, 0, newQuestion);
 

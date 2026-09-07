@@ -27,6 +27,8 @@ export default function EditQuestion({i = 0}: {i?: number}) {
     const answersRef = useRef(null);
     const caseSensitiveRef = useRef(null);
 
+    const [questionExpanded, setQuestionExpanded] = useState(true);
+
     const question = quiz.questions[i];
 
     // Used to change the colour of the border when swapping question positions
@@ -154,20 +156,40 @@ export default function EditQuestion({i = 0}: {i?: number}) {
 
     
  
-    
 
-
-    
-    // <input value={quiz.questions[index].description} ref={descriptionRef} className="bg-white text-black border-4 p-1"></input>
     return ( 
         <>
             <div className={variableBorder + " p-4 border-2 rounded-xl mb-4 hover:cursor-pointer"}
             ref={borderRef}
             onClick={(e) => {handleBackgroundClick(e)}}>
 
-                <RemoveQuestionButton i={i}/>
+                
 
-                <h1 className="text-4xl mb-2 w-max">Question {i + 1}</h1>
+                <header className="flex items-center h-16">
+                    <button
+                    className="border-2 border-white text-2xl rounded-full h-10 w-10 mr-4"
+                    onClick={() => {console.log("Clicked"); setQuestionExpanded((prev) => !(prev)); console.log("Question Expanded: " + questionExpanded)}}
+                    >{questionExpanded ? "v" : ">"}</button>
+
+                    <div className="text-4xl mb-2 w-max h-full flex items-center">Question {i + 1}</div>
+
+                    <div className="flex-1"/>
+
+                    <RemoveQuestionButton i={i}/>
+   
+
+                </header>
+
+                {!questionExpanded && 
+                <div>
+                    <p>Q: {question.description.length === 0 ? "N/A" : question.description}</p>
+                </div>
+
+                }
+
+                
+
+                {questionExpanded && <div className="">
                 
 
                 <select
@@ -187,8 +209,9 @@ export default function EditQuestion({i = 0}: {i?: number}) {
                 ref={descriptionRef}
                 value={question.description}
                 maxLength={300}
-                className="bg-white text-black w-full mb-4 resize-none h-20"
+                className="bg-white text-black w-full mb-4 resize-none h-20 p-1"
                 onChange={() => updateQuiz()}
+                placeholder="Add a description for your question. (300 Characters)"
                 ></textarea>
 
 
@@ -212,7 +235,7 @@ export default function EditQuestion({i = 0}: {i?: number}) {
                 placeholder = "[OPTIONAL] Enter your explanation here. (300 Characters)" 
                 maxLength={300}
                 onChange={() => updateQuiz()}
-                className="bg-white text-black border-2 w-full h-20 resize-none" >
+                className="bg-white text-black border-2 w-full h-20 resize-none p-1 w-full" >
                 </textarea>
 
                 <hr className="my-4"/>
@@ -240,6 +263,9 @@ export default function EditQuestion({i = 0}: {i?: number}) {
                 <EditAnswersList i={i}/>
 
                 {(quiz.questions[i].type == "MC" || quiz.questions[i].type == "SI") && <AddAnswerButton i={i}/>}
+
+
+                </div>}
 
                 
                 
