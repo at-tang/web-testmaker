@@ -23,9 +23,9 @@ export default function ForwardBackArrowButtons() {
     }
 
     return (
-        <>
-            <button onClick={() => {handleClick(false)}}>{`<`}</button>
-            <button onClick={() => {handleClick(true)}}>{`>`}</button>
-        </>
+        <div className="flex justify-center sm:mt-0 mt-2">
+            <button className="border-2 border-white rounded-2xl h-8 sm:w-24 w-1/2 text-xl hover:scale-102 hover:cursor-pointer mr-2" onClick={() => {handleClick(false)}}>{`<`}</button>
+            <button className="border-2 border-white rounded-2xl h-8 sm:w-24 w-1/2 text-xl hover:scale-102 hover:cursor-pointer sm:mr-2" onClick={() => {handleClick(true)}}>{`>`}</button>
+        </div>
     )
 }

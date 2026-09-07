@@ -174,24 +174,41 @@ public class QuizResultService {
         return ResponseEntity.ok().body(result);
     }
 
-    public ResponseEntity<QuizResultList> getUserQuizResultHistoryByPage(Authentication auth,
-            int pageRequested, int entriesPerPage) {
+    public ResponseEntity<QuizResultList> getUserQuizResultHistoryByPageFilterByQuizTitle(
+        Authentication auth, // User's authentication details
+        int pageRequested, // The page that is being requested. 
+        int entriesPerPage, // How many entries are in one page
+        String searchParam // The given search parameters. 
+        ) {
 
+                // Check if a searchParam is given. If not, searches for "", or retrieves all entries
+                String param = (searchParam == null || searchParam.isBlank() || "all".equalsIgnoreCase(searchParam)) ? "" : searchParam;
+
+                // Finds the user associated with Authentication auth. If not found, return an error
                 User user = userRepository.findByEmail(auth.getName());
                 if (user == null) return ResponseEntity.notFound().build();
 
-                List<QuizResult> entries = quizResultRepository.getUserQuizResultHistoryByPage(user.getId(), entriesPerPage, entriesPerPage * Math.max(0, pageRequested - 1));
+                List<QuizResult> entries = quizResultRepository.getUserQuizResultHistoryByPageFilterByQuizTitle(
+                        user.getId(),
+                        entriesPerPage,
+                        entriesPerPage * Math.max(0, pageRequested - 1),
+                        param);
+
+
+                // Convert the valid entries into DTOs 
                 List<QuizResultListEntryDTO> result = new ArrayList<>();
-
-                int howManyFit = quizResultRepository.countAllResultsByUserId(user.getId());
-
                 for (QuizResult q : entries) {
                     result.add(new QuizResultListEntryDTO(q));
                 }
 
-                return ResponseEntity.ok(new QuizResultList(howManyFit, result));
+                // Retrieve the total number of results that fit the criteria. This is mainly for the frontend
+                // to determine how many pages there are, and stop the user from going a page over.
+                int howManyFit = quizResultRepository.countAllResultsByUserId(user.getId(), param);
 
+                return ResponseEntity.ok(new QuizResultList(howManyFit, result));
     }
+
+
 
 
     

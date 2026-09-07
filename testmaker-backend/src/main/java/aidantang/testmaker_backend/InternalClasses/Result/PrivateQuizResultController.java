@@ -40,10 +40,19 @@ public class PrivateQuizResultController {
         return quizResultService.getQuizResult(auth, quizId);
     }
 
-    @GetMapping("/get/list/general/{page}/{entriesPerPage}")
-    public ResponseEntity<QuizResultList> getUserQuizResultHistoryByPage(Authentication auth, @PathVariable("page") int pageRequested, @PathVariable("entriesPerPage") int entriesPerPage) {
-        return quizResultService.getUserQuizResultHistoryByPage(auth, pageRequested, entriesPerPage);
+    // This function is called by default when the user wants to search through their own history of Quiz results
+    // The function retrieves all results pertaining to the user by chronological order (most recent first)
+    // The function can also filter through QuizResults by title, selecting only those that has the given keyword within their title
+    @GetMapping("/get/list/general")
+    public ResponseEntity<QuizResultList> getUserHistoryByPage(
+        Authentication auth, 
+        @RequestParam(name = "pageRequested") int pageRequested, 
+        @RequestParam(name = "entriesPerPage") int entriesPerPage, 
+        @RequestParam(name = "searchParam", required = false, defaultValue = "") String searchParam
+        ) {
 
+        String query = (searchParam == null || searchParam.isBlank() || "all".equalsIgnoreCase(searchParam)) ? "" : searchParam;
+        return quizResultService.getUserQuizResultHistoryByPageFilterByQuizTitle(auth, pageRequested, entriesPerPage, query);
     }
 
 

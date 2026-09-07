@@ -3,6 +3,12 @@ import QuizResult from "./QuizResult";
 
 export default function QuizResultList({quizResultList = []}: {quizResultList: Array<QuizResultListEntry>}) {
 
+    if (quizResultList == null || quizResultList.length === 0) {
+        return (
+            <p>None found!</p>
+        )
+    }
+
     if (quizResultList != null) return (
 
         <div className=" w-full h-full scrollbar-thin scrollbar-thumb-white justify-center p-4">
