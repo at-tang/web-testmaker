@@ -12,15 +12,16 @@ Week 1:
   Developed the Edit and Play functionality of quizzes
 
 Week 2 - 
-  Added automatic evaluation of a user's quiz attempt
-  added a page where users can see their quiz result history 
-  Created the main toolbar
-  Designed an interface for users to view their own quizzes (self/myquizzes)
-  Added the ability to Like Quizzes
+  - Added automatic evaluation of a user's quiz attempt
+  - Added a page where users can see their quiz result history 
+  - Created the main toolbar
+  - Designed an interface for users to view their own quizzes (self/myquizzes)
+  - Added the ability to Like Quizzes
   
 Week 3 - 
-  Added a Search menu, allowing users to search by keyword, or sort by most likes/plays and most recently updated 
-  Created a Settings page, where users can change their username
+  - Added a Search menu, allowing users to search by keyword, or sort by most likes/plays and most recently updated 
+  - Created a Settings page, where users can change their username
+  - Corrected major logical errors
 
 
 To-Do Features:
