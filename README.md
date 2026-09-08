@@ -33,7 +33,8 @@ To-Do Features:
 
 - MEDIUM
   - New interface for seeing Quiz Results
-  - Allow users to edit and delete their own quizzes through its dedicated page quiz/view/{quizId}
+  - Allow users to edit and delete their own quizzes through its dedicated page (quiz/view/{quizId}) (users can currently only edit quizzes through /self/myquizzes)
+  - Allow users to select images to represent their quizzes (due to API constraints, this will most likely be a few select images rather than using an image hosting service)
   
 - FUTURE:
   - Comments 
