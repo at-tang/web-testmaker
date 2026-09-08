@@ -35,13 +35,14 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-
     // number: int
     // number represents the index of the particular question in the Quiz it corrsponds to
     // The question's number indicates when in the quiz it will appear
     @Column(name="number")
     private int number;
 
+    // description: String
+    // description represents the actual question itself
     @Column(name="description")
     private String description = "";
 
@@ -52,19 +53,29 @@ public class Question {
     @Column(name="type")
     private String type = "MC";
 
-
+    // hint: String
+    // Currently a potential feature. Hint would be an optional parameter
+    // that would give the quiz taker a hint on what the right answer might be
     @Column(name="hint")
     private String hint = "";
 
+    // explanation: String
+    // Optional parameter. explanation represents an eponymous explanation of why an answer is correct
+    // Shown to all quiz takers after submitting their quiz and evaluating the result
     @Column(name="explanation")
     private String explanation = "";
 
+    // points: int
+    // How many points does this particular question reward when done correctly?
+    // Also used to calculate how many points are available.
     @Column(name="points")
     private int points = 1;
 
+    // caseSensitive: Boolean
+    // Indicates whether or not the user must be case-sensitive with their given answer
+    // If true, then "Green" != "green". If false, "green" == "Green"
     @Column(name = "caseSensitive")
     private boolean caseSensitive = false;
-
 
     @OneToMany(mappedBy="question", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers = new ArrayList<Answer>();
@@ -73,7 +84,11 @@ public class Question {
     @JoinColumn(name="quizId")
     @JsonIgnore
     private Quiz quiz;
-
+    
+    // correctAnswers: List<String>
+    // A List of Strings containing all the correct answers
+    // Stored here to expediate the process of evaluating the quiz by reducing it
+    // to simply checking that the array of correctAnswers and givenAnswers are the same
     @Column(name="correctAnswers", columnDefinition="varchar(255)[]")
     @JdbcTypeCode(SqlTypes.ARRAY)
     private List<String> correctAnswers;

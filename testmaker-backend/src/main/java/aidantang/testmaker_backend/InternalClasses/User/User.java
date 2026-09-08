@@ -32,8 +32,12 @@ public class User {
     private String providerId;
 
     // The user's display name. 
-    @Column(name="displayName")
+    @Column(name="displayName", unique=true)
     private String displayName;
+
+    @Column(name="profilePicture") // Stores a link to the user's Profile Picture
+    private String profilePicture;
+
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Column(name="roles")

@@ -11,15 +11,11 @@ export default function ToolbarButton({info}: {info: Links}) {
 
     const [mouseHover, setMouseHover] = useState(false);
 
-    useEffect(() => {
-        console.log("Mouse is hovering: " + mouseHover)
-
-    }, [mouseHover])
 
     return (
         <>
         <div className=" flex justify-center">
-            <button className="p-2 rounded-full flex items-center justify-center mb-4 hover:cursor-pointer hover:bg-gray-800 transition ease-in-out "
+            <button className="p-2 rounded-full flex items-center justify-center mb-4 hover:cursor-pointer hover:bg-gray-800 transition ease-in-out hover:scale-105"
             onClick={() => {handleClick()}}
             onMouseEnter={() => {setMouseHover(true)}}
             onMouseLeave={() => {setMouseHover(false)}}

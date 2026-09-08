@@ -58,6 +58,7 @@ public class Answer {
     // explanation: String
     // If the user selects this option, then when the answers are evaluated, it will display this message to them
     // This message may be used to explain why an answer is incorrect, or why it is correct
+    // Not to be confused with explanation: String from the Question class 
     @Column(name="explanation")
     private String explanation;
 

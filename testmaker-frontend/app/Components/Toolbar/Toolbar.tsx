@@ -49,6 +49,12 @@ export default function Toolbar() {
         },
 
         {
+            iconLink: "/gear.svg",
+            redirectLink: "/settings",
+            hoverText: "Settings"
+        },
+
+        {
             iconLink: "/exit.svg",
             redirectLink: "/self/my-quizzes",
             hoverText: "Logout (Currently Not Functional)"

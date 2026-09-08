@@ -12,6 +12,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Embeddable
 public class LikeId {
+    /*
+    A class that contains the identification attributes that
+    makes each like distinct. Contains a quizId and userId, showing
+    a user liked a quiz. 
+     */
 
     private String userId;
     private String quizId;

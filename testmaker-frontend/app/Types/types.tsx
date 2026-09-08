@@ -101,3 +101,15 @@ export interface QuizResultList {
     numberOfEntries: number,
     entries: Array<QuizResultListEntry>
 }
+
+export class UserDetails {
+    email: string = ""
+    displayName: string = ""
+    id: string = ""
+
+    public constructor(email: string, displayName: string, id: string) {
+        this.email = email;
+        this.displayName = displayName;
+        this.id = id;
+    }
+}

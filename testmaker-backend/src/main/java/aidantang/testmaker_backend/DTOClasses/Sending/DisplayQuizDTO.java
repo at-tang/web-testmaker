@@ -65,6 +65,7 @@ public class DisplayQuizDTO {
         this.dateCreated = quiz.getDateCreated();
         this.dateUpdated = quiz.getDateUpdated();
 
+
         if (userId == quiz.getUser().getId()) this.ownQuiz = true;
         else this.ownQuiz = false;
 

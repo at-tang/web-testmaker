@@ -24,7 +24,7 @@ public class TestController {
     @GetMapping("/private/me2")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<String> privateEndpoint2(Authentication auth) {
-        return ResponseEntity.ok("Hello authenticated user: " + auth.getName() + " " + auth.getPrincipal() + " " + auth.getCredentials());
+        return ResponseEntity.ok("Hello authenticated user: " + auth.getName() + " " + auth.getPrincipal().toString() + " " + auth.getCredentials().toString());
     }
 
     @GetMapping("/admin/secret")

@@ -30,21 +30,28 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    // visible: Boolean
+    // Represents if the quiz is open to the public (true) or private (false)
     @Column(name="visible")
     private Boolean visible = false;
 
+    // title: String - the title of the quiz
     @Column(name="title")
     private String title = "";
 
+    // description: String - an optional description of the quiz
     @Column(name="description", length=300)
     private String description = "";
 
+    // tags: List<String> - a collection of keywords used to describe the quiz
     @Column(name="tags")
     private List<String> tags = new ArrayList<String>();
 
+    // totalRating: int - used to calculate the average score of the quiz. All scores combined.
     @Column(name="totalRating")
     private int totalRating = 0;
 
+    // totalusersRated: int - how many users have rated this quiz. Used to calculate rating
     @Column(name="totalUsersRated")
     private int totalUsersRated = 0;
 
@@ -56,6 +63,7 @@ public class Quiz {
     @JsonIgnore
     private User user;
 
+    // dateCreated: int
     @Column(name="dateCreated")
     private int dateCreated = (int) Instant.now().getEpochSecond();
 
@@ -63,7 +71,7 @@ public class Quiz {
     private int dateUpdated = (int) Instant.now().getEpochSecond();
 
     @Column(name="time")
-    private int time = 300;
+    private int time = 60;
 
     @Column(name="plays")
     private int plays = 0; // Indicates how many times the quiz has been played (only counts completed attempts)

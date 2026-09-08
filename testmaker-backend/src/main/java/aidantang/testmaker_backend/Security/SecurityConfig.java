@@ -74,7 +74,12 @@ public class SecurityConfig {
                     newUser.setProviderId(providerId);
                     newUser.setEmail(email != null ? email : "no-email@provider.com");
                     newUser.setRoles(Set.of("ROLE_USER")); // Default role
-                    return userRepository.save(newUser);
+
+                    // Saves user so a unique ID can be generated. ID is used for default name.
+                    User generatedUser = userRepository.save(newUser);
+                    generatedUser.setDisplayName("user_" + generatedUser.getId());
+                    
+                    return userRepository.save(generatedUser);
                 });
 
             System.out.println("User ID: " + user.getId());

@@ -14,6 +14,10 @@ import lombok.NoArgsConstructor;
 @Table(name="likes")
 public class Like {
 
+    /*
+    Like class. Used to represent that a user liked a quiz.
+     */
+
     @EmbeddedId
     private LikeId id;
 }

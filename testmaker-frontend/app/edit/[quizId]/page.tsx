@@ -33,27 +33,17 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
     useEffect(() => {
         async () => {
             const session = await getSession();
-            if (!session) redirect("/login")
+            if (!session) redirect("/home")
         }
     }, [])
-
-
-    
+ 
 
     useEffect(() => {
         const loadSession = async () => {
             const session = await getSession();
             if (!session) {
-                router.replace("/login")
+                router.replace("/home")
             }
-
-            /*
-            const expireDate = new Date(session?.expires).getTime();
-            const currentDate = new Date().getTime();
-            console.log(`Expiration Date: ${expireDate}, Current Date: ${currentDate}`)
-            console.log(`Current: ${new Date()}\nExpires: ${new Date(session?.expires)}`)
-            if (currentDate >= expireDate) redirect('/login');
-            */
 
             console.log(session);
 
