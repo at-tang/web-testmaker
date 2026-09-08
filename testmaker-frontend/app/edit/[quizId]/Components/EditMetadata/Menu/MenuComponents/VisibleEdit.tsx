@@ -12,16 +12,7 @@ export default function VisibleEdit() {
     }, [])
 
     const setVisible = () => {
-         let quizCopy = {...quiz}
-        if (buttonText == 'Public') {
-            quizCopy.visible = false;
-            setQuiz(quizCopy)
-            setButtonText('Private')
-        } else {
-            quizCopy.visible = true;
-            setQuiz(quizCopy)
-            setButtonText('Public')
-        }
+        setQuiz({...quiz, visible: !(quiz.visible)})
 
     }
 
@@ -33,7 +24,7 @@ export default function VisibleEdit() {
             className="text-black bg-white w-24 h-6
                         rounded-full ml-4
                         hover:brightness-75 hover:cursor-pointer"
-            >{buttonText}</button>
+            >{quiz.visible ? "Public" : "Private"}</button>
         </div>
     )
 }

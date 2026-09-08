@@ -34,7 +34,7 @@ export default function ToolbarButton({info}: {info: Links}) {
         
                 </button>
 
-                {mouseHover && <div className="bg-black p-2 rounded-xl absolute left-15 translate-y-1 transition shadow-xl/50">{info.hoverText}</div>}
+                {mouseHover && <div className="bg-black p-2 rounded-xl absolute left-15 translate-y-1 transition shadow-xl/50 z-99">{info.hoverText}</div>}
 
             
         </div>

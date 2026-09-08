@@ -11,9 +11,9 @@ export default function AnswerTF({i = 0}: {i?: number}) {
     const changeAnswer = (value: boolean) => {
         let givenAnswersCopy = [...givenAnswers]
         if (value) {
-            givenAnswersCopy[currentQuestionIndex].givenAnswers = ["true"]
+            givenAnswersCopy[currentQuestionIndex].givenAnswers = ["True"]
         } else {
-            givenAnswersCopy[currentQuestionIndex].givenAnswers = ["false"]
+            givenAnswersCopy[currentQuestionIndex].givenAnswers = ["False"]
         }
         setGivenAnswers(givenAnswersCopy)
     }
@@ -21,9 +21,9 @@ export default function AnswerTF({i = 0}: {i?: number}) {
     let trueClasses = "";
     let falseClasses = "";
     
-    if (givenAnswers[currentQuestionIndex].givenAnswers[0] == "true") {
+    if (givenAnswers[currentQuestionIndex].givenAnswers[0] == "True") {
         trueClasses = "bg-green-500";
-    } else if (givenAnswers[currentQuestionIndex].givenAnswers[0] == "false") {
+    } else if (givenAnswers[currentQuestionIndex].givenAnswers[0] == "False") {
         falseClasses = "bg-red-500";
     }
 

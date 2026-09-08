@@ -150,6 +150,7 @@ public class QuizEditingService {
         }
 
         quiz.get().setTitle(quizDTO.getTitle());
+        quiz.get().setRandomQuestionOrder(quizDTO.getRandomQuestionOrder());
 
         quiz.get().setDescription(quizDTO.getDescription());
         quiz.get().setTags(quizDTO.getTags());

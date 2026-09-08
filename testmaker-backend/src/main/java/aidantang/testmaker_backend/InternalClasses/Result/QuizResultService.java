@@ -116,11 +116,19 @@ public class QuizResultService {
             }
 
 
-            else if (question.getType().equals("MC") || question.getType().equals("TF")) {
+            else if (question.getType().equals("MC")) {
                 if (question.getCorrectAnswers().equals(answer.getGivenAnswers())) {
                     pointsObtained += question.getPoints();
                     correct = true;
                 }
+            }
+
+            else if (question.getType().equals("TF")) {
+                if (question.getCorrectAnswers().get(0).toLowerCase().equals(answer.getGivenAnswers().get(0).toLowerCase())) {
+                    pointsObtained += question.getPoints();
+                    correct = true;
+                }
+
             }
 
 
