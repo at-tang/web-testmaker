@@ -6,6 +6,7 @@ facilitated by a Java (Spring Boot) backend. While the app is currently still a 
 
 
 Progress Report:
+
 Week 1: 
   Developed the foundations of the backend and the basic classes (Answer, Question, Quiz, User)
   Developed the Edit and Play functionality of quizzes
@@ -14,10 +15,13 @@ Week 2 -
   Added automatic evaluation of a user's quiz attempt
   added a page where users can see their quiz result history 
   Created the main toolbar
-  Designed an interface for users to view their own quizzes
+  Designed an interface for users to view their own quizzes (self/myquizzes)
   Added the ability to Like Quizzes
   
-Week 3 - Added a Search menu, created Settings page
+Week 3 - 
+  Added a Search menu, allowing users to search by keyword, or sort by most likes/plays and most recently updated 
+  Created a Settings page, where users can change their username
+
 
 To-Do Features:
 
@@ -29,6 +33,8 @@ To-Do Features:
 
 - MEDIUM
   - New interface for seeing Quiz Results
+  - Allow users to edit and delete their own quizzes through its dedicated page quiz/view/{quizId}
+  
 - FUTURE:
   - Comments 
 
