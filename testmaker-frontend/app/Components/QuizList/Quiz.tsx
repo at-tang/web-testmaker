@@ -42,7 +42,7 @@ export default function Quiz({quiz}: {quiz: DisplayQuiz}) {
                         <Link href={`/quiz/view/${quiz.id}`}>
                             <h1 className={size + "overflow-x-clip leading-5 font-bold mb-1"}>{quiz.title}</h1>
                             <div className="flex items-center justify-center">
-                                <h2 className="">by: {quiz.ownerName}</h2>
+                                <h2 className="">by: {quiz.ownerName} - {quiz.plays} Play(s)</h2>
                                 {!quiz.visible &&
                                 <>
    

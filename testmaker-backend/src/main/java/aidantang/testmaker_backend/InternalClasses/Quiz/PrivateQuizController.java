@@ -1,6 +1,7 @@
 package aidantang.testmaker_backend.InternalClasses.Quiz;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -8,6 +9,7 @@ import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.CreateQuiz.N
 import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.EditQuiz.UpdatingQuizDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.DisplayQuizDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.QuizDTO;
+import aidantang.testmaker_backend.DTOClasses.Sending.QuizListDTO;
 import aidantang.testmaker_backend.DTOClasses.Sending.JSON.QuizIdDTO;
 import aidantang.testmaker_backend.InternalClasses.Quiz.Services.QuizEditingService;
 import aidantang.testmaker_backend.InternalClasses.Quiz.Services.QuizListService;
@@ -88,6 +90,19 @@ public class PrivateQuizController {
     @GetMapping("/get/view/list/myquizzes")
     public ResponseEntity<List<DisplayQuizDTO>> getUserOwnQuizListByLastUpdated(Authentication auth) {
         return quizListService.getUserOwnQuizListByLastUpdated(auth);
+    }
+
+    @GetMapping("/get/view/list/search")
+    public ResponseEntity<QuizListDTO> getPublicQuizzesBySearch(
+        Authentication auth,
+        @RequestParam(name = "page_requested", required=false, defaultValue = "1") int pageRequested,
+        @RequestParam(name = "entries_per_page", required=false, defaultValue = "5") int entriesPerPage,
+        @RequestParam(name = "search_param", required=false, defaultValue="") String searchParam,
+        @RequestParam(name="sort", required = false, defaultValue = "top") String sortType
+    ) {
+        String query = (searchParam == null || searchParam.isBlank() || "all".equalsIgnoreCase(searchParam)) ? "" : searchParam;
+        return quizListService.getPublicQuizzesBySearchPrivate(auth, sortType, pageRequested, entriesPerPage, query);
+
     }
 
 

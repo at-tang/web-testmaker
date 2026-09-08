@@ -20,7 +20,7 @@ export default function Toolbar() {
 
         {
             iconLink: "/magnifyingGlass.svg",
-            redirectLink: "/self/my-quizzes",
+            redirectLink: "/search",
             hoverText: "Search: Look for quizzes to play"
         },
 
@@ -38,7 +38,7 @@ export default function Toolbar() {
 
         {
             iconLink: "/time.svg",
-            redirectLink: "/self/history",
+            redirectLink: "/history",
             hoverText: "History: See how you performed in all the tests you've taken"
         },
 

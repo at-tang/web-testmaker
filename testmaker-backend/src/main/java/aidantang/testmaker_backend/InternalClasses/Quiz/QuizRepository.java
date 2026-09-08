@@ -11,12 +11,6 @@ import org.springframework.data.repository.query.Param;
 public interface QuizRepository extends JpaRepository<Quiz, String>{
 
 
-    /*
-    
-    @Query("SELECT * FROM quizzes WHERE tags IN :inputTags OR title LIKE '%:searchQuery%'", nativeQuery=true)
-    public List<Quiz> getQuizListBySearch(@Param("inputTags") List<String> tags, @Param("searchQuery") String searchQuery);
-
-    */
 
     @Query("SELECT q FROM quizzes q WHERE q.user.id = :userId ORDER BY q.dateUpdated DESC")
     public List<Quiz> getUserOwnQuizListByLastUpdated(@Param("userId") String userId);
@@ -25,25 +19,31 @@ public interface QuizRepository extends JpaRepository<Quiz, String>{
     // Occur when a user wants to search for quizzes using a specific search term
     // Users can search by LIKES, PLAYS, or by most recent UPDATE
 
-    @Query(value="SELECT * FROM quizzes WHERE title ILIKE CONCAT('%', :searchParam, '%') OR description ILIKE CONCAT('%', :searchParam, '%') OR CONCAT('%', :searchParam, '%') ILIKE ANY(tags) ORDER BY plays DESC LIMIT :limit OFFSET :offset", nativeQuery=true)
-    public List<Quiz> searchQuizzesByPlays(
-        @Param("searchParam") String stearchParam,
+    @Query(value="SELECT * FROM quizzes WHERE visible AND (title ILIKE CONCAT('%', :searchParam, '%') OR description ILIKE CONCAT('%', :searchParam, '%') OR CONCAT('%', :searchParam, '%') ILIKE ANY(tags)) ORDER BY plays DESC LIMIT :limit OFFSET :offset", nativeQuery=true)
+    public List<Quiz> searchPublicQuizzesByPlays(
+        @Param("searchParam") String searchParam,
         @Param("limit") int limit,
         @Param("offset") int offset);
 
     
-    @Query(value="SELECT * FROM quizzes WHERE title ILIKE CONCAT('%', :searchParam, '%') OR description ILIKE CONCAT('%', :searchParam, '%') OR CONCAT('%', :searchParam, '%') ILIKE ANY(tags) ORDER BY likes DESC LIMIT :limit OFFSET :offset", nativeQuery=true)
-    public List<Quiz> searchQuizzesByLikes(
-        @Param("searchParam") String stearchParam,
+    @Query(value="SELECT * FROM quizzes WHERE visible AND (title ILIKE CONCAT('%', :searchParam, '%') OR description ILIKE CONCAT('%', :searchParam, '%') OR CONCAT('%', :searchParam, '%') ILIKE ANY(tags)) ORDER BY likes DESC LIMIT :limit OFFSET :offset", nativeQuery=true)
+    public List<Quiz> searchPublicQuizzesByLikes(
+        @Param("searchParam") String searchParam,
         @Param("limit") int limit,
         @Param("offset") int offset);
 
 
-     @Query(value="SELECT * FROM quizzes WHERE title ILIKE CONCAT('%', :searchParam, '%') OR description ILIKE CONCAT('%', :searchParam, '%') OR CONCAT('%', :searchParam, '%') ILIKE ANY(tags) ORDER BY date_updated DESC LIMIT :limit OFFSET :offset", nativeQuery=true)
-    public List<Quiz> searchQuizzesByUpdate(
-        @Param("searchParam") String stearchParam,
+     @Query(value="SELECT * FROM quizzes WHERE visible AND (title ILIKE CONCAT('%', :searchParam, '%') OR description ILIKE CONCAT('%', :searchParam, '%') OR CONCAT('%', :searchParam, '%') ILIKE ANY(tags)) ORDER BY date_updated DESC LIMIT :limit OFFSET :offset", nativeQuery=true)
+    public List<Quiz> searchPublicQuizzesByUpdate(
+        @Param("searchParam") String searchParam,
         @Param("limit") int limit,
         @Param("offset") int offset);
+
+
+    @Query(value = "SELECT COUNT(*) FROM quizzes WHERE visible AND (title ILIKE CONCAT('%', :searchParam, '%') OR description ILIKE CONCAT('%', :searchParam, '%') OR CONCAT('%', :searchParam, '%') ILIKE ANY(tags))", nativeQuery=true)
+    public int countPublicQuizzesBySearchQuery(
+        @Param("searchParam") String searchQuery
+    );
 
 
     

@@ -29,7 +29,7 @@ export default function History({params}: {params: Promise<{searchQuery?: string
                 currentSearchQuery={`${searchQuery}`}
                 entriesPerPage={8}
                 entryType="quizResultHistory"
-                searchRedirect={`/self/history/`}
+                searchRedirect={`/history/`}
                 />
 
             </div>
