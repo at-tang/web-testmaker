@@ -85,7 +85,10 @@ export default function MyQuizzesPage() {
             </menu>
 
             <main className="w-full min-h-32 flex-1">
-                <QuizList quizList={quizzes}/>
+                <QuizList
+                    quizList={quizzes}
+                    onDeleted={(quizId) => setQuizzes((currentQuizzes) => currentQuizzes.filter((quiz) => quiz.id !== quizId))}
+                />
 
             </main>
 

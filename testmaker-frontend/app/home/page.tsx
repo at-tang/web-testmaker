@@ -5,6 +5,7 @@ import SignOutButton from "./SignOutButton";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import SigninButton from "../login/SignInButton";
+import LoginLogoutButton from "../Components/Buttons/LoginLogoutButton";
 
 export default function Home() {
 
@@ -43,7 +44,7 @@ export default function Home() {
         </button>
         
 
-        <SignOutButton/>
+        <LoginLogoutButton/>
         </>
     )
 

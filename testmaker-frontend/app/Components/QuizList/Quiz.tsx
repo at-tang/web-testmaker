@@ -4,11 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { GlobalStateContext, useGlobalState } from "../Global/GlobalContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import DeleteComfirmPopup from "./DeleteConfirmPopup";
 
-export default function Quiz({quiz}: {quiz: DisplayQuiz}) {
+export default function Quiz({quiz, onDeleted}: {quiz: DisplayQuiz, onDeleted?: (quizId: DisplayQuiz["id"]) => void}) {
 
-    const {openPopup} = useContext(GlobalStateContext)
+    const [deletePopup, setDeletePopup] = useState(false);
+
+   
 
     const handleNonButtonClick = (e) => {
         /*
@@ -31,9 +34,16 @@ export default function Quiz({quiz}: {quiz: DisplayQuiz}) {
 
     return (
         <>
+            
+
             <div
             onClick={(e) => {handleNonButtonClick(e)}} 
              className="border-white border-2 h-72 w-72 hover:cursor-pointer rounded-2xl text-center" >
+
+                {deletePopup && <DeleteComfirmPopup quiz={quiz} condition={deletePopup} setCondition={setDeletePopup} redirectLink="/self/my-quizzes" onDeleted={onDeleted}/>} 
+
+                
+
                     <div className="w-full h-40 bg-green-900 rounded-t-2xl border-b-2 border-white">
                         <Image src="/parthenon.svg" className=" w-full h-full object-cover rounded-t-2xl"  width={100} height={100} alt="Image" loading="eager"></Image>
                     </div>
@@ -82,7 +92,7 @@ export default function Quiz({quiz}: {quiz: DisplayQuiz}) {
                     </Link>
 
 
-                    <button onClick={() => {openPopup()}}className="rounded-full border-2 border-white w-9 h-9 flex items-center justify-center">
+                    <button onClick={() => {setDeletePopup(true)}}className="rounded-full border-2 border-white w-9 h-9 flex items-center justify-center">
                             <Image className="w-5" src="/bin.svg" width={1} height={1} alt="Play">
                             </Image>
                     </button>

@@ -7,7 +7,8 @@ export default function AddQuestionButton({i = 0}: {i?: number}) {
 
     const addQuestion = () => {
         let quizCopy = {...quiz}
-        let newQuestion = {
+        let newQuestion = 
+        {
             title: "",
             description: "",
             explanation: "",
@@ -35,7 +36,7 @@ export default function AddQuestionButton({i = 0}: {i?: number}) {
         <>
             <button 
             onClick={() => addQuestion()}
-            className="text-black bg-white rounded-full border-2 p-1 w-full hover:cursor-pointer hover:brightness-75">
+            className=" border-white rounded-full border-2 p-1 w-full hover:cursor-pointer hover:brightness-75">
                 Add Question
             </button>
 

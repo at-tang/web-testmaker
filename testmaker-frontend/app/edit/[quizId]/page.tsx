@@ -12,6 +12,7 @@ import { logout } from '@/app/api/auth/[...nextauth]/authServerFunctions';
 import { ErrorReroute } from '@/app/api/ErrorPageRereouting/ErrorRerouting';
 import EditMetadataList from './Components/EditMetadata/EditMetadataList';
 import { QuizEdit } from '@/app/Types/types';
+import BackButton from '@/app/Components/Buttons/BackButton';
 
 export const QuizContext = createContext();
 export const SaveStatusContext = createContext();
@@ -101,10 +102,13 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
             <UpToDateContext.Provider value={[upToDate, setUpToDate]}>
 
                 <div className="w-full flex justify-center">
+                    
                      <div className="max-w-300 flex-1 p-4">
+                        <BackButton/>
+                        <div className="mb-4"/>
 
       
-                        <div className="bg-white w-full h-0.5 mb-6"/>
+
 
                         
                         <EditMetadataList/>

@@ -1,7 +1,7 @@
 import { DisplayQuiz } from "@/app/Types/types";
 import Quiz from "./Quiz";
 
-export default function QuizList({quizList = []}: {quizList: Array<DisplayQuiz>}) {
+export default function QuizList({quizList = [], onDeleted}: {quizList: Array<DisplayQuiz>, onDeleted?: (quizId: DisplayQuiz["id"]) => void}) {
 
     if (quizList != null) return (
 
@@ -9,7 +9,7 @@ export default function QuizList({quizList = []}: {quizList: Array<DisplayQuiz>}
         {quizList.map((quiz, index) => {
             return (
 
-                    <Quiz key={index} quiz={quiz}/>
+                    <Quiz key={quiz.id} quiz={quiz} onDeleted={onDeleted}/>
                     
 
             )

@@ -71,8 +71,7 @@ export default function SaveButton() {
             <p className="text-center text-red-500">{errorMessage}</p>
             <button onClick={() => {saveToDB()}}
             disabled={saveStatus}
-
-                       className="text-black bg-white rounded-full border-2 p-1 w-full hover:cursor-pointer hover:brightness-75">
+            className="text-black bg-white rounded-full border-2 p-1 w-full hover:cursor-pointer hover:brightness-75">
 
             {saveStatus ? "Saving..." : "Save Quiz"}
             </button>

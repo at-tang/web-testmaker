@@ -32,7 +32,22 @@ export class QuizEdit {
         this.description = ""
         this.time = 60
         this.visible = false
-        this.questions = []
+        this.questions = [        
+            {
+            title: "",
+            description: "",
+            explanation: "",
+            points: 1,
+            type: "MC",
+            caseSensitive: false,
+            answers: [
+                {
+                    content: "",
+                    correct: false,
+                    explanation: ""
+                }
+            ]
+        }]
         this.userId = ""
         this.tags = []
         this.randomQuestionOrder = false
