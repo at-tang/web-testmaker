@@ -82,7 +82,8 @@ public class QuizViewService {
         }
         DisplayQuizDTO quiz = result.getBody();
         quiz.setUserLiked(likeRepository.existsByUserIdAndQuizId(user.getId(), quizId));
-        if (quiz.getId() == user.getId()) quiz.setOwnQuiz(true);
+
+        if (quiz.getUserId() == user.getId()) quiz.setOwnQuiz(true);
 
         return ResponseEntity.ok(quiz);
     }

@@ -14,14 +14,14 @@ export default function AnswerList() {
     
     if (currentQuestion.type == "MC") {
         return (
-           <>
+           <div>
             {currentQuestion.answers.map((answer: Answer, index: number) => {
                 return (
                     <AnswerMC key={index} i={index}/>
                 )
 
             })}
-           </>
+           </div>
 
         )
     }

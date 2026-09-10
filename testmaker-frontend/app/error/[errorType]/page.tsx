@@ -12,6 +12,7 @@ export default function Error({params}: {params: Promise<{errorType: string}>}) 
     errorType === "unauthorized" ? "The resource you were looking for is private. Perhaps its creator has recently privatized it."
     : errorType === "not-found" ? "The resource you were looking for cannot be found. Perhaps there was a typo?" 
     : errorType === "server-error" ? "Something went wrong with the server. Please check again in a few minutes. WE apologize for the inconvenience." 
+    : errorType === "login-required" ? "You need to be logged in to utilize this service."
     : "There was an error.";
 
 

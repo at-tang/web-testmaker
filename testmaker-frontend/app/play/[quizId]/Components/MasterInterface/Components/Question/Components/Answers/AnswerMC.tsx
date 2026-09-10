@@ -3,7 +3,6 @@ import { Answer, Question } from "@/app/Types/types";
 import { useContext, useRef } from "react";
 
 export default function AnswerMC({i = 0}: {i?: number}) {
-    const [questionList, setQuestionList] = useContext(QuestionListContext);
     const [givenAnswers, setGivenAnswers] = useContext(GivenAnswersContext);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useContext(CurrentQuestionIndexContext);
     const [currentQuestion, setCurrentQuestion] = useContext<Question>(CurrentQuestionContext); 
@@ -61,20 +60,27 @@ export default function AnswerMC({i = 0}: {i?: number}) {
 
     }
 
+    const bodyClick = () => {
+        checkboxRef.current.checked = !(checkboxRef.current.checked);
+        selectAnswer();
+    }
+
     return (
-        <div>
-            <div className="flex">
+        <div className="mb-2">
+            <span onClick={() => {bodyClick()}} className="flex w-1/2">
                 <input 
                 ref={checkboxRef}
                 type="checkbox"
                 onChange={() => {selectAnswer()}}
                 checked={isItSelected()}
+                className="mr-3"
+                
                 />
 
-                 <p>{answer.content}</p>
+                 <p className="">{answer.content}</p>
                 
 
-            </div>
+            </span>
            
 
         </div>

@@ -96,7 +96,8 @@ export interface DisplayQuiz {
     userLiked: boolean,
     visible: boolean,
     dateCreated: number,
-    dateUpdated: number
+    dateUpdated: number,
+    ownQuiz: boolean
 
     
 }

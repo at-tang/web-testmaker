@@ -11,19 +11,24 @@ export default function MoveButtons() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useContext(CurrentQuestionIndexContext);
 
     return(
-        <div>
+        <div className="flex gap-2">
             <button onClick={() => {
                 if (currentQuestionIndex > 0) setCurrentQuestionIndex(currentQuestionIndex - 1);
             }}
-            className="h-8 w-12 border-white border-2 mr-4">
-                {"<"}
+            className="h-8 w-16 border-white border-2 rounded-2xl text-2xl">   
+                <div className="w-full flex justify-center items-center h-full">
+                    <p>{"<"}</p>
+                </div>         
+                
             </button>
 
             <button onClick={() => {
                 if (currentQuestionIndex < questionList.length - 1) setCurrentQuestionIndex(currentQuestionIndex + 1);
             }}
-            className="h-8 w-12 border-white border-2">
-                {">"}
+            className="h-8 w-16 border-white border-2 rounded-2xl text-2xl hover:text-black hover:bg-white hover:cursor-select">
+                <div className="w-full flex justify-center items-center h-full">
+                    <p>{">"}</p>
+                </div>  
             </button>
     
         </div>

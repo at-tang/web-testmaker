@@ -38,10 +38,10 @@ public class QuestionResult {
     @Column(name="title")
     private String title;
 
-    @Column(name="description")
+    @Column(name="description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name="explanation")
+    @Column(name="explanation", columnDefinition = "TEXT")
     private String explanation;
 
     // Answers are tracked using the Answer's content due to the nature of Short Input questions

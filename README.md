@@ -2,7 +2,8 @@ Testmaker is a full-stack web application where users can create, edit, and atte
 to "like" other quizzes, as well as search for public quizzes based on keywords, number of plays, likes, or specific terms that may appear as tags. 
 
 This web application is a personal project by Aidan Tang, and was developed using React (NextJS) and TailwindCSS for the frontend, while its database functionality is 
-facilitated by a Java (Spring Boot) backend. While the app is currently still a prototype, the core functionality (edit, play, see results, and search) have already been completed as of September 8. 
+facilitated by a Java (Spring Boot) backend. While the app is currently a PROTOTYPE, the core functionality (editing/searching/playing quizzes, and evaluating user submissions) has already been COMPLETED. Further commits are incremental refinements for the user experience.
+
 
 
 Progress Report:
@@ -22,15 +23,19 @@ Week 3 -
   - Added a Search menu, allowing users to search by keyword, or sort by most likes/plays and most recently updated 
   - Created a Settings page, where users can change their username
   - Corrected major logical errors
+  - Implemented a Delete button for removing unwanted quizzes, alongside a popup to confirm
+  a user's decision
+  - Added a Confirm popup when the user is about to submit a quiz
+  - Created a proper UI for playing quizzes, clearly indicating all the necessary information (timer, submit button, quick traversal to specific questions, etc.)
 
 
 To-Do Features:
 
 - TOP:
   - Create a new homepage (TOP)
-  - Create a button for users to delete quizzes they do not want (backend component already done, only need to connect it to frontend)
-  - Design a new interface for Playing Quizzes
-  - Add a "New user" page that allows users to change their username from the default (Can already be done in Settings but is here to make the new user experience better)
+  [CHECKED] Design a new interface for Playing Quizzes
+  - Add a "New user" page that allows users to change their username from the default "user_{RANDOM UUID}" (Can already be done in Settings but will appear to new users to make the new user experience better)
+  - Allow users to view their own profile and profiles of other users
 
 - MEDIUM
   - New interface for seeing Quiz Results

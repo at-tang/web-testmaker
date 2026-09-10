@@ -14,7 +14,7 @@ export default function CompletedQuestionList() {
     }
 
     if (givenAnswers != null) { return (
-        <div className=" grid grid-cols-6 gap-2 w-max items-center justify-center transition ease-in-out">
+        <div className=" grid grid-cols-5 gap-2 w-max items-center justify-center transition ease-in-out">
             {givenAnswers.map((ga, index) => {
                 let colour = "";
 
@@ -29,7 +29,7 @@ export default function CompletedQuestionList() {
                 }
 
                     return (
-                        <>
+                        
                             <div key={index} className={colour + "h-8 w-8 block transition duration-400"}>
                                 <div className={"flex items-center justify-center h-full w-full z-20 hover:cursor-pointer select-none"}
                                 onClick={() => {jumpIndex(index)}}>
@@ -40,7 +40,7 @@ export default function CompletedQuestionList() {
                             </div>
 
 
-                        </>
+                        
                     )
                 
 

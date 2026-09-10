@@ -18,7 +18,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -28,6 +28,7 @@ import org.hibernate.type.SqlTypes;
 @Entity(name="questions")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor 
 public class Question {
     
 
@@ -43,7 +44,7 @@ public class Question {
 
     // description: String
     // description represents the actual question itself
-    @Column(name="description")
+    @Column(name="description", columnDefinition = "TEXT")
     private String description = "";
 
 
@@ -62,7 +63,7 @@ public class Question {
     // explanation: String
     // Optional parameter. explanation represents an eponymous explanation of why an answer is correct
     // Shown to all quiz takers after submitting their quiz and evaluating the result
-    @Column(name="explanation")
+    @Column(name="explanation", columnDefinition="TEXT")
     private String explanation = "";
 
     // points: int

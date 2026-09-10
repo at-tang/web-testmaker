@@ -1,4 +1,5 @@
 import { TimeLeftContext, TimerActiveContext } from "@/app/play/[quizId]/page"
+import Image from "next/image";
 import { useContext, useEffect } from "react"
 
 export default function Timer() {
@@ -44,8 +45,16 @@ export default function Timer() {
 
     return (
         <>
-            <div>
-                <p>Time Left: {formatTime()}</p>
+            <div className="rounded-full border-2 border-white w-40 sm:h-12 h-10 flex items-center">
+
+                <div className="h-10 rounded-full w-10 flex items-center justify-center">
+                    <Image src="/time.svg" height={16} width={20} alt=""/>
+
+                </div>
+
+                <div className="flex justify-center items-center flex-1 h-full text-lg">
+                    {formatTime()}
+                </div>
             </div>
         </>
     )

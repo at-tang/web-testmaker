@@ -1,33 +1,43 @@
 "use client"
-import { useContext, useState } from "react";
-import { GlobalStateContext, GlobalStateProvider } from "../Global/GlobalContext";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 
-export default function Popup() {
+export default function Popup({children, condition, setCondition}:
+    {
+        condition: boolean,
+        setCondition: Dispatch<SetStateAction<boolean>>,
+        children: ReactNode
 
-    const {popupOpen, closePopup} = useContext(GlobalStateContext);
-
+    }
+) {
 
     const handleBackgroundClick = (e) => {
-        if (e.target === e.currentTarget) {
-            closePopup();
+        if (e.target == e.currentTarget) {
+            setCondition(false);
         }
+        
     }
-    if (popupOpen) return (
-        <div className="fixed left-0">
-
-            
 
 
-            <div 
-            onClick={(e) => handleBackgroundClick(e)}
-            className="bg-black/50 h-dvh w-dvw z-98 fixed flex items-center justify-center">
-             
-                <div className="bg-white w-16 h-16 z-99">
-
+    if (condition) return (
+        <main
+        onClick={(e) => {handleBackgroundClick(e)}}
+         className="h-dvh w-dvw bg-black/70 fixed top-0 left-0 z-120 flex items-center justify-center">
+            <section className="p-4 border-white rounded-2xl border-2 bg-black max-w-96 sm:max-w-2xl min-w-1/2">
+                <div className="flex justify-end">
+                    <button 
+                    onClick={() => {setCondition(false)}}
+                    className="border-2 border-white h-8 w-8 flex items-center justify-center hover:bg-white hover:text-black hover:cursor-pointer rounded-full transition ease-in-out font-bold hover:scale-105">
+                        X
+                    </button>
                 </div>
-            </div>
 
-            
-        </div>
+
+                {children}
+
+
+            </section>
+
+        </main>
+
     )
 }

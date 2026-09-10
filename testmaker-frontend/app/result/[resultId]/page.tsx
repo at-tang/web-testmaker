@@ -2,6 +2,7 @@
 
 import { ErrorReroute } from "@/app/api/ErrorPageRereouting/ErrorRerouting";
 import BackButton from "@/app/Components/Buttons/BackButton";
+import Popup from "@/app/Components/Popup/Popup";
 import { getSession } from "next-auth/react"
 import Link from "next/link";
 import { redirect, useParams } from "next/navigation";
@@ -14,6 +15,7 @@ export default function Result({params}: {params: Promise<{quizId: string}>}) {
 
     const [result, setResult] = useState();
     const [percentScore, setPercentScore] = useState(0);
+    const [test, setTest] = useState(true);
 
     const router = useRouter();
 
@@ -99,6 +101,10 @@ export default function Result({params}: {params: Promise<{quizId: string}>}) {
         <>
 
             <BackButton/>
+
+            <Popup condition={test} setCondition={setTest}>
+                <p>Hello!</p>
+            </Popup>
 
             <Link href={`/quiz/view/${result.quizId}`}  className="text-3xl font-bold underline hover:brightness-75">{result.title}</Link>
 

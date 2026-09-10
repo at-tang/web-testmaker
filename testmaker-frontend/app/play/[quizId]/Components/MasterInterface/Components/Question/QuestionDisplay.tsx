@@ -29,12 +29,17 @@ export default function QuestionDisplay() {
 
     if (currentQuestion != null) return (
 
-        <div>
-            <p>Question {currentQuestionIndex + 1}</p>
-            <p>{currentQuestion.description}</p>
+        <div className="">
+            <h1 className="text-2xl sm:text-3xl mb-1">Question {currentQuestionIndex + 1}</h1>
+            <div className="h-[1px] bg-white w-full mb-3"/>
+
             <p>Worth {currentQuestion.points} point{`(s)`}</p>
+            <p className="mb-4">{currentQuestion.description}</p>
+            
 
             <AnswerList/>
+
+            <div className="bg-white h-[1px] mt-3 w-full"/>
 
         </div>
         

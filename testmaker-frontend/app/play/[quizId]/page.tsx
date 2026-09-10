@@ -168,7 +168,6 @@ export default function playQuiz({params}: {params: Promise<{quizId: string}>}) 
         <TimeLeftContext.Provider value={[timeLeft, setTimeLeft]}>
         <TimerActiveContext.Provider value={[timerActive, setTimerActive]}>
 
-            <p>Quiz ID: {quizId}</p>
             <MasterInterface/>
 
         </TimerActiveContext.Provider>
