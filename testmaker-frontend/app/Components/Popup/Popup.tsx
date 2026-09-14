@@ -4,7 +4,7 @@ import { Dispatch, ReactNode, SetStateAction } from "react";
 export default function Popup({children, condition, setCondition}:
     {
         condition: boolean,
-        setCondition: Dispatch<SetStateAction<boolean>>,
+        setCondition: Dispatch<SetStateAction<boolean>>, // The condition that allows for the popup to appear
         children: ReactNode
 
     }

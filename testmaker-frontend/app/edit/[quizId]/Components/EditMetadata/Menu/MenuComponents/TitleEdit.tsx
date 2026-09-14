@@ -18,7 +18,7 @@ export default function TitleEdit() {
          <div className="block">
 
 
-            <p>Title: ({charactersLeft} Characters Left)</p>
+            <p className="font-bold">Title: ({charactersLeft} Characters Left)</p>
 
             <input ref={titleRef}
             placeholder="Enter your quiz's title here"
@@ -29,10 +29,10 @@ export default function TitleEdit() {
                 setQuiz(quizCopy)
             }}
             value={quiz.title}
-            className="block text-4xl mb-2 w-full h-max"
+            className="block text-2xl mb-2 w-full h-max"
             ></input>
 
-            <div className="w-full h-0.5 bg-white mb-4 "/>
+
 
 
         </div>

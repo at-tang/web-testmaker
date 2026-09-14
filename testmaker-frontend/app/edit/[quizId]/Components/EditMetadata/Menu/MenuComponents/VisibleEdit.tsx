@@ -1,3 +1,4 @@
+import TextButton from "@/app/Components/Buttons/TextButton";
 import { QuizContext } from "@/app/edit/[quizId]/page";
 import { useContext, useEffect, useState } from "react";
 
@@ -18,13 +19,10 @@ export default function VisibleEdit() {
 
     return (
         <div className="flex items-center mb-2">
-            Visibility: 
-            <button 
-            onClick={() => setVisible()}
-            className="text-black bg-white w-24 h-6
-                        rounded-full ml-4
-                        hover:brightness-75 hover:cursor-pointer"
-            >{quiz.visible ? "Public" : "Private"}</button>
+            <b>Visibility:</b>
+            <span className="mr-3"/>
+            <TextButton clickFunction={() => {setVisible()}} text={quiz.visible ? "Public" : "Private"}/>
+
         </div>
     )
 }

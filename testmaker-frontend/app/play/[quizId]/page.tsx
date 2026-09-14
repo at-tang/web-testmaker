@@ -117,7 +117,12 @@ export default function playQuiz({params}: {params: Promise<{quizId: string}>}) 
             }
         }
 
+
+
         setTimeLeft(quiz.time * 60); // Set time left to quiz's alloted time, tracked in minutes
+        if (quiz.time === -1) {
+            setTimeLeft(9000 * 60 * 50)  
+        }
         setTimerActive(true)
 
         setQuestionList(questionListCopy)

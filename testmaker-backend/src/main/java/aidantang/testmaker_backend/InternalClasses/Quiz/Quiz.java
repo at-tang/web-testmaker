@@ -7,6 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import aidantang.testmaker_backend.DTOClasses.Receiving.RequestBody.CreateQuiz.NewQuizDTO;
+import aidantang.testmaker_backend.InternalClasses.Comment.Comment;
 import aidantang.testmaker_backend.InternalClasses.Question.Question;
 import aidantang.testmaker_backend.InternalClasses.User.User;
 import jakarta.persistence.CascadeType;
@@ -94,6 +95,9 @@ public class Quiz {
 
     @Column(name="likes")
     private int likes = 0;
+
+    @OneToMany(mappedBy="quiz", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 
 
     /*

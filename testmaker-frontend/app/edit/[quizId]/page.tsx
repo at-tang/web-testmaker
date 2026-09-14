@@ -48,7 +48,8 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
 
             console.log(session);
 
-            if (quizId == "newquiz") { // If the url states to create a new quiz
+            if (quizId === "newquiz") { // If the url states to create a new quiz
+
                 return; // Then use the default state given to quiz as a template for a quiz
 
             }
@@ -91,6 +92,7 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
 
 
 
+
     }, [quiz, quiz.questions])
 
 
@@ -113,7 +115,7 @@ export default function EditPage({params}: {params: Promise<{quizId: string}>}) 
                         
                         <EditMetadataList/>
 
-                        <SaveButton/>
+
 
                         <h1 className="text-3xl mb-1 mt-6">Edit Questions</h1>
                         <div className="bg-white w-full h-0.5 mb-4"/>

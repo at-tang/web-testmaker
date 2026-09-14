@@ -19,7 +19,7 @@ export default function DescriptionEdit() {
     return (
         <>
             <div className="">
-                <p>Description: ({charactersLeft} Characters Left) </p>
+                <p className="font-bold">Description: ({charactersLeft} Characters Left) </p>
                 <textarea 
                 ref={descriptionRef}
                 value={quiz.description}
@@ -30,7 +30,7 @@ export default function DescriptionEdit() {
                    
                 }}
                 className="border-black border-2 bg-white text-black
-                            p-2 w-full h-48 resize-none overflow-y-scroll scrollbar-none"
+                            p-2 w-full h-48 resize-none overflow-y-scroll scrollbar-none rounded-r-2xl rounded-bl-2xl"
                 ></textarea>
 
 

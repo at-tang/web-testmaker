@@ -27,7 +27,7 @@ export default function SearchPage() {
     const [maxPages, setmaxPages] = useState(0); // How many pages of quizzes are available?
     const [quizzes, setQuizzes] = useState([]);
     
-    const ENTRIES_PER_PAGE = 6;
+    const ENTRIES_PER_PAGE = 5;
 
     // These are the following sort types accepted by the backend
     // Key represents what is internally used
@@ -89,30 +89,7 @@ export default function SearchPage() {
         router.push(frontendUrlConstructor());
         router.refresh();
     }, [currentPage, searchQuery, sortType])
-
-    const checkSession = async () => {
-        const session = await getSession();
-
-        if (!session) {
-            console.log("No session active!");
-            return false;
-        }
-        return true;
-
-    }
-    const sessionCheck = checkSession();
-
-
-    if (!sessionCheck) {
-        return (
-            <LoginLogoutButton/>
-        )
-    }
     
-    
-
-
-
 
     return (
         <div className="p-4">

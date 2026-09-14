@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import aidantang.testmaker_backend.InternalClasses.Comment.Comment;
 import aidantang.testmaker_backend.InternalClasses.Quiz.Quiz;
 import aidantang.testmaker_backend.InternalClasses.Result.QuizResult;
 import jakarta.persistence.CascadeType;
@@ -38,16 +39,18 @@ public class User {
     @Column(name="profilePicture") // Stores a link to the user's Profile Picture
     private String profilePicture;
 
-
     @ElementCollection(fetch = FetchType.EAGER)
     @Column(name="roles")
     private Set<String> roles = new HashSet<>();
 
+    // User's owned data
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Quiz> quizzes;
 
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<QuizResult> quizResults;
-    
+
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 
 }

@@ -7,6 +7,8 @@ import UpdateDisplayName from "./Options/UpdateDisplayName";
 import { ErrorReroute } from "../api/ErrorPageRereouting/ErrorRerouting";
 import { UserDetails } from "../Types/types";
 import LoginLogoutButton from "../Components/Buttons/LoginLogoutButton";
+import QuizViewMaster from "../Components/QuizListViewMaster/QuizViewMaster";
+import LoadingScreen from "../Components/Loading/LoadingScreen";
 
 export default function Settings() {
 
@@ -70,6 +72,10 @@ export default function Settings() {
             <div className="flex justify-center w-full mt-12">
                 <LoginLogoutButton/>
             </div>
+
+            <LoadingScreen/>
+
+
 
             
 

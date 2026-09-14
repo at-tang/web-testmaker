@@ -39,8 +39,10 @@ export default function Timer() {
         let hours = Math.floor(timeLeft / 3600)
         let minutes = Math.floor((timeLeft - hours * 3600) / 60);
         let seconds = timeLeft - (minutes * 60) - (hours * 3600)
+        if (timeLeft > (150 * 60)) return "Indefinite";
         return `${hours}`.padStart(2, "0") + ":" +  `${minutes}`.padStart(2, "0") + ":" + `${seconds}`.padStart(2, "0")
-        return `${hours}:${minutes}:${seconds}`
+
+
     }
 
     return (

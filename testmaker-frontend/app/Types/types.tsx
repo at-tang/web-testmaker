@@ -129,3 +129,24 @@ export class UserDetails {
         this.id = id;
     }
 }
+
+export interface CommentClass {
+    id: number;
+    userId: string;
+    quizId: string;
+
+    deleted: boolean;
+
+    userName: string;
+    content: string;
+
+    replies: Array<CommentClass>;
+
+    depth: number;
+    datePosted: number;
+
+
+
+
+
+}

@@ -27,6 +27,8 @@ Week 3 -
   a user's decision
   - Added a Confirm popup when the user is about to submit a quiz
   - Created a proper UI for playing quizzes, clearly indicating all the necessary information (timer, submit button, quick traversal to specific questions, etc.)
+  - Created the Comments feature, allowing users to post comments on quizzes
+  - Added a Loading Screen
 
 
 To-Do Features:

@@ -1,14 +1,30 @@
+import TextButton from "@/app/Components/Buttons/TextButton";
 import { QuizContext } from "@/app/edit/[quizId]/page";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 export default function TimeEdit() {
     const [quiz, setQuiz] = useContext(QuizContext)
     const [border, setBorder] = useState(" border-white ");
+    const [value, setValue] = useState(quiz.time);
+    const [expand, setExpand] = useState(false);
     const ref = useRef(null)
+    
+
+    useEffect(() => {
+        setQuiz({...quiz, time: value})
+    }, [value])
 
     return (
-        <div className="flex my-2 items-center mb-4">
-            
+
+        <div className=" my-2 items-center mb-4">
+            <TextButton 
+            clickFunction={() => {quiz.time === -1 ? setValue(30) : setValue(-1)}}
+            text={quiz.time === -1 ? "Turn On Timer" : "Turn Off Timer"}/> 
+            <div className="mr-4 mb-2"/>
+
+            {
+            value !== -1 &&
+            <div className="flex items-center">
             Time: 
 
             <input type="number"
@@ -19,22 +35,22 @@ export default function TimeEdit() {
 
             max={120} // Maximum number of minutes
 
-            defaultValue={quiz.time}
+            value={value}
 
-            onChange={() => {
-                if (ref.current.value < 1 || ref.current.value > 120) {
-                    setBorder(" border-red-500 ")
-                } else {
-                    setBorder(" border-white ")
-                }
-                let quizCopy = {...quiz}
-                quizCopy.time = Number(ref.current.value);
-                setQuiz(quizCopy)
+            onChange={(e) => {
+                if ((Number(e.target.value) > 120)) {setValue(120); return;}
+                if ((Number(e.target.value) < 1)) {setValue(1); return;}
+                else {setValue(e.target.value)}
+
 
             }}
-            className={border + " px-1 py-0.5 mx-4 border-2 "}></input>
+            className={border + " pl-4 py-0.5 mx-4 border-2 rounded-2xl "}></input>
 
             Minutes
+            </div>
+            }
+
+
     
         </div>
     )

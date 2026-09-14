@@ -10,6 +10,9 @@ import Link from "next/link";
 import { ErrorReroute } from "@/app/api/ErrorPageRereouting/ErrorRerouting";
 import BackButton from "@/app/Components/Buttons/BackButton";
 import LikeButtonGrid from "@/app/Components/QuizList/LikeButton";
+import CommentList from "@/app/Components/CommentList/CommentList";
+import LoadingScreen from "@/app/Components/Loading/LoadingScreen";
+import IconLabel from "@/app/Components/Labels/IconLabel";
 
 export const QuizContext = createContext<DisplayQuiz>();
 
@@ -90,14 +93,20 @@ export default function ViewQuiz({params}: {params: Promise<{quizId: string}>}) 
             
             <div className="w-full h-0.5 bg-white my-4"/>
 
-            <p className="mb-8">{quiz.questionCount} Questions | {quiz.totalPoints} Points Availible | {quiz.time} minutes</p>
+
+            <div className="flex gap-4 w-full justify-around sm:justify-start mb-4 ">
+                <IconLabel text={`${quiz.questionCount} Question(s)`} icon="/magnifyingGlass.svg"/>
+                <IconLabel text={`${quiz.totalPoints} Points Available`} icon="/lock.svg"/>
+                <IconLabel text={quiz.time === -1 ? `Indefinite` : `${quiz.time} Minutes`} icon="/time.svg"/>
+            </div>
+            
 
             <p className="mb-4">{quiz.description}</p>
 
             <p> Created: {new Date(quiz.dateCreated * 1000).toDateString()}</p>
             <p>Last Updated: {new Date(quiz.dateUpdated * 1000).toDateString()}</p>
 
-            <div className="w-full h-0.5 bg-white my-4"/>
+            <div className="w-full h-0.5 bg-white my-4"/> 
 
             <menu className="mb-4">
                 <LikeButtonGrid quiz={quiz}/>
@@ -117,6 +126,11 @@ export default function ViewQuiz({params}: {params: Promise<{quizId: string}>}) 
             }
 
 
+            <hr className="my-4"/>
+
+            <CommentList apiPath={`api/public/comment/quiz/get?quiz_id=${quiz.id}&`} quizId={quiz.id}/>
+
+
 
             
         </div>
@@ -127,7 +141,7 @@ export default function ViewQuiz({params}: {params: Promise<{quizId: string}>}) 
 
     return (
         <>
-            <p>Loading...</p>
+            <LoadingScreen/>
         </>
     )
 
