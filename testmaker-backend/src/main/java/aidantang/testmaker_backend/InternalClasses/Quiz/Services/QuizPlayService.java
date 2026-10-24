@@ -45,7 +45,7 @@ public class QuizPlayService {
         Optional<Quiz> quiz = quizRepository.findById(quizId);
         if (quiz.isEmpty()) return ResponseEntity.badRequest().build();
 
-        // A non-signed in user cannot access a private quiz
+        // A non-signed in user cannot access any private quiz
         if (quiz.get().getVisible() == false) {
             return ResponseEntity.notFound().build();
         }

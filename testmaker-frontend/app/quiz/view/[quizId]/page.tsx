@@ -116,11 +116,13 @@ export default function ViewQuiz({params}: {params: Promise<{quizId: string}>}) 
             
 
             <Link href={`/play/${quiz.id}`}>
-            <button className="rounded-full bg-white text-black py-1 px-4 hover:brightness-75 hover:cursor-pointer w-full">Play</button>
+            <button className="rounded-full bg-white text-black py-1 px-4 hover:brightness-75 hover:cursor-pointer w-full block">Play</button>
             </Link>
 
+            <div className="mb-3"/>
+
             {quiz.ownQuiz && 
-            <Link href={`/play/${quiz.id}`}>
+            <Link href={`/edit/${quiz.id}`}>
                 <button className="rounded-full bg-white text-black py-1 px-4 hover:brightness-75 hover:cursor-pointer w-full">Edit</button>
             </Link>        
             }

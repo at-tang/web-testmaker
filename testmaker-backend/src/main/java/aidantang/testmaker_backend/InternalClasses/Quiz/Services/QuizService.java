@@ -75,8 +75,11 @@ public class QuizService {
 
     @Transactional 
     public ResponseEntity<QuizIdDTO> createBlankQuiz(Authentication auth) {
+        /*
+        Creates a blank new quiz 
+         */
         User user = userRepository.findByEmail(auth.getName());
-        if (user == null) return ResponseEntity.notFound().build();
+        if (user == null) return ResponseEntity.status(401).build();
 
         Quiz newQuiz = new Quiz();
         Quiz resultQuiz = quizRepository.save(newQuiz);
@@ -86,6 +89,24 @@ public class QuizService {
 
     @Transactional
     public ResponseEntity<Void> deleteQuiz(Authentication auth, String quizId) {
+        /*
+        Delete a specific quiz based on a quizId
+
+        Pre-condition: 
+            - quizId belongs to an actual quiz within the database
+            - auth contains the information of a user logged into the service
+
+        Return Status Codes:
+            - 200: The quiz was successfully deleted
+            - 401: The user attempting to delete the quiz does not own the quiz
+            - 404: The quizId does not correspond to an actual quiz
+
+        Arguments: 
+            auth - details on user enacting this function
+            quizId - the id of the quiz being deleted
+
+        returns ResponseEntity
+         */
         User user = userRepository.findByEmail(auth.getName());
 
         // If no user is found, then it is a bad request
@@ -104,11 +125,6 @@ public class QuizService {
             return ResponseEntity.ok().build();
             
         }
-
-        
+       
     }
-
-
-
-
 }

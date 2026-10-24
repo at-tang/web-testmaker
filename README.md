@@ -1,12 +1,22 @@
+<img src=".github/assets/WebTestmakerBanner.jpg" alt="Banner Image"/>
+<h1>Web Testmaker</h1>
+
 Testmaker is a full-stack web application where users can create, edit, and attempt quizzes. The app also comes with social media like functionality, allowing users
 to "like" other quizzes, as well as search for public quizzes based on keywords, number of plays, likes, or specific terms that may appear as tags. 
 
 This web application is a personal project by Aidan Tang, and was developed using React (NextJS) and TailwindCSS for the frontend, while its database functionality is 
-facilitated by a Java (Spring Boot) backend. While the app is currently a PROTOTYPE, the core functionality (editing/searching/playing quizzes, and evaluating user submissions) has already been COMPLETED. Further commits are incremental refinements for the user experience.
+facilitated by a Java (Spring Boot) backend. While the app is currently a prototype, the core functionality (editing/searching/playing quizzes, and evaluating user submissions) has already been completed. Further commits are incremental refinements for the user experience.
+
+<h1>Preview Images</h1>
+<img src=".github/assets/preview1.png" alt="Preview 1"/>
+<img src=".github/assets/preview2.png" alt="Preview 2"/>
+<img src=".github/assets/preview3.png" alt="Preview 3"/>
 
 
 
-Progress Report:
+
+
+<h1>Progress Report</h1>
 
 Week 1: 
   Developed the foundations of the backend and the basic classes (Answer, Question, Quiz, User)

@@ -44,8 +44,8 @@ export default function Quiz({quiz, onDeleted}: {quiz: DisplayQuiz, onDeleted?: 
 
                 
 
-                    <div className="w-full h-40 bg-green-900 rounded-t-2xl border-b-2 border-white">
-                        <Image src="/parthenon.svg" className=" w-full h-full object-cover rounded-t-2xl"  width={100} height={100} alt="Image" loading="eager"></Image>
+                    <div className="w-full h-40 bg-gray-950 rounded-t-2xl border-b-2 border-white">
+                        <Image src="/globe.svg" className=" w-full h-full object-cover rounded-t-2xl"  width={100} height={100} alt="Image" loading="eager"></Image>
                     </div>
 
                     <main className="px-2 pt-2 h-20">
